@@ -7,7 +7,8 @@
   "file": "2021-22/All-delays-2021-22-P10.zip",
   "csv": "All delays 2021-22 P10.csv",
   "released": "2022-01-20",
-  "sha256": "4a317479f5c2bf2f8b7e06e2b5d6b6b9135f815208b5e8d9f08e6cddebd7625b"
+  "sha256": "4a317479f5c2bf2f8b7e06e2b5d6b6b9135f815208b5e8d9f08e6cddebd7625b",
+  "content": "2f65a6b03c5ab709245d487ab7d21c779e6797e0546ff0e4d06be10cc01091ff"
  },
  "rows": 250513,
  "minutes": 666949.0,
@@ -614,7 +615,6 @@
   "ZY": 275,
   "ZZ": 184
  },
- "unknown_managers": {},
  "orr": {
   "checked": true,
   "problems": []

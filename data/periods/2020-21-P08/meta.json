@@ -7,7 +7,8 @@
   "file": "2020-21/All-delays-2020-21-P08.zip",
   "csv": "All-delays-2020-21-P8.csv",
   "released": "2021-03-18",
-  "sha256": "a789012ce0d6f621dd838b56743db6a6f0a3e8eea9cc013ebd18030d3ac5e871"
+  "sha256": "a789012ce0d6f621dd838b56743db6a6f0a3e8eea9cc013ebd18030d3ac5e871",
+  "content": "031a544e6b60223b7b03e707fa9aaf8fa4ea90b02724e8036f10ee2cfad4058e"
  },
  "rows": 298406,
  "minutes": 765463.0,
@@ -630,7 +631,6 @@
   "ZY": 137,
   "ZZ": 240
  },
- "unknown_managers": {},
  "orr": {
   "checked": true,
   "problems": []

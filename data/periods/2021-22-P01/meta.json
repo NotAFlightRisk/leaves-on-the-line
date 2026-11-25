@@ -7,7 +7,8 @@
   "file": "2021-22/All-delays-2021-22-P01.zip",
   "csv": "All-delays-2021-22-P01.csv",
   "released": "2021-05-12",
-  "sha256": "00b99d3015c4fa4547ec0afa8932c48d8a6d4b2214b87e0c5343793ecce316c9"
+  "sha256": "00b99d3015c4fa4547ec0afa8932c48d8a6d4b2214b87e0c5343793ecce316c9",
+  "content": "0830bd26a535f4e8bd48ece1b4951ede162f59b024f8187d832d172d3f9bd965"
  },
  "rows": 171667,
  "minutes": 441839.0,
@@ -651,9 +652,10 @@
   "ZY": 201,
   "ZZ": 140
  },
- "unknown_managers": {},
  "orr": {
   "checked": true,
-  "problems": []
+  "problems": [
+   "only 104 of 117 big cells are within 10% of ORR"
+  ]
  }
 }
