@@ -1,0 +1,368 @@
+code,name,description,category,supergroup
+AA,WTG ACCEPT,Waiting acceptance into off Network Rail network Terminal or Yard,TOC Other,TO
+AB,DOCUMENTS,Waiting Customer Release of Documentation,TOC Other,TO
+AC,TRAIN PREP,Waiting Train preparation or completion of TOPS list/RT3973,TOC Other,TO
+AD,WTG STAFF,Off Network Rail network Terminal or Yard staff shortage including reactionary congestion caused by shortage,TOC Other,TO
+AE,CONGESTION,Congestion in off Network Rail network Terminal or Yard,TOC Other,TO
+AF,EQUIPMENT,Terminal/Yard Equipment failure - Cranes etc.,TOC Other,TO
+AG,LOAD INCDT,Wagon load incident including adjusting loads or open door,TOC Other,TO
+AH,YARD EQUIP,Customer or off Network Rail network yard equipment breakdown/reduced capacity,TOC Other,TO
+AI,SHIP/ROAD,Waiting traffic off ship/road,TOC Other,TO
+AJ,TRAF DOC,Waiting Customer's traffic including release information and documentation,TOC Other,TO
+AK,YARDSAFETY,"Safety Ins and mishaps(derailments, fire, chemical spill) in off n/w  freight yard or terminal (inc private sdgs affecting FOC",TOC Other,TO
+AX,OFFNET INF,Failure of off network infrastructure  (FOC or private),TOC Other,TO
+AY,FTO MISHAP,Mishap in Terminal/Yard or on Terminal/Yard infrastructure,TOC Other,TO
+AZ,YARD OTHER,"Other Freight Operating Company cause, to be specified (including congestion), in off Network Rail network terminals or yards",TOC Other,TO
+DA,HOLD NT FL,NT FL Holding Code,Fleet,TO
+DB,HOLD T-OPS,Train Operations Holding Code,Operations,TO
+DC,HOLD T-CRW,Train Crew Causes Holding Code,Traincrew,TO
+DD,HOLD T-FL,Technical Fleet Holding Code,Fleet,TO
+DE,HOLD STN,Station Causes holding Code,Stations,TO
+DF,HOLD EXT,External Causes Holding Code,TOC Other,TO
+DG,HOLD YARD,Freight Terminal And Or Yard Holding Code,TOC Other,TO
+DH,HOLD AUTM,Adhesion And Or Autumn Holding Code,TOC Other,TO
+FA,DANG GOODS,Dangerous Goods incident,Operations,TO
+FB,REMARSHALL,Train stopped on route due to incorrect marshalling,Operations,TO
+FC,DVR ERROR,"Freight Train Driver error, SPAD, Wrong routing or Missed AWS/DSD [No change]",Traincrew,TO
+FD,LOCO USED,Booked loco used on additional/other service,Operations,TO
+FE,NO T-CREW,Train Crew not available including after rest,Traincrew,TO
+FF,FOC DIAG,FOC Diagramming or Rostering issue,Traincrew,TO
+FG,PRO DRIVER,Driver adhering to company professional driving standards or policy,Traincrew,TO
+FH,FOC PLAN,FOC Planning issue (not diagramming or rostering),Operations,TO
+FI,ETCS DVR,Delay due to incorrect ETCS system or equipment operation by Driver,Traincrew,TO
+FJ,FOC CONTRL,FOC Control decision or directive including diversion requests and errors,Operations,TO
+FK,DIVERT REQ,Train diverted/re-routed at FOC request,Operations,TO
+FL,HOLD REQST,Train cancelled at FOC request or planned not to run,Operations,TO
+FM,LAMP ISSUE,Tail lamp/head lamp out or incorrectly shown,Operations,TO
+FN,LATE CHUNL,Late presentation from Europe,Operations,TO
+FO,LIR UNEX,Time Lost en-route believed to be operator cause and  information required from Operator (Ops Responsibility),Operations,TO
+FP,OC ROUTE,Incorrect route taken or route wrongly challenged by driver  incl SPADs,Traincrew,TO
+FS,ETCS O-RDE,Delay due to ETCS/ERTMS on-board overriding driver command,Operations,TO
+FT,LF NEUTRAL,Leaf fall Neutral,TOC Other,TO
+FU,JOINT INQ,Formal Inquiry Incident - possible Operator responsibility,Operations,TO
+FW,LATE START,Late start/yard overtime not explained by Operator,TOC Other,TO
+FX,TRAIN SPEC,Freight train running at lower class or speed than planned classification or overweight,Operations,TO
+FY,FOC MISHAP,Mishap caused by Freight Operating Company or on FOC-owned infrastructure,Operations,TO
+FZ,FOC OTHER,"Other FOC causes incl. cause to be specified, including mishaps",Operations,TO
+I0,RETB FLR,Telecom equipment legacy radio failures (RETB),Non-Track Assets,NTAG
+I1,OHL/3 RAIL,Overhead line/third rail defect,Non-Track Assets,NTAG
+I2,AC/DC TRIP,AC/DC trip (including no fault or cause found),Non-Track Assets,NTAG
+I3,ON OHL,"Obstruction on OHL, cause of which is not known",Non-Track Assets,NTAG
+I4,SUPPLY FLR,OHLE/third rail power supply failure or reduction,Non-Track Assets,NTAG
+I5,OVERRUN,Possession over-run from planned work,Network Management / Other,MCG
+I6,LINE BLOCK,Delays as a result of line blocks / track patrols (including late handback),Network Management / Other,MCG
+I7,ENGNRS TRN,"Engineer's train late into, from or failed in possession",Network Management / Other,MCG
+I8,ANIMAL,Animal Strike or Incursion within the control of Network Rail,Network Management / Other,MCG
+I9,INFRA FIRE,Fires starting on Network Rail Infrastructure,External,EFG
+IA,SIGNAL FLR,Signal failure (including no fault found),Non-Track Assets,NTAG
+IB,POINTS FLR,Points failure (including no fault found),Non-Track Assets,NTAG
+IC,TC FAILURE,Track circuit failure (including no fault found),Non-Track Assets,NTAG
+ID,LEVEL XING,Level crossing faults and failure incl. barrow/foot crossings and crossing treadles,Non-Track Assets,NTAG
+IE,SIG FUNC PWR,Signalling Functional Power Supply Failure,Non-Track Assets,NTAG
+IF,PANEL FLR,Train Describer/Panel/ARS/SSI/TDM Remote Control failure,Non-Track Assets,NTAG
+IG,BLOCK FLR,Block failure,Non-Track Assets,NTAG
+IH,PWR SUP DIS,Power Supply And Distribution System Failure,Non-Track Assets,NTAG
+II,SIG CABLE,Signalling lineside cable fault,Non-Track Assets,NTAG
+IJ,AWS/ATP,AWS/ATP/TPWS/Train stop/On track equipment failure,Non-Track Assets,NTAG
+IK,TELECOMS,Telecom equipment failure (including no fault found),Non-Track Assets,NTAG
+IL,TOKEN FLR,Token equipment failure (including no fault found),Non-Track Assets,NTAG
+IM,BALISE FLR,Infrastructure Balise Failure (TASS / ETCS / ERTMS),Non-Track Assets,NTAG
+IN,HABD FAULT,"HABD/Panchex/WILD/Wheelchex fault, failure or mis-detection",Non-Track Assets,NTAG
+IO,NFF,No Fault Found/HABD/Panchex/WILD/Wheelchex,Non-Track Assets,NTAG
+IP,POINT HEAT,"Points failure caused by snow or frost where heaters are fitted but found to be not turned on, not operative or defective",Non-Track Assets,NTAG
+IQ,TRACK SIGN,"Trackside sign blown down, fallen over, missing, defective, mis-placed",Network Management / Other,MCG
+IR,RAIL FLAW,Broken/cracked/twisted/buckled/flawed rail,Track,TAG
+IS,TRACK FLT,"Track defects (other than rail defects) inc. fish plates, wet beds etc.",Track,TAG
+IT,TRACK NFF,Rough ride or bumps reported - cause not known or no fault found,Track,TAG
+IU,ONTRACK EQ,Engineers on-track plant affecting possession,Network Management / Other,MCG
+IV,EARTHSLIP,"Cutting or embankment earthslip, rock fall or subsidence (not the result of severe weather on the day of failure)","Severe Weather, Autumn & Structures",WSG
+IW,INF WEATHR,Non severe weather - snow/ice/frost affecting infrastructure equipment excluding points,"Severe Weather, Autumn & Structures",WSG
+IX,UNPLND TSR,Temporary speed restriction outside rules of route,Track,TAG
+IY,INF MISHAP,Mishap - Infrastructure Maintainer causes,Network Management / Other,MCG
+IZ,INF OTHER,Other Infrastructure causes,Network Management / Other,MCG
+J0,GSM-R-FLR,Telecom equipment radio failure (GSM-R),Non-Track Assets,NTAG
+J1,TPWS FLR,TPWS On Track Equipment Failure,Non-Track Assets,NTAG
+J2,TRTS FLR,Network Rail train dispatch equipment failure (including no fault found but excluding telecoms equipment),Non-Track Assets,NTAG
+J3,AXLE C FLR,Axle Counter Failure,Non-Track Assets,NTAG
+J4,MOP NFF,Infrastructure Safety Issue Reported by Member of the Public - No Fault Found,Network Management / Other,MCG
+J5,MIS REPORT,Infrastructure Asset fault reported but proven to be mistaken,Network Management / Other,MCG
+J6,LIGHTNING,Lightning strike against unprotected assets,"Severe Weather, Autumn & Structures",WSG
+J7,ETCS FLR,ETCS/ERTMS Equipment Failure (excl. communications link and balises),Non-Track Assets,NTAG
+J8,ONTRK DMG,OTM DAMAGE,Network Management / Other,MCG
+J9,RCM ALERT,Preventative Maintenance to the infrastructure in response to a Remote Condition Monitoring Alert,Network Management / Other,MCG
+JA,TSRNOT EAS,TSR speed restrictions for track work outside of the Timetable Planning Rules,Track,TAG
+JB,TSR REACTN,Reactionary Delay to 'P' coded TSRs,Track,TAG
+JC,COMM LINKS,Telecom cable failure (transmission sys & cable failures),Non-Track Assets,NTAG
+JD,STRUCTURES,Structures - Bridges/tunnels/buildings/retaining walls/sea defences (not bridge strikes),"Severe Weather, Autumn & Structures",WSG
+JE,BETWN TRNS,Waiting clearence to pass booked trains,Network Management / Other,MCG
+JF,OFFTRK ASS,Off track asset defects or issues on the NR network (not due to vandalism or weather or part of station infrastructure),Network Management / Other,MCG
+JG,ESR/TSR,ESR/TSR Work not comp/canx pssn (restriction did not exist prior to pssn),Network Management / Other,MCG
+JH,HEAT SPEED,"Critical Rail Temperature speeds, (other than buckled rails)","Severe Weather, Autumn & Structures",WSG
+JI,SWING BDGE,Swing/lifting bridge failure,"Severe Weather, Autumn & Structures",WSG
+JJ,LIFT/ESC,Lift/escalator defect/failure,Network Management / Other,MCG
+JK,FLOODING,Flooding not due to exceptional weather,"Severe Weather, Autumn & Structures",WSG
+JL,SAFETY INF,Safety related incident caused by maintenance or infrastructure staff oversight or error (not Operations staff),Network Management / Other,MCG
+JM,ASPECT CHG,Change of Signal Aspects - No Fault Found,Non-Track Assets,NTAG
+JN,POSSN CANC,Possession cancellation,Network Management / Other,MCG
+JO,RCF,Rolling Contact Fatigue,Track,TAG
+JP,VEGETATION,Failure to maintain vegetation within network boundaries in accordance with prevailing Network Rail standards,Network Management / Other,MCG
+JQ,TREE OHANG,Trains striking overhanging branches/vegetation (not weather related),Network Management / Other,MCG
+JR,RBC ETCS,Delay due to RBC issues affecting ETCS / ATO operation (not Balise related),Non-Track Assets,NTAG
+JS,TRACK COND,Condition of Track TSR outside the Timetable Planning Rules,Track,TAG
+JT,NO PNT HTR,Points failure caused by snow or frost where heaters are not fitted,Non-Track Assets,NTAG
+JX,MISC OBJCT,"Miscellaneous items on track including litter (not including leaves, result of vandalism, weather or fallen/thrown from trains)",Network Management / Other,MCG
+JY,MISHAP,Mishap - Renewal/Infrastructure Contractor cause,Network Management / Other,MCG
+JZ,OTHER,Other Renewal/Infrastructure Contractor cause,Network Management / Other,MCG
+M0,CAB SAFETY,Confirmed train cab based safety system fault (including GSMR),Fleet,TO
+M1,PANTO/AC,"Confirmed Pantograph ADD, associated system faults, positive PANCHEX activations and train borne power switch over systems (AC)",Fleet,TO
+M2,ETCS,Delay due to ATO / ETCS equipment,Fleet,TO
+M3,DIESL OTH,Diesel loco failure/defect/attention : other,Fleet,TO
+M4,EMU BRAKE,EMU failure/defect/attention : brakes,Fleet,TO
+M5,EMU DOOR,EMU failure/defect/attention : doors (incl SDO equipment failure),Fleet,TO
+M6,EMU OTHER,EMU failure/defect/attention : other,Fleet,TO
+M7,DOORS,Door and Door system faults,Fleet,TO
+M8,ABOVE SBAR,Technical failures above the Solebar,Fleet,TO
+M9,FLEET NFF,Reported fleet equipment defect - no fault found,Fleet,TO
+MA,ELEC BRAK,Electric Loco (inc. IC225) failure/defect/attention :brakes,Fleet,TO
+MB,ELEC LOCO,"Electic Loco failure, defect, attention",Fleet,TO
+MC,DIESL LOCO,"Diesel Loco failure, defect, attention",Fleet,TO
+MD,BELOW SBAR,Technical failures below the solebar,Fleet,TO
+ME,STEAM LOCO,Steam locomotive failure/defect/attention,Fleet,TO
+MF,NON TECH,Engineering non-technical delays associated with Engineering staff who are not based in an Engineering depot e.g. Cleaners,Fleet,TO
+MG,OFF DEPOT,Engineering technical failures/defects associated with T+RS that has just come off depot,Fleet,TO
+MH,COACH DOOR,Coach (incl. Intl/IC225) failure/defect/attention : doors,Fleet,TO
+MI,COACH OTHR,Coach (incl. Intl/IC225) failure/defect/attention : other,Fleet,TO
+MJ,PARCEL VEH,Parcels vehicle failure/defect/attention,Fleet,TO
+MK,DVT PCV,DVT/PCV failure/defect/attention,Fleet,TO
+ML,WAGN/COACH,"Wagons, coaches and parcel vehicle faults",Fleet,TO
+MM,EMU TRAC,EMU failure/defect/attention : traction,Fleet,TO
+MN,BRAKE/WHLS,Brake and brake systems faults; including wheel flats where no other cause had been identified,Fleet,TO
+MO,STOCK LATE,Loco/unit/vehicles late off depot (cause not known),Fleet,TO
+MP,ADHESION,"Rail / wheel interface, adhesion problems (including ice on the running rail)",TOC Other,TO
+MQ,SHOE/DC,Confirmed shoe beam or associated system faults Incl. train borne power switch over systems (DC),Fleet,TO
+MR,SANDER,Sanders and scrubber faults,Fleet,TO
+MS,ALOC STOCK,"Planned underpowered or shortformed service and or vehicle, incl. exam set swaps",Fleet,TO
+MT,SYST FAULT,Confirmed train borne safety system faults (not cab based),Fleet,TO
+MU,DEPOT OPS,Depot operating problem,Fleet,TO
+MV,ON-TRACK,Engineers on-track equipment failure outside possession,Fleet,TO
+MW,WEATHR FLT,Weather - effect on T&RS equipment,Fleet,TO
+MX,DIESL BRKE,Diesel Loco failure/defect/attention : brakes,Fleet,TO
+MY,COUPLER,"Coupler, Coupler system and Jumper cable faults",Fleet,TO
+MZ,T+RS OTHER,Other Fleet Engineer causes/initial attribution,Fleet,TO
+NA,TASS/TILT,On train TASS/TILT failure,Fleet,TO
+NB,TASS - NFF,TASS - no fault found,Fleet,TO
+NC,DEP FIRE,Fire in fleet depot not caused by vandals (including caused by vandals in respect of frieght depots),Fleet,TO
+ND,ETCS,On train ETCS/ERTMS failure,Fleet,TO
+O2,ACI FAIL,ACI Failures,Network Management / Other,MCG
+OA,ENDVR REG,Regulation Decision Made With Best Endeavours,Network Management / Other,MCG
+OB,REGULATION,Delayed by signaller not applying applicable regulating policy,Network Management / Other,MCG
+OC,SIGNALLER,Signaller including mis-routing (not ERTM /ETCS related),Network Management / Other,MCG
+OD,NR CONTROL,Delays due to National/Regional/Route Operations directives or Route Control decision or directive,Network Management / Other,MCG
+OE,RHC PROG,Failure to lay Sandite or operate Railhead Conditioning train as programmed,"Severe Weather, Autumn & Structures",AG
+OF,ETCS CTRL,Delay due to incorrect ETCS system or equipment operation by Signaller / Controller,Network Management / Other,MCG
+OG,ICING,Ice on conductor rail/OHLE,"Severe Weather, Autumn & Structures",WSG
+OH,ARS / TMS,ARS / TMS / SARS software problem (excluding scheduling issues and technical failures),Network Management / Other,MCG
+OI,JOINT INQ,Formal Inquiry Incident - other Operators,Network Management / Other,MCG
+OJ,STN FIRE,Fire in station building/platform affecting operators not booked to call at that stations,Network Management / Other,MCG
+OK,OPTG STAFF,"Delay caused by Operating staff oversight, issues or absence (excluding signallers and Control)",Network Management / Other,MCG
+OL,BOX CLOSED,Signal Box not open during booked hours,Network Management / Other,MCG
+OM,RHC FAIL,Technical failure associated with a Railhead conditioning train,Network Management / Other,MCG
+ON,MIS-INVEST,Delays not properly investigated by Network Rail,Network Management / Other,MCG
+OO,RHC,Late start of a RHC,Network Management / Other,MCG
+OQ,SIMPLIFIER,Incorrect simplifier,Network Management / Other,MCG
+OR,BOX INSTR,LOM directive or Signaller correctly applying local instructions (ex late running trains or infrastructure Accepted Limitation),Network Management / Other,MCG
+OS,RHC LATE,Late start or delays to Railhead Conditioning or Ghost Train due to its own activity and not in reaction to another incident,Network Management / Other,MCG
+OT,SIGHT TSR,"Ops Safety TSR implemented for sighting issues relating to foot crossings, level crossings or signals (Not vegetation caused)",Network Management / Other,MCG
+OU,Not INVEST,Delays not Investigated by Network Rail,Network Management / Other,MCG
+OV,RTK FIRE,Fire or evacuation due to fire alarm of Network Rail buildings other than stations not due to vandalism,Network Management / Other,MCG
+OW,FOC CONECT,Conn held where the prime incident causing delay to the incoming train is a FOC owned incident & serv is more freq than hourly,Network Management / Other,MCG
+OY,RT MISHAP,Mishap - Network Rail operating causes,Network Management / Other,MCG
+OZ,OPTG OTHER,Other Network Rail operating causes,Network Management / Other,MCG
+PA,PLANND ENG,Published TSR associated with Planned Engineering Works where time loss is within Engineering Allowance,All Others,P
+PB,PLANND CON,Published TSR due to condition of asset (not associated with Engineering Work) where time loss is within Engineering Allowance,All Others,P
+PC,PLANND COB,Condition of Bridge TSR within rules of the route,All Others,P
+PD,SYSTM CANC,System generated cancellation (NOT to be attributed to manually),All Others,P
+PE,NR P CANC,Planned cancellation due to Network Rail restrictions of use (including engineering work).,All Others,P
+PF,DIVRSN/SLW,Planned eng work where published diversion/SLW not provided for in schedule but where time loss is within Engineering Allowance,All Others,P
+PG,OP P CANC,Planned cancellation due to Train Operator requirements,All Others,P
+PH,PLANND COE,Condition of Earthworks TSR within Rules of the Route,All Others,P
+PI,SCH 4 TSR,TSR for Schedule 4 Possession,All Others,P
+PJ,DUPLICATE,"Canx of a duplicate or erroneous schedule or an identified duplicate, false or erroneous delay (NOT berth off set related)",All Others,P
+PK,BANK HOL,Bank Holiday Cancellations,All Others,P
+PL,AGREED EXC,Exclusion commercially agreed and documented between Network Rail and Train Operator,All Others,P
+PM,SEC ALERT,Security alert affecting stations where trains are allowed to pass but not stop,All Others,P
+PN,VSTP DELAY,VSTP Serv delay < 5 mins cause by regulation and or time lost in running (VSTP Sched del ONLY where delay causes no react delay),All Others,P
+PS,DUPE SCHLD,Cancellation of a duplicate or errorneous schedule,All Others,P
+PT,TRUST ANOM,Authorised TRUST reporting anomalies or inaccuracies relating to berth off sets,All Others,P
+PZ,SUB THRESH,"Sub-threshold delay, retired after 2018-19 P07",All Others,P
+Q0,F COMM SPLTS,Freight Commercial Splits,Network Management / Other,MCG
+Q1,TKB PUMPS,Takeback Pumps,Network Management / Other,MCG
+Q2,NZ PMPS F,NZ Pumps F,"Severe Weather, Autumn & Structures",AG
+Q3,NZ PMPS T,NZ Pumps T,"Severe Weather, Autumn & Structures",AG
+QA,WTT SCHED,WTT schedule and or LTP Process including erroneous simplifiers,Network Management / Other,MCG
+QB,DIVRSN/SLW,Planned engineering work - diversion/SLW not timetabled (outside the Timetable Planning Rules),Network Management / Other,MCG
+QC,EXPCTD TSR,Expected TSR not planned for,Network Management / Other,MCG
+QD,STRUCTURES,AUTOGENERATED - NOT IN USE,"Severe Weather, Autumn & Structures",WSG
+QH,RAILCONTAM,Adhesion problems due to leaf contamination,"Severe Weather, Autumn & Structures",AG
+QI,CAUTCONTAM,Cautioning due to railhead leaf contamination,"Severe Weather, Autumn & Structures",AG
+QJ,LEAVES T/C,Special working for leaf-fall track circuit operation,"Severe Weather, Autumn & Structures",AG
+QK,FOG/SNOW,Special Working for fog and falling snow conditions,"Severe Weather, Autumn & Structures",WSG
+QL,PLND TSR,Reactionary Delay to 'P' coded TSRs,Track,TAG
+QM,STP SCHED,Train schedule/STP Process including erroneous simplifiers,Network Management / Other,MCG
+QN,VSTP SCHED,VSTP Schedule/ VSTP Process (TSI created schedule),Network Management / Other,MCG
+QP,PLND REACT,Reactionary Delay to 'P' coded Possession,Network Management / Other,MCG
+QQ,OPS S ERR,Simplifier Error Ops Planning,Network Management / Other,MCG
+QT,COMMERCIAL,Delay accepted by Network Rail as part of commercial agreement where no substansive delay reason is identified,Network Management / Other,MCG
+QZ,COMM OTHER,Other Network Rail non - Operating causes,Network Management / Other,MCG
+R1,DISPATCH,Station staff dispatch issues including dispatch errors,Stations,TO
+R2,LATE TRTS,Late TRTS given by station staff,Stations,TO
+R3,STAFF MSNG,Station Staff unavailable - missing or uncovered,Stations,TO
+R4,STAFF DUTY,Station staff split responsibility - unable to cover all duties,Stations,TO
+R5,STAFF ERR,Station staff error - e.g wrong announcements  misdirection,Stations,TO
+R6,UNSTAFFED,Overtime at stations normally unstaffed,Stations,TO
+R7,PLND EVENT,"Station delays as a result of overcrowding due to planned events (e.g. sports fixtures, concerts)",Stations,TO
+R8,STN UNEX,Delay at Station believed to be operator cause and information required from operator (Ops Responsibility),Stations,TO
+RA,STN BLDNGS,Station Buildings and Facilities (incl Platforms),Stations,TO
+RB,PASSENGERS,Passengers joining/alighting,Stations,TO
+RC,BKD ASSIST,"re-booked assistance for a person with reduced mobility joining/alighting,",Stations,TO
+RD,ATT/DETACH,Attaching/detaching/shunter/watering,Operations,TO
+RE,LIFT/ESC,Lift/escalator defect/failure,Stations,TO
+RF,MAIL/PRCLS,Loading/unloading letter mail/parcels,TOC Other,TO
+RG,DOOR OPEN,Door Open incident - Station Operator cause,Stations,TO
+RH,FIRE ALARM,Station evacuated due to fire alarm,Stations,TO
+RI,UNAUTH CON,Waiting connections - not authorised by TOC Control,Stations,TO
+RJ,UNAUTH SSO,Special stop orders - not authorised by TOC Control,Stations,TO
+RK,AUTH CON,Waiting passenger connections authorised by TOC but outwith TOC/Network Rail connection policy,Operations,TO
+RL,AUTH SSO,Special Stop Orders - authorised by TOC Control (including any delay at point of issue),Operations,TO
+RM,XTNL CONN,Waiting connections from other transport modes,Stations,TO
+RN,PASS CONN,Passengers forcing connections between trains outside connectional allowances,Stations,TO
+RO,PASS ILL,Passengers taken ill on platform,Stations,TO
+RP,PASS DROP,Passenger dropped object whilst boarding/alighting from train and train delayed at TOC request,Stations,TO
+RQ,UBKD ASST,"Un-booked assistance for a person with reduced mobility joining/alighting,",Stations,TO
+RR,BIKE RSVD,Loading or unloading reserved bicycles,Stations,TO
+RS,BIKE URSVD,Loading or unloading un-reserved bicycles,Stations,TO
+RT,LUGGAGE,Loading Luggage,Stations,TO
+RU,LOST LUGG,Locating lost luggage,Stations,TO
+RV,PASS INFO,Customer Information system failure,Stations,TO
+RW,STN FLOOD,"Station flooding (incl. issues with drains) not the result of weather, where the water has not emanated from NR infrastructure",Stations,TO
+RX,UNPL EVENT,Station delay due overcrowding due unplanned events or incident (line or station closure) where causal event is not determined,Stations,TO
+RY,STN MISHAP,Mishap - Station Operating causes,Stations,TO
+RZ,STN OTHER,Other Station Operating causes,Stations,TO
+T1,DOO STN,Delay at unstaffed station to DOO train,Stations,TO
+T2,NONDOO STN,Delay at unstaffed station to non-DOO train,Stations,TO
+T3,XTNL CONN,Waiting connections from other transport modes,Traincrew,TO
+T4,SUPPLIES,Loading Supplies (including catering),Stations,TO
+T8,STN UNEX,Delays at Station believed to be operator cause and Information required from operator (Ops responsibility),Operations,TO
+TA,DIAG ISSUE,Train-crew/loco/stock/unit diagram issues,Operations,TO
+TB,TOC REQEST,Train cancelled or delayed at Train Operators request,Operations,TO
+TC,EMRG PLAN,"Delays from Traincrew/loco/stock/unit diagrams issues resulting from an agreed mitigation resource plan, at 22:00 the day prior",Operations,TO
+TD,STOCK USED,Booked loco/stock/unit used for additional/other service,Operations,TO
+TE,PASS INJRY,Injury to passenger on train,TOC Other,TO
+TF,SEAT RESVN,Seat reservation problems,Operations,TO
+TG,TOC DRIVER,Driver,Traincrew,TO
+TH,T-MGR/COND,(Senior) Conductor/Train Manager,Traincrew,TO
+TI,ROSTERING,Traincrew rostering problem,Traincrew,TO
+TJ,LAMP ISSUE,"Tail lamp or headlamp missing, not lit or wrongly displayed",Traincrew,TO
+TK,CATERING,Train catering staff (including Contractors),Traincrew,TO
+TL,DOOR OPEN,Door open/not properly secured incident,Operations,TO
+TM,AUTH CONN,Connection authorised by TOC but outwith Connection Policy,Operations,TO
+TN,LATE CHUNL,Late presentation from the continent,Operations,TO
+TO,LIR UNEX,Time lost en-route believed to be Operator cause and information required form operatore (Ops Responsibility),Operations,TO
+TP,SSO,Special Stop Orders,Operations,TO
+TR,TOC DIRECT,Train Operating Company Directive,Operations,TO
+TS,ETCS DVR,Delay due to incorrect ETCS system or equipment operation by Driver,Operations,TO
+TT,LF NEUTRAL,Leaf fall Neutral,TOC Other,TO
+TU,JOINT INQ,Formal Inquiry Incident - possible Operator responsibility,Operations,TO
+TW,PRO DRIVER,Driver adhering to company professional driving standards or policy,Traincrew,TO
+TX,OTH NETWK,Delays incurred on non-Network Rail running lines or networks including London Underground (except fleet related delays),Operations,TO
+TY,TOC MISHAP,Mishap-Train Operating Company cause,Operations,TO
+TZ,TOC OTHER,Other Passenger Train Operating Company causes,Operations,TO
+V8,BIRDSTRIKE,Train striking or being struck by a bird,TOC Other,TO
+VA,DISORDER,Disorder/drunks or trespass,TOC Other,TO
+VB,VANDALISM,Vandalism or theft,TOC Other,TO
+VC,FATALITIES,Fatalities and or injuries sustained on platform result of struck by train or falling from a train,TOC Other,TO
+VD,ILL PASS,Passenger taken ill on train,TOC Other,TO
+VE,TICKET IRR,Ticket irregularities or refusals to pay,TOC Other,TO
+VF,VANDL FIRE,Fire caused by vandalism,TOC Other,TO
+VG,POLICE-TRN,Police searching train,TOC Other,TO
+VH,PASS COMM,"Passenger Communication cord, door egress or emergency train alarm operated",TOC Other,TO
+VI,SEC ALERT,Security alert affecting stations and depots,TOC Other,TO
+VR,PRO DRIVER,Driver adhering to company professional driving standards or policies during severe weather that are not fleet related,TOC Other,TO
+VW,SEV WEATHR,Severe weather affecting passenger Fleet equipment including follwogin company standards/policies or Rule book instructions,TOC Other,TO
+VX,LUL CAUSES,External events occurring on the LUL or other non NR running lines,TOC Other,TO
+VZ,EXT OTHER,Other passenger or external causes the responsibility of TOC,TOC Other,TO
+W8,ALL ANIMAL,Animals online including large birds,External,EFG
+WA,TRESPASS,Trespass,External,EFG
+WB,VANDALS,Vandalism/Theft,External,EFG
+WD,XING INCDT,Level Crossing Incidents,External,EFG
+WK,ELEC BOARD,Electricity Board power failures,External,EFG
+WN,ROAD INCDT,Road related - excl bridge strikes/level crossing incident,External,EFG
+WP,BDG STRIKE,Road vehicles striking/stuck under bridges,External,EFG
+WR,CABLE CUT,Cable vandalism/theft,External,EFG
+WT,SNOW,Severe snow affecting infrastructure the responsibility of IMC,"Severe Weather, Autumn & Structures",WSG
+WW,WEATHER,Severe weather other than snow affecting infrastructure the responsibility of IMC,"Severe Weather, Autumn & Structures",WSG
+WX,MISC OBS,Msc items on line (incl trees) due to effects of weather responsibility IMC,"Severe Weather, Autumn & Structures",WSG
+WZ,EXT OTHER,Other external causes the responsibility of IMC,External,EFG
+X1,SPL WRKING,"Visibility in semaphore signalled areas, or special working for fog and falling snow implemented by NR ¿ in all signalling areas","Severe Weather, Autumn & Structures",WSG
+X2,SEV FLOOD,Severe flooding beyond that which could be mitigated on Network Rail infrastructure,"Severe Weather, Autumn & Structures",WSG
+X3,LIGHTNING,Lightning Strike - damage to protected systems,"Severe Weather, Autumn & Structures",WSG
+X4,KRS / BLKT,Blanket speed restrictions or Key Route Strategy implemented with Group Standards or national operational safety instructions,"Severe Weather, Autumn & Structures",WSG
+X8,EXT ANIMAL,Animal Strike or incursion not within the control of Network Rail,External,EFG
+X9,PNTS SNOW,Points failure caused by severe snow or ice where heaters are fitted and  working as designed,"Severe Weather, Autumn & Structures",WSG
+XA,TRESPASS,Trespass (including non-intentional),External,EFG
+XB,VANDALS,Vandalism or theft (including the placing of objects on the line),External,EFG
+XC,FATALITIES,Fatalities or  injuries caused by being hit by train (including non-intentional),External,EFG
+XD,XING INCDT,Level Crossing Incidents including misuse and emergency services being prioritised over rail services,External,EFG
+XE,GSM-R EXT,GSM-R call raised outside Network Rail network (by a non-track access party and/or for a legitimate safety issue),External,EFG
+XF,POLICE-RLY,Police searching the line,External,EFG
+XG,POLICE-TRN,Police searching train,TOC Other,TO
+XH,SEV HEAT,Severe heat affecting infrastructure the responsibility of Network Rail (excluding heat related speed restrictions),"Severe Weather, Autumn & Structures",WSG
+XI,SEC ALERT,Security alert affecting the Network Rail network (incl. line blocks for emergency services attending off network incidents),External,EFG
+XJ,ASSET HEAT,Asset failures caused by heat in external ambient air temperatures exceeding Network Rail design standards in the vicinity.,"Severe Weather, Autumn & Structures",WSG
+XK,NATL GRID,"National Grid Power Failure - local area also affected (inc outage, surges, blips where working standby generator/UPS installed)",External,EFG
+XL,EXTL FIRES,Fire external to but directly affecting the network (incl. line blocks for emergency services attending off network incidents),External,EFG
+XM,EX UTILITY,"External utility incident including gas, water mains, overhead power lines",External,EFG
+XN,ROAD/XING,"Road or crossing related incidents inc. cars on line, crossing misuse and priority to emergency services (NOT bridge strikes)",External,EFG
+XO,EXT OBJECT,"External trees, building or structures encroaching or falling onto network infrastructure (not weather or vandalism)",External,EFG
+XP,BDG STRIKE,BRIDGE HIT,External,EFG
+XQ,BRIDGE OPN,Swing bridge open for river or canal traffic,External,EFG
+XR,CABLE VAND,Cable vandalism or theft,External,EFG
+XS,XNG MISUSE,Level Crossing misuse,External,EFG
+XT,SEV SNOW,Severe snow or ice affecting infrastructure which is the responsibility of NR (including implementation of Key Route Strategy),"Severe Weather, Autumn & Structures",WSG
+XU,SUN OBSCUR,Sunlight on signal or dispatch equipment Where all responsible mitigation has been taken,External,EFG
+XV,VANDL FIRE,Fire or evacuation due to fire alarm of Network Rail buildings due to vandalism (not including stations),External,EFG
+XW,HIGH WIND,Severe weather not snow affecting infrastructure the responsibility of Network Rail,"Severe Weather, Autumn & Structures",WSG
+XX,MISC OBS,Msc items on line (incl trees) due to effects of weather responsibility of RT,"Severe Weather, Autumn & Structures",WSG
+XY,EXT MISHAP,Mishap due to external cause,External,EFG
+XZ,EXT OTHER,AUTOGENERATED - NOT IN USE,External,EFG
+YA,REG-ONTIME,Lost path - regulated for train running less late,All Others,R
+YB,REG-LATE,Lost path - regulated for another later running train,All Others,R
+YC,FOL-ONTIME,Lost path - following train running less late,All Others,R
+YD,FOL-LATE,Lost path - following another later running train,All Others,R
+YE,WTG S/LINE,Waiting path onto/from single line,All Others,R
+YF,OFF SLINE,Waiting for late running train off single line,All Others,R
+YG,REG INSTRC,Regulated in accordance with Regulation Policy,All Others,R
+YH,INWD LOCO,Late arrival of inward loco,All Others,R
+YI,INWD STOCK,Late arrival of booked inward stock (inward and outward trains are operated under the same Track Access Contract),All Others,R
+YJ,INWD CREW,Late arrival of booked inward train-crew where inward and outward are worked by that train-crew under same Track Access Contract,All Others,R
+YK,CNNCTN TFC,Waiting connecting Freight or Res traffic to attach,All Others,R
+YL,AUTHSD CON,"Waiting passenger connections within Connection Policy, contingency plan or otherwise agreed by NR/TOC",All Others,R
+YM,AUTHSD SSO,Special stop orders within the contingency plan or agreed by NR/TOC,All Others,R
+YN,FIND CREW,"Service Recovery-booked train crew, not available",All Others,R
+YO,PLATFORM,Waiting platform/station congestion/platform change,All Others,R
+YP,DIVERSION,Delays due to diversions from booked route or line,All Others,R
+YQ,SHRT FRMD,Passenger overcrowding caused by a train being of short-formation,All Others,R
+YR,SR CNCL,Tactical cancellation for service recovery not caused by late running,All Others,R
+YT,NON NR INF,"Reactionary delay to a train that is not leaving the network, by a train that is leaving the network",All Others,R
+YU,UNIT SWAPS,"Service Recovery-booked rolling stock, not available",All Others,R
+YV,HELD BACK,Tactical hold of train at origin or at a strategic location en-route due to a line blocking incident on the train¿s booked route,All Others,R
+YX,OVER CRWD,Passenger overcrowding caused by delay or cancellation of another train or its own late running,All Others,R
+ZA,MISHAP INQ,Mishap subject to Joint Inquiry,Network Management / Other,MCG
+ZB,LEAF SLIP,Wheel-slip or overshoot due to leaves,"Severe Weather, Autumn & Structures",AG
+ZC,LEAVES T/C,Track circuit failures due to leaves,"Severe Weather, Autumn & Structures",AG
+ZS,NOCAUSE AS,No Cause ascertainable for a Sub-Threshold Delay causing Threshold Reactionary (where agreed by both parties),Network Management / Other,MCG
+ZU,NOCAUSE ID,No Cause Identified After investigation by both Parties,Network Management / Other,MCG
+ZW,Sys CANC,Unattributed Cancellations System Roll-ups Only,Network Management / Other,MCG
+ZX,SYS L-STRT,Univestigated late Start System Roll-Ups only,Network Management / Other,MCG
+ZY,SYS OTIME,Univestigated station overtime System Roll-up Only,Network Management / Other,MCG
+ZZ,SYS LIR,Unexplained loss in running system Roll-up Only,Network Management / Other,MCG

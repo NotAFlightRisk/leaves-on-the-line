@@ -1,0 +1,28 @@
+[project]
+name = "leaves"
+version = "0.0.0"
+description = "Rolls Network Rail's delay attribution files up into what Leaves on the Line shows"
+requires-python = ">=3.12"
+dependencies = ["sentry-sdk>=2.40"]
+
+[project.scripts]
+leaves = "leaves.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8.3", "ruff>=0.8"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.format]
+quote-style = "single"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

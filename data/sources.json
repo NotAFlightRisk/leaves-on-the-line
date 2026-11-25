@@ -1,0 +1,668 @@
+{
+ "public/2018-19/All-Delays-2018-19-P01.zip": {
+  "key": "public/2018-19/All-Delays-2018-19-P01.zip",
+  "size": 30726595,
+  "etag": "0x8D9E6FE5970E41D",
+  "sha256": "714c6590f642b24616cebdbc7c6d46b56e836643a8003269fda782caad97b7f8",
+  "periods": [
+   "2018-19-P01"
+  ]
+ },
+ "public/2018-19/All-Delays-2018-19-P02.zip": {
+  "key": "public/2018-19/All-Delays-2018-19-P02.zip",
+  "size": 32647318,
+  "etag": "0x8D9E6FE59904E66",
+  "sha256": "299ab642b1693338bcac13e97381b84c50b512e31205c58ab9853dd8ffa144aa",
+  "periods": [
+   "2018-19-P02"
+  ]
+ },
+ "public/2018-19/All-Delays-2018-19-P03.zip": {
+  "key": "public/2018-19/All-Delays-2018-19-P03.zip",
+  "size": 35206327,
+  "etag": "0x8D9E6FE5384BA47",
+  "sha256": "dc71db94c8da9ec631df4ac248acfeb3b8ed461fb5698f9fa17dff97df37f6c8",
+  "periods": [
+   "2018-19-P03"
+  ]
+ },
+ "public/2018-19/All-Delays-2018-19-P04.zip": {
+  "key": "public/2018-19/All-Delays-2018-19-P04.zip",
+  "size": 36892128,
+  "etag": "0x8D9E6FE5981D195",
+  "sha256": "4706910395bd8342a3a7661f26b2114d2d33cc15e0b4483170c86cee355bad9e",
+  "periods": [
+   "2018-19-P04"
+  ]
+ },
+ "public/2018-19/All-Delays-2018-19-P05.zip": {
+  "key": "public/2018-19/All-Delays-2018-19-P05.zip",
+  "size": 34011380,
+  "etag": "0x8D9E6FE59AB257D",
+  "sha256": "fd954fdfde9140d911d9bc590ecdd8f6d5dd69c88f10837d56c25ffbb14e74f9",
+  "periods": [
+   "2018-19-P05"
+  ]
+ },
+ "public/2018-19/All-Delays-2018-19-P06.zip": {
+  "key": "public/2018-19/All-Delays-2018-19-P06.zip",
+  "size": 31722312,
+  "etag": "0x8D9E6FE5970E41D",
+  "sha256": "b31e9858f7c3c4889b069c1f846f6b7451ddf49a40831ee950c2a997725a0a33",
+  "periods": [
+   "2018-19-P06"
+  ]
+ },
+ "public/2018-19/All-Delays-2018-19-P07.zip": {
+  "key": "public/2018-19/All-Delays-2018-19-P07.zip",
+  "size": 38689714,
+  "etag": "0x8D9E6FE59680BCB",
+  "sha256": "4865844d9c5e081d21f5528d3a80d321957b3ee4a4b24a40e609a932555055c9",
+  "periods": [
+   "2018-19-P07"
+  ]
+ },
+ "public/2018-19/All-Delays-2018-19-P08.zip": {
+  "key": "public/2018-19/All-Delays-2018-19-P08.zip",
+  "size": 44459866,
+  "etag": "0x8D9E6FE59994DCA",
+  "sha256": "5d3d2fe4785ab3ddbc627882a0b22ca265ae1ed313eeb8b084ef2edbb4d648fe",
+  "periods": [
+   "2018-19-P08"
+  ]
+ },
+ "public/2018-19/All-Delays-2018-19-P09.zip": {
+  "key": "public/2018-19/All-Delays-2018-19-P09.zip",
+  "size": 46353373,
+  "etag": "0x8D9E6FE59710B27",
+  "sha256": "5816848ab425a8372e78f82fb314411d8e8df956472139d3f747409faa296d00",
+  "periods": [
+   "2018-19-P09"
+  ]
+ },
+ "public/2018-19/All-Delays-2018-19-P10.zip": {
+  "key": "public/2018-19/All-Delays-2018-19-P10.zip",
+  "size": 33247337,
+  "etag": "0x8D9E6FE59440E50",
+  "sha256": "49559b2e0141d300f013fd4e31ebd877283adc610455dba6d0159eaf60e737e4",
+  "periods": [
+   "2018-19-P10"
+  ]
+ },
+ "public/2018-19/All-Delays-2018-19-P11.zip": {
+  "key": "public/2018-19/All-Delays-2018-19-P11.zip",
+  "size": 32134061,
+  "etag": "0x8D9E6FE52C94DDC",
+  "sha256": "b23df48dc587b72a423c206e500f456f1443c617836f90dd7f46e8316e6c028f",
+  "periods": [
+   "2018-19-P11"
+  ]
+ },
+ "public/2018-19/All-Delays-2018-19-P12.zip": {
+  "key": "public/2018-19/All-Delays-2018-19-P12.zip",
+  "size": 32215494,
+  "etag": "0x8D9E6FE58FC3A5F",
+  "sha256": "96c6fc763c46ce9e0b88c5dc64236ef72283dacebe29279e8c4af016f3af3d97",
+  "periods": [
+   "2018-19-P12"
+  ]
+ },
+ "public/2018-19/All-Delays-2018-19-P13.zip": {
+  "key": "public/2018-19/All-Delays-2018-19-P13.zip",
+  "size": 31693612,
+  "etag": "0x8D9E6FE5611475D",
+  "sha256": "1ce223307663386c7a4602a5c2a400a61bfb18ff6c9f35ca8691ffc29b9f17b0",
+  "periods": [
+   "2018-19-P13"
+  ]
+ },
+ "public/2019-20/All-Delays-2019-20-P01.zip": {
+  "key": "public/2019-20/All-Delays-2019-20-P01.zip",
+  "size": 17973289,
+  "etag": "0x8D9E6FEBFAC2B12",
+  "sha256": "236b004b98c9985ce809786d0a00c6683235cf8f1220b33b344f6477a57b679d",
+  "periods": [
+   "2019-20-P01"
+  ]
+ },
+ "public/2019-20/All-Delays-2019-20-P02.zip": {
+  "key": "public/2019-20/All-Delays-2019-20-P02.zip",
+  "size": 22397224,
+  "etag": "0x8D9E6FEC0D05C20",
+  "sha256": "83fccf60bb5b4faffd6db0e9eca5a59729f03853a14d80c17f843e297f57ab3f",
+  "periods": [
+   "2019-20-P02"
+  ]
+ },
+ "public/2019-20/All-Delays-2019-20-P03.zip": {
+  "key": "public/2019-20/All-Delays-2019-20-P03.zip",
+  "size": 26488168,
+  "etag": "0x8D9E6FEC302052B",
+  "sha256": "4a3c23d7007ddc378be56a6a69a40bb3d67e8bcc5b65afd3a3dd39093f2b439f",
+  "periods": [
+   "2019-20-P03"
+  ]
+ },
+ "public/2019-20/All-Delays-201920-P04.zip": {
+  "key": "public/2019-20/All-Delays-201920-P04.zip",
+  "size": 28882008,
+  "etag": "0x8D9E6FEC458B089",
+  "sha256": "3d7cc2e3570463b90a8db1dad99b0eef6bada64bcad16958dae1fd1ae7b4b52a",
+  "periods": [
+   "2019-20-P04"
+  ]
+ },
+ "public/2019-20/All-delays-2019-20-P05.zip": {
+  "key": "public/2019-20/All-delays-2019-20-P05.zip",
+  "size": 24422094,
+  "etag": "0x8D9E6FEC458B089",
+  "sha256": "901a546d5203b7509209015b9ed960c6cbae11aba39b293e12ff91d8ae70c159",
+  "periods": [
+   "2019-20-P05"
+  ]
+ },
+ "public/2019-20/All-delays-2019-20-P06.zip": {
+  "key": "public/2019-20/All-delays-2019-20-P06.zip",
+  "size": 24782687,
+  "etag": "0x8D9E6FEBF018513",
+  "sha256": "be116914b4d0e3a8cecd5d5a164ac3ece358b4f91acff2e8b4a9689190f0dfd3",
+  "periods": [
+   "2019-20-P06"
+  ]
+ },
+ "public/2019-20/All-delays-2019-20-P07.zip": {
+  "key": "public/2019-20/All-delays-2019-20-P07.zip",
+  "size": 28470753,
+  "etag": "0x8D9E6FEC4452B63",
+  "sha256": "b1ef84ecea71492e08cf7a3873c64690bdcf9e37d6ba5dbaa1fb3a83264fb92b",
+  "periods": [
+   "2019-20-P07"
+  ]
+ },
+ "public/2019-20/All-delays-2019-20-P08.zip": {
+  "key": "public/2019-20/All-delays-2019-20-P08.zip",
+  "size": 30974844,
+  "etag": "0x8D9E6FEC16385E4",
+  "sha256": "7f74ec67b4c5b72c5f505ec02cf8ca65026664848744e5d9549eea52520fcf11",
+  "periods": [
+   "2019-20-P08"
+  ]
+ },
+ "public/2019-20/All-delays-2019-20-P09.zip": {
+  "key": "public/2019-20/All-delays-2019-20-P09.zip",
+  "size": 36909432,
+  "etag": "0x8D9E6FEC3B38800",
+  "sha256": "1823471d6b3c0f4ce5d1ea17e2fbdbadbaf626598e2ed6b5ed9c0a4d152a603a",
+  "periods": [
+   "2019-20-P09"
+  ]
+ },
+ "public/2019-20/All-delays-2019-20-P10.zip": {
+  "key": "public/2019-20/All-delays-2019-20-P10.zip",
+  "size": 24503729,
+  "etag": "0x8D9E6FEC3F65393",
+  "sha256": "41e6e8859345a3f92cf8e13feeae2662c98575080487f1bdedc4acb36444809a",
+  "periods": [
+   "2019-20-P10"
+  ]
+ },
+ "public/2019-20/All-delays-2019-20-P11.zip": {
+  "key": "public/2019-20/All-delays-2019-20-P11.zip",
+  "size": 26022570,
+  "etag": "0x8D9E6FEC44CCB60",
+  "sha256": "ba2bc311a15dadce53eaadb8d61e348f9eee724481da8f4b5bef44102402580e",
+  "periods": [
+   "2019-20-P11"
+  ]
+ },
+ "public/2019-20/All-delays-2019-20-P12.zip": {
+  "key": "public/2019-20/All-delays-2019-20-P12.zip",
+  "size": 31611640,
+  "etag": "0x8D9E6FEC2C52C29",
+  "sha256": "703863fddb8dadb1eed78d10c62b0c4ed1755338854ef954496be7eaea77c91c",
+  "periods": [
+   "2019-20-P12"
+  ]
+ },
+ "public/2019-20/All-delays-2019-20-P13.zip": {
+  "key": "public/2019-20/All-delays-2019-20-P13.zip",
+  "size": 21889313,
+  "etag": "0x8D9E6FEC3EFC4DE",
+  "sha256": "f583b46e720045ab06e227417d57855e378878dd25efa398073a80a367611fc6",
+  "periods": [
+   "2019-20-P13"
+  ]
+ },
+ "public/2020-21/All-delays-2020-21-P01.zip": {
+  "key": "public/2020-21/All-delays-2020-21-P01.zip",
+  "size": 6660207,
+  "etag": "0x8D9E6FF3B29BC94",
+  "sha256": "9d1f103735384ea824fe4a89292264fd7df5691bb9c95d72f490eaa107cb9128",
+  "periods": [
+   "2020-21-P01"
+  ]
+ },
+ "public/2020-21/All-delays-2020-21-P02.zip": {
+  "key": "public/2020-21/All-delays-2020-21-P02.zip",
+  "size": 7907670,
+  "etag": "0x8D9E6FF40AF1D2A",
+  "sha256": "559b19f1ec426a9f865aba073eefa7248b0772c46e13be036066892ee79edd72",
+  "periods": [
+   "2020-21-P02"
+  ]
+ },
+ "public/2020-21/All-delays-2020-21-P03.zip": {
+  "key": "public/2020-21/All-delays-2020-21-P03.zip",
+  "size": 7990041,
+  "etag": "0x8D9E6FF3D7245AD",
+  "sha256": "d6de51531a288bb78bc675eebe5fd56713704c509f8508c4e53a54dfe5a02735",
+  "periods": [
+   "2020-21-P03"
+  ]
+ },
+ "public/2020-21/All-delays-2020-21-P04.zip": {
+  "key": "public/2020-21/All-delays-2020-21-P04.zip",
+  "size": 9819175,
+  "etag": "0x8D9E6FF409A5FB1",
+  "sha256": "84958f4dfa069122d4549217efe96723d19d9fde60385a929c2cf4ed98f5bcdf",
+  "periods": [
+   "2020-21-P04"
+  ]
+ },
+ "public/2020-21/All-delays-2020-21-P05.zip": {
+  "key": "public/2020-21/All-delays-2020-21-P05.zip",
+  "size": 12388188,
+  "etag": "0x8D9E6FF402EB551",
+  "sha256": "0311e36bdc6d5f15e82e14392bc20f205e3ce36f1d251c54b4b41611364f1ff3",
+  "periods": [
+   "2020-21-P05"
+  ]
+ },
+ "public/2020-21/All-delays-2020-21-P06.zip": {
+  "key": "public/2020-21/All-delays-2020-21-P06.zip",
+  "size": 13200733,
+  "etag": "0x8D9E6FF3FA8D009",
+  "sha256": "b9c0763b4f0d3cfd6dbe0dec24dd2d81da0c252a8b3f0f7d0d0a1415818c852b",
+  "periods": [
+   "2020-21-P06"
+  ]
+ },
+ "public/2020-21/All-delays-2020-21-P07.zip": {
+  "key": "public/2020-21/All-delays-2020-21-P07.zip",
+  "size": 16642730,
+  "etag": "0x8D9E6FF4056F7ED",
+  "sha256": "50be53e9af8ae625c3b2ce119b2ed89aa9c0f93d5b458994b277b5f2373e2052",
+  "periods": [
+   "2020-21-P07"
+  ]
+ },
+ "public/2020-21/All-delays-2020-21-P08.zip": {
+  "key": "public/2020-21/All-delays-2020-21-P08.zip",
+  "size": 19860731,
+  "etag": "0x8D9E6FF3FF9F168",
+  "sha256": "a789012ce0d6f621dd838b56743db6a6f0a3e8eea9cc013ebd18030d3ac5e871",
+  "periods": [
+   "2020-21-P08"
+  ]
+ },
+ "public/2020-21/All-delays-2020-21-P09.zip": {
+  "key": "public/2020-21/All-delays-2020-21-P09.zip",
+  "size": 11854877,
+  "etag": "0x8D9E6FF405DD4B6",
+  "sha256": "643d7f9dc3ff175e086ff4c2044fad10492f8f6c2ca0a9dc4aef3680676f4d3a",
+  "periods": [
+   "2020-21-P09"
+  ]
+ },
+ "public/2020-21/All-delays-2020-21-P10.zip": {
+  "key": "public/2020-21/All-delays-2020-21-P10.zip",
+  "size": 9725459,
+  "etag": "0x8D9E6FF3F4FE78F",
+  "sha256": "3d9298f4c5ae3dd3b88521c4abdc4ba7be4b80e9706903b35f80b1783dc94205",
+  "periods": [
+   "2020-21-P10"
+  ]
+ },
+ "public/2020-21/All-delays-2020-21-P11.zip": {
+  "key": "public/2020-21/All-delays-2020-21-P11.zip",
+  "size": 13984886,
+  "etag": "0x8D9E6FF40D034E0",
+  "sha256": "ac4c72609c2e17e3478eb609a6c0b64a95b1ab29797c22c3bf9cb1ee427b27ef",
+  "periods": [
+   "2020-21-P11"
+  ]
+ },
+ "public/2020-21/All-delays-2020-21-P12.zip": {
+  "key": "public/2020-21/All-delays-2020-21-P12.zip",
+  "size": 10330433,
+  "etag": "0x8D9E6FF405D118B",
+  "sha256": "c9610971e7712f7ff963130e6db3614c776de536a4ed652e9d2238458058b956",
+  "periods": [
+   "2020-21-P12"
+  ]
+ },
+ "public/2020-21/All-delays-2020-21-P13.zip": {
+  "key": "public/2020-21/All-delays-2020-21-P13.zip",
+  "size": 8039797,
+  "etag": "0x8D9E6FF3E4D1C58",
+  "sha256": "c6b22190aef2f60cd3a5eba6a9d494a1af17f2d4394be7eb4586058469a8efef",
+  "periods": [
+   "2020-21-P13"
+  ]
+ },
+ "public/2021-22/All-delays-2021-22-P01.zip": {
+  "key": "public/2021-22/All-delays-2021-22-P01.zip",
+  "size": 10536331,
+  "etag": "0x8DAAD02B340BD99",
+  "sha256": "00b99d3015c4fa4547ec0afa8932c48d8a6d4b2214b87e0c5343793ecce316c9",
+  "periods": [
+   "2021-22-P01"
+  ]
+ },
+ "public/2021-22/All-delays-2021-22-P02.zip": {
+  "key": "public/2021-22/All-delays-2021-22-P02.zip",
+  "size": 10268926,
+  "etag": "0x8D9E6FF7B7B4183",
+  "sha256": "fa0491a4acd3cf54f46ed66fc3f6278d2c18885bfc8e8c412b7a12b1ef89e008",
+  "periods": [
+   "2021-22-P02"
+  ]
+ },
+ "public/2021-22/All-delays-2021-22-P03.zip": {
+  "key": "public/2021-22/All-delays-2021-22-P03.zip",
+  "size": 12398561,
+  "etag": "0x8D9E6FF92B5E5B5",
+  "sha256": "eaac4f71a93fd4ae3756a159e5ec7dbd7ff161fc32a4cda0473240591986afe2",
+  "periods": [
+   "2021-22-P03"
+  ]
+ },
+ "public/2021-22/All-delays-2021-22-P04.zip": {
+  "key": "public/2021-22/All-delays-2021-22-P04.zip",
+  "size": 13100855,
+  "etag": "0x8D9E6FF7BEEB316",
+  "sha256": "b24c36d7d1e374e0fa66b5e7cf20d963bcff169396d067e34b438f1f97a9a591",
+  "periods": [
+   "2021-22-P04"
+  ]
+ },
+ "public/2021-22/All-delays-2021-22-P05.zip": {
+  "key": "public/2021-22/All-delays-2021-22-P05.zip",
+  "size": 12011154,
+  "etag": "0x8D9E6FF7C42BA56",
+  "sha256": "91ae81c96f7193b4996f8571815009e76231323be02cd18e1f34c9d5bb429942",
+  "periods": [
+   "2021-22-P05"
+  ]
+ },
+ "public/2021-22/All-delays-2021-22-P06.zip": {
+  "key": "public/2021-22/All-delays-2021-22-P06.zip",
+  "size": 12464806,
+  "etag": "0x8D9E6FF7C0DF65B",
+  "sha256": "f0f1b0bc0f59cc527c9e776952b5a4429b64cedc38ade9fc58e0087dea07d1ab",
+  "periods": [
+   "2021-22-P06"
+  ]
+ },
+ "public/2021-22/All-delays-2021-22-P07.zip": {
+  "key": "public/2021-22/All-delays-2021-22-P07.zip",
+  "size": 13749401,
+  "etag": "0x8D9E6FF7B3DCC3D",
+  "sha256": "c8451411c59595f209595e932d3eef3e9405a9e8641f2e3068e644a955a40c75",
+  "periods": [
+   "2021-22-P07"
+  ]
+ },
+ "public/2021-22/All-delays-2021-22-P08.zip": {
+  "key": "public/2021-22/All-delays-2021-22-P08.zip",
+  "size": 19297487,
+  "etag": "0x8D9E6FF7BB3395E",
+  "sha256": "4d79848403f581ce6a10b3cec09015529e37f2fee8e5b81e7409aa713d1e335d",
+  "periods": [
+   "2021-22-P08"
+  ]
+ },
+ "public/2021-22/All-delays-2021-22-P09.zip": {
+  "key": "public/2021-22/All-delays-2021-22-P09.zip",
+  "size": 20457460,
+  "etag": "0x8D9E6FF7BC7F6D3",
+  "sha256": "b221ef2e34c4e3f729bd77638094d0e74db1338236139e398b4171c37c4201e3",
+  "periods": [
+   "2021-22-P09"
+  ]
+ },
+ "public/2021-22/All-delays-2021-22-P10.zip": {
+  "key": "public/2021-22/All-delays-2021-22-P10.zip",
+  "size": 13704454,
+  "etag": "0x8D9E6FF7B6FAA6C",
+  "sha256": "4a317479f5c2bf2f8b7e06e2b5d6b6b9135f815208b5e8d9f08e6cddebd7625b",
+  "periods": [
+   "2021-22-P10"
+  ]
+ },
+ "public/2021-22/All-delays-2021-22-P11.zip": {
+  "key": "public/2021-22/All-delays-2021-22-P11.zip",
+  "size": 12435398,
+  "etag": "0x8DAAD01BF47D5B7",
+  "sha256": "96553b5a65475d7bff660fd8e3359d3b42d2d28c7774811de51f88670d4a78e1",
+  "periods": [
+   "2021-22-P11"
+  ]
+ },
+ "public/2021-22/All-delays-2021-22-P12.zip": {
+  "key": "public/2021-22/All-delays-2021-22-P12.zip",
+  "size": 14376838,
+  "etag": "0x8DAAD01C1CC4E94",
+  "sha256": "d7bdccc144ce25dec6cf6bd46d93bceb563c1923c266ff8b2419e46da867442a",
+  "periods": [
+   "2021-22-P12"
+  ]
+ },
+ "public/2021-22/All-delays-2021-22-P13.zip": {
+  "key": "public/2021-22/All-delays-2021-22-P13.zip",
+  "size": 12123316,
+  "etag": "0x8DAAD068423276C",
+  "sha256": "a7f1340271f48dae2ef8767b080ca238706ec66b960080cec87566b2bbabb1d6",
+  "periods": [
+   "2021-22-P13"
+  ]
+ },
+ "public/2022-23/All-delays-2022-23-P01.zip": {
+  "key": "public/2022-23/All-delays-2022-23-P01.zip",
+  "size": 13593908,
+  "etag": "0x8DB1EE7174BA245",
+  "sha256": "51bb6cac6e7e661cf9511f276b6c2b27b958ae8223e162e8890e22c5e454d767",
+  "periods": [
+   "2022-23-P01"
+  ]
+ },
+ "public/2022-23/All-delays-2022-23-P02.zip": {
+  "key": "public/2022-23/All-delays-2022-23-P02.zip",
+  "size": 13130488,
+  "etag": "0x8DB1EE7A7BA4622",
+  "sha256": "ec4f2b03f36585fb364b152740b9c7992fa1bde77aa6fd56279c33b981aee8c3",
+  "periods": [
+   "2022-23-P02"
+  ]
+ },
+ "public/2022-23/All-delays-2022-23-P03.zip": {
+  "key": "public/2022-23/All-delays-2022-23-P03.zip",
+  "size": 12599755,
+  "etag": "0x8DB1EE7C7320ED8",
+  "sha256": "9407da4fd689de8146635d1a77990184893dfae876ae3e477807313baa7b1497",
+  "periods": [
+   "2022-23-P03"
+  ]
+ },
+ "public/2022-23/All-delays-2022-23-P04.zip": {
+  "key": "public/2022-23/All-delays-2022-23-P04.zip",
+  "size": 16178854,
+  "etag": "0x8DB1EE7E509FB30",
+  "sha256": "0793f513a27b5d3c3f592b2cda1c6ebb4cf253144c08eae94dd31925a235bb72",
+  "periods": [
+   "2022-23-P04"
+  ]
+ },
+ "public/2022-23/All-delays-2022-23-P05.zip": {
+  "key": "public/2022-23/All-delays-2022-23-P05.zip",
+  "size": 15509019,
+  "etag": "0x8DB1EE7F18EC2BC",
+  "sha256": "7da66ad31275a862cdc2bc465ec8c15e4f73a16f6fa108400a02fb6910575795",
+  "periods": [
+   "2022-23-P05"
+  ]
+ },
+ "public/2022-23/All-delays-2022-23-P06.zip": {
+  "key": "public/2022-23/All-delays-2022-23-P06.zip",
+  "size": 16020054,
+  "etag": "0x8DB1EE7F8E9FA9C",
+  "sha256": "f78af9ff94af53608fa950350ac7a5b1d73069999c1d8b7ade26dac2cd68841d",
+  "periods": [
+   "2022-23-P06"
+  ]
+ },
+ "public/2022-23/All-delays-2022-23-P07.zip": {
+  "key": "public/2022-23/All-delays-2022-23-P07.zip",
+  "size": 14745616,
+  "etag": "0x8DB1EE80154A58D",
+  "sha256": "678d647a85b8792077df1e1345c449037cacd840687b5757780981be1d9bade9",
+  "periods": [
+   "2022-23-P07"
+  ]
+ },
+ "public/2022-23/All-delays-2022-23-P08.zip": {
+  "key": "public/2022-23/All-delays-2022-23-P08.zip",
+  "size": 19146422,
+  "etag": "0x8DB1EE8086CC3EF",
+  "sha256": "bab038d7b361f7bec26283d772d0c496be80a7106a5936b1d22a4db6efe2b008",
+  "periods": [
+   "2022-23-P08"
+  ]
+ },
+ "public/2022-23/All-delays-2022-23-P09.zip": {
+  "key": "public/2022-23/All-delays-2022-23-P09.zip",
+  "size": 20111386,
+  "etag": "0x8DB1EE811FA402C",
+  "sha256": "1570024eca62f419913b557361adfc3ca56dc29509ea9e1f2b3190d554c348d8",
+  "periods": [
+   "2022-23-P09"
+  ]
+ },
+ "public/2022-23/All-delays-2022-23-P10.zip": {
+  "key": "public/2022-23/All-delays-2022-23-P10.zip",
+  "size": 10313788,
+  "etag": "0x8DB8DB8CBD3DCD9",
+  "sha256": "b57fa4d680eb735aa677356fba6c6be786fcf64cd2016a182148b6541f57b69b",
+  "periods": [
+   "2022-23-P10"
+  ]
+ },
+ "public/2022-23/All-delays-2022-23-P11.zip": {
+  "key": "public/2022-23/All-delays-2022-23-P11.zip",
+  "size": 17189022,
+  "etag": "0x8DB8DB74F4A6FA6",
+  "sha256": "46453c91a165dc17ea092690d918eeab53215aa86b705f8ec238fa1f606d31c5",
+  "periods": [
+   "2022-23-P11"
+  ]
+ },
+ "public/2022-23/All-delays-2022-23-P12.zip": {
+  "key": "public/2022-23/All-delays-2022-23-P12.zip",
+  "size": 16154603,
+  "etag": "0x8DB8DB74FB04E65",
+  "sha256": "d5a5c1f922625d5d22a8e8ab8a129633637f7ddeffbe424220f9e9308010e022",
+  "periods": [
+   "2022-23-P12"
+  ]
+ },
+ "public/2022-23/All-delays-2022-23-P13.zip": {
+  "key": "public/2022-23/All-delays-2022-23-P13.zip",
+  "size": 14213356,
+  "etag": "0x8DB8DB74F9A7FAD",
+  "sha256": "2a62d85234215bee792285392771faadf6b1d1a3aa4b7920f2eddbc4c560e38b",
+  "periods": [
+   "2022-23-P13"
+  ]
+ },
+ "public/2023-24/All-delays-2023-24-P01.zip": {
+  "key": "public/2023-24/All-delays-2023-24-P01.zip",
+  "size": 16530038,
+  "etag": "0x8DB8DB61FB57A89",
+  "sha256": "8ea1257ab7f7f1c82a734e7859504e07e4c3878583b04bb657747029801c3751",
+  "periods": [
+   "2023-24-P01"
+  ]
+ },
+ "public/2023-24/All-delays-2023-24-P02.zip": {
+  "key": "public/2023-24/All-delays-2023-24-P02.zip",
+  "size": 15735809,
+  "etag": "0x8DB8DB61FB44235",
+  "sha256": "a016d62d553b7086f4549e3513c8051ce5aa93373ba3584d36487ac784b23dee",
+  "periods": [
+   "2023-24-P02"
+  ]
+ },
+ "public/2023-24/All-delays-2023-24-P03.zip": {
+  "key": "public/2023-24/All-delays-2023-24-P03.zip",
+  "size": 18174640,
+  "etag": "0x8DBF2755A73C237",
+  "sha256": "5f2eb7d208b8397c1b924b7cd04e7e0c69ef13d7de57e3681372c9f6a9568e00",
+  "periods": [
+   "2023-24-P03"
+  ]
+ },
+ "public/2023-24/All-delays-2023-24-P04.zip": {
+  "key": "public/2023-24/All-delays-2023-24-P04.zip",
+  "size": 17039037,
+  "etag": "0x8DBF27566C9B8A5",
+  "sha256": "a276e952e27ce4d0b0f7d446e7b97e6a1280e30465070967992acbb600f010a4",
+  "periods": [
+   "2023-24-P04"
+  ]
+ },
+ "public/2023-24/All-delays-2023-24-P05.zip": {
+  "key": "public/2023-24/All-delays-2023-24-P05.zip",
+  "size": 16694765,
+  "etag": "0x8DC18D9F377F6B8",
+  "sha256": "7eb57e9393be5a25fc3424c1d8f43836d96db314435a1e52371584605b4f3ef1",
+  "periods": [
+   "2023-24-P05"
+  ]
+ },
+ "public/2023-24/All-delays-2023-24-P06.zip": {
+  "key": "public/2023-24/All-delays-2023-24-P06.zip",
+  "size": 16969963,
+  "etag": "0x8DBF275A6FA4E11",
+  "sha256": "1293ffcbf722575e304b81a539796929305615b2fc6ac31148dbd1dd88781ea8",
+  "periods": [
+   "2023-24-P06"
+  ]
+ },
+ "public/2023-24/All-delays-2023-24-P07.zip": {
+  "key": "public/2023-24/All-delays-2023-24-P07.zip",
+  "size": 19044208,
+  "etag": "0x8DBF275B29CB274",
+  "sha256": "3905b407d31ae0b7630681f658f63e4265b36ca436c43f33e79be9f87515be97",
+  "periods": [
+   "2023-24-P07"
+  ]
+ },
+ "public/2023-24/All-delays-2023-24-P08.zip": {
+  "key": "public/2023-24/All-delays-2023-24-P08.zip",
+  "size": 22796890,
+  "etag": "0x8DBF275BE9EA588",
+  "sha256": "0999be272823e939b9936693b26776580abbe13d522a72f771d45df85fccea97",
+  "periods": [
+   "2023-24-P08"
+  ]
+ },
+ "public/2023-24/All-delays-2023-24-P09.zip": {
+  "key": "public/2023-24/All-delays-2023-24-P09.zip",
+  "size": 24039792,
+  "etag": "0x8DC18DA63696F59",
+  "sha256": "15aa514fb559ede7fa4248b51fceb8b34eb01eae4c2ed7ce3ddb514c43ed4a92",
+  "periods": [
+   "2023-24-P09"
+  ]
+ }
+}
