@@ -1,0 +1,10 @@
+build
+.svelte-kit
+package-lock.json
+data
+static/data
+static/station
+static/route
+static/operator
+iains-notes
+pipeline

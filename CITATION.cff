@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: If you use these figures, please cite them as below, along with Network Rail's data.
+type: dataset
+title: Leaves on the Line
+abstract: >-
+  Why Britain's passenger trains were late, cause by cause, for every station,
+  route and operator since 2018-19, rolled up from Network Rail's Historic Delay
+  Attribution files.
+authors:
+  - name: NotAFlightRisk
+url: https://leaves.peng.ly
+repository-code: https://github.com/NotAFlightRisk/leaves-on-the-line
+license: MIT
+keywords:
+  - rail-delays
+  - network-rail
+  - delay-attribution
+  - uk-railways
+  - open-data
