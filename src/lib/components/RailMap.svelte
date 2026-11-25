@@ -1,7 +1,7 @@
 <script lang="ts">
   import 'maplibre-gl/dist/maplibre-gl.css';
   import worker from 'maplibre-gl/dist/maplibre-gl-worker.mjs?url';
-  import type { GeoJSONSource, Map as MapLibre } from 'maplibre-gl';
+  import type { GeoJSONSource, Map as MapLibre, MapLayerMouseEvent } from 'maplibre-gl';
   import { onMount } from 'svelte';
   import type { Feature } from '#lib/data.ts';
   import { minutes } from '#lib/format.ts';
@@ -16,6 +16,7 @@
   let container: HTMLDivElement;
   let map: MapLibre | undefined = $state();
   let broken = $state(false);
+  let bare = $state(false);
 
   const BRITAIN: [[number, number], [number, number]] = [
     [-6.4, 49.9],
@@ -26,6 +27,7 @@
     dot: 'at the station',
     ring: 'on a line out of here'
   };
+  const LAYERS = ['chords', 'rings', 'dots'];
 
   function geojson() {
     const top = Math.max(1, ...values.values());
@@ -66,6 +68,8 @@
 
   onMount(() => {
     let alive = true;
+    // `map` is only set once the layers are in, so this is what an early exit cleans up
+    let made: MapLibre | undefined;
     import('maplibre-gl').then(
       ({ Map, NavigationControl, AttributionControl, Popup, setWorkerUrl }) => {
         if (!alive) return;
@@ -89,12 +93,19 @@
           broken = true;
           return;
         }
+        made = target;
         target.addControl(new NavigationControl({ showCompass: false }), 'top-right');
         target.addControl(new AttributionControl({ compact: true }), 'bottom-right');
         container.querySelector('.maplibregl-ctrl-attrib')?.classList.add('maplibregl-compact');
+        // the background comes from OpenFreeMap; if it can't be reached the delay still draws
+        target.on('error', (event) => {
+          if (/openfreemap/i.test(String(event.error?.message ?? ''))) bare = true;
+        });
         target.on('load', () => {
           target.resize();
           target.fitBounds(BRITAIN, { padding: 16, animate: false });
+        });
+        target.once('style.load', () => {
           const tint = resolved();
           target.addSource('delay', { type: 'geojson', data: geojson() });
           target.addLayer({
@@ -132,41 +143,64 @@
               'circle-opacity': 0.85
             }
           });
-          for (const layer of ['chords', 'rings', 'dots']) {
-            target.on('click', layer, (event) => {
-              const props = event.features?.[0]?.properties;
-              if (!props) return;
-              const tip = document.createElement('div');
-              tip.append(
-                Object.assign(document.createElement('strong'), { textContent: props.name }),
-                Object.assign(document.createElement('span'), {
-                  textContent: ` ${minutes(props.value)} minutes ${KINDS[props.kind as keyof typeof KINDS]}`
-                })
-              );
-              new Popup({ className: 'tip', maxWidth: '18rem' })
-                .setLngLat(event.lngLat)
-                .setDOMContent(tip)
-                .addTo(target);
+
+          const popup = new Popup({
+            className: 'tip',
+            maxWidth: '18rem',
+            closeButton: false,
+            closeOnClick: false,
+            offset: 12
+          });
+          const tipLine = (text: string, className = '') =>
+            Object.assign(document.createElement('span'), { className, textContent: text });
+          const describe = (event: MapLayerMouseEvent) => {
+            const props = event.features?.[0]?.properties;
+            if (!props) return;
+            const tip = document.createElement('div');
+            tip.append(
+              tipLine(String(props.name), 'tip-when'),
+              tipLine(`${minutes(Number(props.value))} minutes of delay`, 'tip-main'),
+              tipLine(`From incidents ${KINDS[props.kind as keyof typeof KINDS]}.`)
+            );
+            popup.setLngLat(event.lngLat).setDOMContent(tip).addTo(target);
+          };
+          for (const layer of LAYERS) {
+            target.on('mousemove', layer, (event) => {
+              target.getCanvas().style.cursor = 'pointer';
+              describe(event);
             });
-            target.on('mouseenter', layer, () => (target.getCanvas().style.cursor = 'pointer'));
-            target.on('mouseleave', layer, () => (target.getCanvas().style.cursor = ''));
+            target.on('click', layer, describe);
+            target.on('mouseleave', layer, () => {
+              target.getCanvas().style.cursor = '';
+              popup.remove();
+            });
           }
+          // touch has no mouseleave, so a tap away from the delay closes the tip
+          target.on('click', (event) => {
+            if (!target.queryRenderedFeatures(event.point, { layers: LAYERS }).length)
+              popup.remove();
+          });
           map = target;
         });
       }
     );
     return () => {
       alive = false;
-      map?.remove();
+      made?.remove();
     };
   });
 </script>
 
 <div class="frame">
   <div class="map" bind:this={container}></div>
+  {#if bare && !broken}
+    <p class="bare" role="status">
+      The background map didn't load, so the delay is drawn on its own. Try reloading the page.
+    </p>
+  {/if}
   {#if broken}
     <p class="broken">
-      This browser can't draw the map, as it needs WebGL2. The table below has the same numbers.
+      This browser can't draw the map, because it needs WebGL2. The table has the same numbers.
     </p>
   {/if}
 </div>
@@ -195,20 +229,40 @@
     color: var(--text-muted);
   }
 
+  .bare {
+    position: absolute;
+    left: var(--space-3);
+    right: var(--space-3);
+    top: var(--space-3);
+    padding: var(--space-2) var(--space-3);
+    background: var(--edge);
+    color: var(--sign);
+    border-radius: var(--radius);
+    font-size: var(--step--1);
+    font-weight: 600;
+    z-index: 2;
+  }
+
   .frame :global {
+    .tip {
+      pointer-events: none;
+    }
+
     .tip .maplibregl-popup-content {
-      background: var(--panel-raised);
-      color: var(--text);
-      border: 1px solid var(--rule-strong);
+      display: grid;
+      background: var(--sign);
+      color: var(--on-sign);
       border-radius: var(--radius);
+      box-shadow: 0 10px 28px -8px rgb(16 38 74 / 0.45);
       font: inherit;
-      font-size: var(--step--1);
-      padding: var(--space-2) var(--space-3);
+      font-size: 0.875rem;
+      line-height: 1.4;
+      padding: var(--space-3) var(--space-4);
     }
 
     .tip .maplibregl-popup-tip {
-      border-top-color: var(--rule-strong);
-      border-bottom-color: var(--rule-strong);
+      border-top-color: var(--sign);
+      border-bottom-color: var(--sign);
     }
 
     .tip .maplibregl-popup-close-button {
@@ -229,8 +283,9 @@
       border-top-color: var(--rule-strong);
     }
 
-    .maplibregl-ctrl-icon {
-      filter: invert(1) brightness(0.85);
+    .maplibregl-ctrl-group {
+      background: var(--panel);
+      box-shadow: 0 0 0 2px var(--sign);
     }
   }
 </style>

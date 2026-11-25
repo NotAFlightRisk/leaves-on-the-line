@@ -1,7 +1,7 @@
 <script lang="ts">
   import { getJson, type Place, type Series } from '#lib/data.ts';
   import { cause } from '#lib/causes.ts';
-  import { dateLong, minutes } from '#lib/format.ts';
+  import { dateLong, dateMonth, minutes } from '#lib/format.ts';
   import Columns from '#lib/components/Columns.svelte';
   import Meta from '#lib/components/Meta.svelte';
 
@@ -54,18 +54,17 @@
 
 <Meta
   title="Trends since 2018"
-  description="Every cause of delay on Britain's railways, period by period since April 2018, network-wide and by operator, with the worst days and the storms."
+  description="Every cause of delay on Britain's railways, month by month since April 2018, network-wide and by operator, with the worst days and the storms."
 />
 
 <div class="trends">
   <header>
-    <h1>Every cause, period by period since 2018</h1>
+    <h1>Every cause, month by month since 2018</h1>
     <p class="intro">
-      Delay minutes a day in each four-week period. Our files run to {lastFile.label}; after that
-      the dashed outlines are ORR's own Table 3184, which sorts causes into the same groups but
-      can't split autumn out, counts incidents involving people and leaves out lines off Network
-      Rail's track, so it's drawn apart and never joined on. Hatched bars were under 94% agreed when
-      their file came out, and every cause shares one scale.
+      Minutes of delay a day in each month, for every cause. Up to {dateLong(lastFile.end)} the bars come
+      from Network Rail's own files. After that, the dashed bars are ORR's figures, which count a few
+      things differently, so the two are kept apart. Striped bars could still change. Every chart uses
+      the same scale, so you can compare causes.
     </p>
     <div class="controls">
       <label>
@@ -100,10 +99,10 @@
   <section aria-labelledby="people">
     <h2 id="people">Incidents involving people</h2>
     <p class="intro">
-      Fatalities, trespass, welfare concerns, police searches and ill or injured passengers, left
-      out of every other figure on this site. They show here only as one network total a period, so
-      nothing can point at a day or a place. ORR's table counts them inside its other causes, so
-      there's nothing to show after our files end in {lastFile.label}.
+      This covers fatalities, trespass, welfare concerns, police searches, and ill or injured
+      passengers. Every other figure on the site leaves these out. They appear here only as one
+      total for the whole network each month, so no figure points to a day or a place. The chart
+      stops at {dateMonth(lastFile.end)}, because ORR's figures don't separate them.
     </p>
     <Columns
       ours={people}
@@ -117,10 +116,9 @@
   <section aria-labelledby="days">
     <h2 id="days">The worst days</h2>
     <p class="intro">
-      Network totals only, the one place this site goes down to a day. The worst was {dateLong(
-        topDay[0]
-      )}, with
-      {minutes(topDay[1])} delay minutes.
+      The worst single days for the whole network. The worst was {dateLong(topDay[0])}, with {minutes(
+        topDay[1]
+      )} minutes of delay.
     </p>
     <div class="days">
       {#each [['All causes', trends.worst], ['Weather', trends.storms]] as const as [title, days] (title)}

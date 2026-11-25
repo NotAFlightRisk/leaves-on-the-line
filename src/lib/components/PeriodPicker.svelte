@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Period } from '#lib/data.ts';
-  import { periodName } from '#lib/format.ts';
+  import { span } from '#lib/format.ts';
 
   let { periods, at = $bindable() }: { periods: Period[]; at: number } = $props();
 
@@ -11,23 +11,23 @@
 <div class="picker">
   <button
     type="button"
-    aria-label="Previous period"
+    aria-label="Previous month"
     disabled={place <= 0}
     onclick={() => (at = choices[place - 1])}
   >
     <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3 5 8l5 5" /></svg>
   </button>
   <label class="select">
-    <span class="visually-hidden">Period</span>
+    <span class="visually-hidden">Month</span>
     <select bind:value={at}>
       {#each choices as i (i)}
-        <option value={i}>{periodName(periods[i])}</option>
+        <option value={i}>{span(periods[i])}</option>
       {/each}
     </select>
   </label>
   <button
     type="button"
-    aria-label="Next period"
+    aria-label="Next month"
     disabled={place >= choices.length - 1}
     onclick={() => (at = choices[place + 1])}
   >

@@ -1,12 +1,11 @@
 <script lang="ts">
   import { untrack, type Snippet } from 'svelte';
   import type { Index, Place } from '#lib/data.ts';
-  import { knockOnLine, summarise, totalAt } from '#lib/compare.ts';
-  import { dateShort, percent } from '#lib/format.ts';
+  import { dateLong } from '#lib/format.ts';
   import Board from './Board.svelte';
   import Codes from './Codes.svelte';
-  import Figure from './Figure.svelte';
   import History from './History.svelte';
+  import InfoSign from './InfoSign.svelte';
   import PeriodPicker from './PeriodPicker.svelte';
 
   let {
@@ -28,36 +27,40 @@
   } = $props();
 
   let at = $state(untrack(() => index.last));
-  const period = $derived(index.periods[at]);
-  const total = $derived(totalAt(place, at));
-  const agreed = $derived(total ? 1 - (place.unagreed[at] ?? 0) / total : 1);
   const path = $derived(`/${place.kind}/${place.id}`);
 </script>
 
 <article class="place">
   <header>
-    <h1>{heading}</h1>
-    <div class="tags">
-      {@render tags?.()}
+    <div class="name sign">
+      <h1>{heading}</h1>
+      {#if tags}<div class="tags">{@render tags()}</div>{/if}
+    </div>
+    <div class="strip">
       <PeriodPicker periods={index.periods} bind:at />
       <span class="downloads">
+        Download these figures as
         <a href="{path}.csv" rel="external" download>CSV</a>
-        <a href="{path}.json" rel="external">JSON</a>
+        or <a href="{path}.json" rel="external">JSON</a>
       </span>
     </div>
   </header>
 
-  <section class="lead" aria-label="Summary">
-    <Figure value={total} unit="delay minutes" />
-    <p class="sentence">{summarise(place, index.groups, period, at, where)}</p>
-    <p class="aside">
-      {knockOnLine(place, at)}
-      {percent(agreed)} of them were agreed between Network Rail and the operators when the file came
-      out on {dateShort(period.released ?? period.end)}{agreed < 0.94
-        ? ', so they may still move'
-        : ''}.
+  {#if at === index.last}
+    <p class="stale">
+      <strong>These figures stop at {dateLong(index.periods[index.last].end)}.</strong>
+      {#if place.kind === 'operator'}
+        That's the last month Network Rail made public in this detail. For newer monthly totals for {place.name},
+        see the <a href="/trends">trends page</a>.
+      {:else}
+        That's the last month Network Rail made public {place.kind === 'station'
+          ? 'station by station'
+          : 'route by route'}. The <a href="/">homepage</a> has the latest month for the whole network.
+      {/if}
     </p>
-  </section>
+  {/if}
+
+  <InfoSign breakdown={place} groups={index.groups} periods={index.periods} {at} {where} />
 
   <section aria-labelledby="causes">
     <h2 id="causes">By cause</h2>
@@ -71,14 +74,14 @@
     />
     {#if place.quiet}
       <p class="note">
-        Quiet enough here (under 100 delay minutes a period on average) that comparing years would
-        mostly be noise, so there's no comparison.
+        There's no comparison with other years here. With under 100 minutes of delay a month, the
+        changes would mostly be chance.
       </p>
     {/if}
   </section>
 
   <section aria-labelledby="history">
-    <h2 id="history">Period by period</h2>
+    <h2 id="history">Month by month</h2>
     <History breakdown={place} groups={index.groups} periods={index.periods} bind:at name={where} />
   </section>
 
@@ -86,20 +89,15 @@
 
   <section aria-labelledby="codes">
     <h2 id="codes">The codes behind it</h2>
-    <Codes
-      latest={place.codes.latest}
-      all={place.codes.all}
-      period={index.periods[index.last].label}
-    />
+    <Codes latest={place.codes.latest} all={place.codes.all} period="the latest month" />
   </section>
 
   <aside class="counts">
     <h2>What this counts</h2>
     <p>{counts}</p>
     <p>
-      Delay minutes are delay events on passenger trains, as ORR counts them. Cancelled trains are
-      counted as trains, not minutes. Incidents involving people are left out of everything below a
-      network total. <a href="/method">More on the method</a>.
+      Cancelled trains are counted as trains, not minutes. Delay involving people, like trespass, is
+      left out. <a href="/method">Read how it's worked out</a>.
     </p>
   </aside>
 </article>
@@ -112,11 +110,22 @@
 
   header {
     display: grid;
-    gap: var(--space-4);
+  }
+
+  .name {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-3) var(--space-5);
+    padding: var(--space-5) var(--space-5) var(--space-4);
+    border-radius: var(--radius) var(--radius) 0 0;
+    border-bottom: 10px solid var(--edge);
 
     h1 {
-      font-size: var(--step-3);
-      letter-spacing: -0.02em;
+      font-size: clamp(2.6rem, 7vw, 5.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.025em;
     }
   }
 
@@ -127,29 +136,37 @@
     gap: var(--space-3);
   }
 
-  .downloads {
-    display: inline-flex;
-    gap: var(--space-3);
-    font-size: var(--step--1);
-  }
-
-  .lead {
-    display: grid;
-    gap: var(--space-3);
-    padding: var(--space-5) var(--space-5) var(--space-6);
-    background: var(--panel);
-    border: 1px solid var(--rule);
+  .stale {
+    margin-top: calc(-1 * var(--space-5));
+    padding: var(--space-3) var(--space-5);
+    background: var(--edge);
+    color: var(--sign);
     border-radius: var(--radius);
+    max-width: none;
+
+    a {
+      color: var(--sign);
+    }
   }
 
-  .sentence {
-    font-size: var(--step-1);
-    max-width: var(--measure);
+  .strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3) var(--space-5);
+    padding: var(--space-3) var(--space-5);
+    background: var(--panel);
+    border-radius: 0 0 var(--radius) var(--radius);
   }
 
-  .aside {
+  .downloads {
+    font-size: var(--step--1);
     color: var(--text-muted);
-    max-width: var(--measure);
+
+    a {
+      font-weight: 700;
+    }
   }
 
   section {
@@ -159,7 +176,7 @@
   }
 
   h2 {
-    font-size: var(--step-1);
+    font-size: var(--step-2);
   }
 
   .note {

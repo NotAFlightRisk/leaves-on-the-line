@@ -31,11 +31,14 @@
   }
 
   .code {
-    font-family: var(--font-board);
-    font-weight: 700;
+    justify-self: start;
+    padding: var(--space-2) var(--space-5);
+    background: var(--sign);
+    color: var(--edge);
+    border-radius: var(--radius);
+    font-weight: 800;
     font-size: var(--step-figure);
-    color: var(--figure);
-    text-shadow: 0 0 0.35em var(--figure-glow);
+    font-variant-numeric: tabular-nums;
     line-height: 1;
   }
 

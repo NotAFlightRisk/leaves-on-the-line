@@ -1,52 +1,59 @@
-@import '@fontsource-variable/atkinson-hyperlegible-next';
-@import '@fontsource/doto/700.css';
+@import '@fontsource-variable/overpass';
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 
-  --ground: #0d0d0c;
-  --panel: #161614;
-  --panel-raised: #1e1e1b;
-  --rule: #2c2b27;
-  --rule-strong: #45433d;
-  --text: #ecebe6;
-  --text-muted: #aeaca4;
-  --text-faint: #8f8d85;
-  --figure: #ffb43f;
-  --figure-glow: rgb(255 180 63 / 0.35);
-  --link: #ffd28c;
-  --focus: #ffb43f;
-  --selection: rgb(255 180 63 / 0.3);
-  --hatch: rgb(236 235 230 / 0.22);
+  /* the page is the platform, signs sit on it */
+  --ground: #f3f4f5;
+  --panel: #ffffff;
+  --panel-raised: #e8ebef;
+  --rule: #dde1e6;
+  --rule-strong: #b9c0ca;
+  --text: #10264a;
+  --text-muted: #44536b;
+  --text-faint: #5d6b80;
+  --link: #10264a;
+  --selection: rgb(255 204 0 / 0.45);
+  --hatch: rgb(255 255 255 / 0.6);
 
-  --cause-track: #c2ab86;
-  --cause-assets: #b893f5;
-  --cause-weather: #4ea4f2;
-  --cause-autumn: #d07a2d;
-  --cause-external: #f0706b;
-  --cause-network: #8ea4bb;
-  --cause-fleet: #3cc2ad;
-  --cause-traincrew: #93d36d;
-  --cause-stations: #f2a3cf;
-  --cause-operations: #d9c25a;
-  --cause-op-other: #a3a29c;
+  --sign: #10264a;
+  --sign-raised: #1c3762;
+  --sign-rule: rgb(255 255 255 / 0.16);
+  --on-sign: #ffffff;
+  --on-sign-muted: #c9d3e3;
+  --edge: #ffcc00;
 
-  --map-land: #121211;
-  --map-water: #1b2229;
-  --map-rail: #3a3833;
-  --map-road: #24231f;
-  --map-label: #8f8d85;
-  --map-halo: #0d0d0c;
+  /* the colour a highlighted figure or bar takes */
+  --figure: var(--sign);
 
-  --font-text: 'Atkinson Hyperlegible Next Variable', system-ui, sans-serif;
-  --font-board: 'Doto', ui-monospace, monospace;
+  /* line colours, picked to read on white and on the navy signs */
+  --cause-track: #a8784a;
+  --cause-assets: #e0453a;
+  --cause-weather: #2fa4e0;
+  --cause-autumn: #f08a24;
+  --cause-external: #8994a3;
+  --cause-network: #8a63d2;
+  --cause-fleet: #23a05a;
+  --cause-traincrew: #f2c300;
+  --cause-stations: #5b7fe0;
+  --cause-operations: #14b0a5;
+  --cause-op-other: #e27bb5;
 
-  --step--1: 0.875rem;
-  --step-0: 1rem;
-  --step-1: 1.2rem;
-  --step-2: 1.5rem;
-  --step-3: clamp(1.9rem, 4vw, 2.6rem);
-  --step-figure: clamp(3.2rem, 9vw, 6rem);
+  --map-land: #eef0f2;
+  --map-water: #cfe0ee;
+  --map-rail: #a9b0ba;
+  --map-road: #dde0e4;
+  --map-label: #44536b;
+  --map-halo: #ffffff;
+
+  --font-text: 'Overpass Variable', system-ui, sans-serif;
+
+  --step--1: 0.9375rem;
+  --step-0: 1.0625rem;
+  --step-1: 1.3rem;
+  --step-2: 1.6rem;
+  --step-3: clamp(2.1rem, 4.6vw, 3.4rem);
+  --step-figure: clamp(3rem, 8vw, 5.5rem);
 
   --space-1: 0.25rem;
   --space-2: 0.5rem;
@@ -57,11 +64,11 @@
   --space-7: 3rem;
   --space-8: 4.5rem;
 
-  --radius: 3px;
-  --radius-chip: 2px;
-  --radius-bar: 1px;
-  --measure: 68ch;
-  --page: 72rem;
+  --radius: 6px;
+  --radius-chip: 3px;
+  --radius-bar: 2px;
+  --measure: 66ch;
+  --page: 78rem;
   --gutter: clamp(1rem, 4vw, 2rem);
 }
 
@@ -78,12 +85,12 @@ html {
   font-size: 100%;
   line-height: 1.5;
   -webkit-text-size-adjust: 100%;
-  scrollbar-color: var(--rule-strong) var(--ground);
 }
 
 body {
   margin: 0;
   min-height: 100dvh;
+  background: var(--ground);
 }
 
 ::selection {
@@ -93,9 +100,11 @@ body {
 h1,
 h2,
 h3 {
-  line-height: 1.15;
+  line-height: 1.1;
   text-wrap: balance;
   margin: 0;
+  font-weight: 800;
+  letter-spacing: -0.01em;
 }
 
 p {
@@ -106,16 +115,17 @@ p {
 a {
   color: var(--link);
   text-underline-offset: 0.2em;
-  text-decoration-thickness: 1px;
+  text-decoration-thickness: 1.5px;
 
   &:hover {
-    text-decoration-thickness: 2px;
+    text-decoration-thickness: 3px;
   }
 }
 
 :focus-visible {
-  outline: 2px solid var(--focus);
+  outline: 3px solid var(--edge);
   outline-offset: 2px;
+  box-shadow: 0 0 0 6px var(--sign);
 }
 
 table {
@@ -136,15 +146,17 @@ select {
 
   select {
     appearance: none;
+    min-height: 2.75rem;
     padding: var(--space-2) calc(var(--space-3) * 2 + 1rem) var(--space-2) var(--space-3);
     background: var(--panel);
-    border: 1px solid var(--rule-strong);
+    border: 2px solid var(--sign);
     border-radius: var(--radius);
+    font-weight: 600;
     font-variant-numeric: tabular-nums;
     cursor: pointer;
 
     &:hover {
-      border-color: var(--text-faint);
+      background: var(--panel-raised);
     }
   }
 
@@ -156,10 +168,86 @@ select {
     width: 1rem;
     height: 1rem;
     translate: 0 -50%;
-    background: var(--text-muted);
+    background: var(--text);
     mask: url('/chevron.svg') center / contain no-repeat;
     pointer-events: none;
   }
+}
+
+/* a navy sign: white type on blue, the house unit */
+.sign {
+  background: var(--sign);
+  color: var(--on-sign);
+  border-radius: var(--radius);
+
+  a {
+    color: var(--on-sign);
+  }
+}
+
+/* what goes inside a chart tooltip, shared so every chart's reads the same */
+.tip-when {
+  display: block;
+  color: var(--on-sign-muted);
+  font-weight: 600;
+}
+
+.tip-main {
+  display: block;
+  margin-top: 0.1rem;
+  font-size: 1.25rem;
+  font-weight: 800;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+
+.tip-rows {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 0.15rem var(--space-2);
+  margin: var(--space-2) 0 0;
+  padding: var(--space-2) 0 0;
+  border-top: 1px solid var(--sign-rule);
+  list-style: none;
+  font-variant-numeric: tabular-nums;
+
+  li {
+    display: contents;
+  }
+
+  .chip {
+    align-self: center;
+    width: 0.65rem;
+    height: 0.65rem;
+    border-radius: var(--radius-bar);
+  }
+
+  .value {
+    text-align: right;
+    font-weight: 700;
+  }
+
+  .mine {
+    color: var(--edge);
+  }
+}
+
+.tip-note {
+  display: block;
+  margin-top: var(--space-2);
+  padding: 0.2rem var(--space-2);
+  border-radius: var(--radius-chip);
+  background: var(--edge);
+  color: var(--sign);
+  font-weight: 700;
+  font-size: 0.8125rem;
+}
+
+.tip-hint {
+  display: block;
+  margin-top: var(--space-2);
+  color: var(--on-sign-muted);
+  font-size: 0.8125rem;
 }
 
 .visually-hidden {

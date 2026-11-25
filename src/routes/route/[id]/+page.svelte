@@ -27,12 +27,13 @@
   index={data.index}
   where="on the {place.name} route"
   heading="{place.name} route"
-  counts="Delay picked up anywhere Network Rail files under its {place.name} route, stations, junctions and sidings alike, using today's route map for every year."
+  counts="All delay picked up on the {place.name} route, at stations, junctions and sidings. Every year uses today's route boundaries."
 >
   <section aria-labelledby="worst">
     <h2 id="worst">Worst stretches since 2018</h2>
     <p class="intro">
-      Where the incidents started, by cause, counting all the knock-on delay they caused anywhere.
+      The stretches of line where incidents caused the most delay, including knock-on delay
+      elsewhere.
     </p>
     <div class="worst">
       {#each worst as { group, rows } (group.id)}
