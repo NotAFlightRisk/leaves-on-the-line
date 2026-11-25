@@ -126,7 +126,7 @@
           {/if}
           <td class="num cancelled" class:none={!row.cancelled}>
             {row.cancelled ? minutes(row.cancelled) : '-'}<span class="unit muted">
-              {row.cancelled === 1 ? 'train' : 'trains'} cancelled
+              {` ${row.cancelled === 1 ? 'train' : 'trains'} cancelled`}
             </span>
           </td>
         </tr>

@@ -164,10 +164,11 @@ def write_csv(
             *extra,
         ]
     )
+    totals = page.total
     for at, period in enumerate(periods):
         if at not in have:
             continue
-        total = page.total[at]
+        total = totals[at]
         out.writerow(
             [
                 period['id'],
@@ -277,16 +278,18 @@ def build() -> list[str]:
                 mapped[period][found][group] += minutes
 
     errors += network.check('network')
+    whole = network.total
     for kind, found in pages.items():
+        totals = []
         for key, page in found.items():
             errors += page.check(f'{kind} {key}')
-        summed = [sum(page.total[at] for page in found.values()) for at in range(size)]
+            totals.append(page.total)
         for at in have:
-            off = summed[at] - network.total[at]
-            if (kind == 'operator' and abs(off) > 1) or off > 1:
+            summed = sum(total[at] for total in totals)
+            gap = summed - whole[at]
+            if (kind == 'operator' and abs(gap) > 1) or gap > 1:
                 errors.append(
-                    f'{kind} pages sum to {summed[at]:.0f} in period {at}, '
-                    f'the network to {network.total[at]:.0f}'
+                    f'{kind} pages sum to {summed:.0f} in period {at}, not {whole[at]:.0f}'
                 )
     if errors:
         return errors
