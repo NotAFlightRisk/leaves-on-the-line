@@ -86,4 +86,11 @@
       }
     }
   }
+
+  @media (max-width: 30rem) {
+    nav {
+      gap: 0 var(--space-4);
+      font-size: var(--step--1);
+    }
+  }
 </style>
