@@ -58,10 +58,11 @@
   --space-8: 4.5rem;
 
   --radius: 3px;
+  --radius-chip: 2px;
+  --radius-bar: 1px;
   --measure: 68ch;
   --page: 72rem;
   --gutter: clamp(1rem, 4vw, 2rem);
-  --ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 *,

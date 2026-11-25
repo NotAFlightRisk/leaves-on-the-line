@@ -237,6 +237,6 @@
     width: 0.65rem;
     height: 0.65rem;
     margin-right: var(--space-2);
-    border-radius: 2px;
+    border-radius: var(--radius-chip);
   }
 </style>

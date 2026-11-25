@@ -234,7 +234,7 @@
     width: 0.75rem;
     height: 0.75rem;
     margin-right: var(--space-2);
-    border-radius: 2px;
+    border-radius: var(--radius-chip);
   }
 
   .sources {

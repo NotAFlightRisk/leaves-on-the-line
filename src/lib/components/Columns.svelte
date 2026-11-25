@@ -107,7 +107,7 @@
   .chip {
     width: 0.7rem;
     height: 0.7rem;
-    border-radius: 2px;
+    border-radius: var(--radius-chip);
     align-self: center;
   }
 

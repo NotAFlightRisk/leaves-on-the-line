@@ -25,7 +25,7 @@
         {#each codes as [code, description, value] (code)}
           <tr>
             <td class="code">{code}</td>
-            <td>{description}</td>
+            <td class="what">{description}</td>
             <td class="num">{minutes(value)}</td>
           </tr>
         {:else}
@@ -60,17 +60,22 @@
     border-bottom: 1px solid var(--rule);
     text-align: left;
     vertical-align: top;
+  }
+
+  .what {
     overflow-wrap: anywhere;
   }
 
   th {
     color: var(--text-faint);
     font-weight: 400;
+    white-space: nowrap;
   }
 
   .code {
     font-weight: 700;
     color: var(--text-muted);
+    white-space: nowrap;
   }
 
   .num {

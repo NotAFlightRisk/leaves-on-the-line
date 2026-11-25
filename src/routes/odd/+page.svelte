@@ -196,7 +196,7 @@
       display: block;
       height: 0.5rem;
       background: var(--text-muted);
-      border-radius: 1px;
+      border-radius: var(--radius-bar);
     }
   }
 

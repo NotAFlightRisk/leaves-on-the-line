@@ -65,7 +65,6 @@
   }
 
   h2 {
-    color: var(--figure);
     font-size: var(--step-2);
     border-bottom: 1px solid var(--rule);
     padding-bottom: var(--space-2);
