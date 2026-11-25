@@ -26,6 +26,10 @@ updates:
     commit-message:
       prefix: 'chore'
       include: 'scope'
+    ignore:
+      # kit 3 still peers TypeScript 6, so npm ci refuses 7
+      - dependency-name: 'typescript'
+        update-types: ['version-update:semver-major']
     groups:
       # One PR for the routine bumps, rather than fifteen
       minor-and-patch:

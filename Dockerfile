@@ -1,5 +1,7 @@
+FROM --platform=$BUILDPLATFORM ghcr.io/astral-sh/uv:0.13 AS uv
+
 FROM --platform=$BUILDPLATFORM node:26-alpine AS build
-COPY --from=ghcr.io/astral-sh/uv:0.13 /uv /bin/uv
+COPY --from=uv /uv /bin/uv
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci

@@ -1,6 +1,7 @@
 """leaves: fetch, roll up, check and publish Network Rail's delay attribution files"""
 
 import argparse
+import hashlib
 import json
 import os
 import shutil
@@ -22,17 +23,25 @@ def say(text: str) -> None:
     print(text, flush=True)
 
 
+def digest(folder: Path) -> str:
+    """What a staged period holds, so two copies of one release can be told apart"""
+    sha = hashlib.sha256()
+    for table in ('places', 'sections'):
+        sha.update((folder / f'{table}.csv.gz').read_bytes())
+    return sha.hexdigest()
+
+
 def stage(job: tuple[str, str, str, str]) -> list[dict]:
     """Rolls every period in one file into its own folder, for ingest to pick from"""
     name, path, sha, folder = job
     out = []
     with zipfile.ZipFile(path) as book:
-        for member in book.namelist():
+        for number, member in enumerate(book.namelist()):
             if not member.lower().endswith('.csv'):
                 continue
             when = rollup.released(name, book, member)
             for period, roll in rollup.roll(book, member).items():
-                dest = Path(folder) / sha[:16] / period
+                dest = Path(folder) / sha[:16] / f'{number}-{period}'
                 source = {'file': name, 'csv': member, 'released': when, 'sha256': sha}
                 info = rollup.save(roll, source, dest)
                 cells = {op: dict(by) for op, by in orr.cells(roll.orr).items()}
@@ -42,27 +51,36 @@ def stage(job: tuple[str, str, str, str]) -> list[dict]:
                         'dir': str(dest),
                         'released': when,
                         'sha256': sha,
-                        'agreed': info['agreed'],
+                        'content': digest(dest),
+                        'agreed': info['file_agreed'],
                         'cells': cells,
                     }
                 )
     return out
 
 
-def current(period: str) -> str:
+def installed(period: str) -> tuple[str, str]:
     path = PERIODS / period / 'meta.json'
-    return json.loads(path.read_text())['source']['released'] if path.exists() else ''
+    if not path.exists():
+        return '', ''
+    source = json.loads(path.read_text())['source']
+    return source['released'], source.get('content', '')
 
 
-def newest(staged: list[dict]) -> dict[str, dict]:
-    """The latest release of each period, grumbling when two copies of one release differ"""
-    best: dict[str, dict] = {}
-    for item in sorted(staged, key=lambda s: (s['released'], s['sha256'])):
-        held = best.get(item['period'])
-        if held and held['released'] == item['released'] and held['sha256'] != item['sha256']:
-            say(f'⚠️ {item["period"]}: two different files both released {item["released"]}')
-        best[item['period']] = item
-    return best
+def newest(staged: list[dict]) -> tuple[dict[str, dict], list[str]]:
+    """The latest release of each period, refusing to guess between two different copies of it"""
+    best, clashes = {}, []
+    for period in sorted({item['period'] for item in staged}):
+        items = [item for item in staged if item['period'] == period]
+        top = max(item['released'] for item in items)
+        latest = {item['content']: item for item in items if item['released'] == top}
+        if len(latest) > 1:
+            clashes.append(
+                f'{period}: {len(latest)} different files all say they are the {top} release'
+            )
+        else:
+            best[period] = next(iter(latest.values()))
+    return best, clashes
 
 
 def ingest(
@@ -95,10 +113,14 @@ def ingest(
     policy = orr.build_policy(results) if backfill else json.loads(orr.POLICY.read_text())
     if backfill:
         orr.POLICY.write_text(json.dumps(policy, indent=1) + '\n')
-    errors, failed = [], set()
-    for period, item in sorted(newest(staged).items()):
-        if not force and current(period) >= item['released']:
-            say(f'⏭️ {period}: already have the {current(period)} release')
+    best, errors = newest(staged)
+    failed = {item['sha256'] for item in staged if item['period'] not in best}
+    for period, item in best.items():
+        released, content = installed(period)
+        older = item['released'] < released
+        same = (item['released'], item['content']) == (released, content)
+        if not force and (older or same):
+            say(f'⏭️ {period}: already have the {released} release')
             continue
         theirs = table.get(period)
         problems = orr.check(item['cells'], theirs, item['agreed'], policy) if theirs else None
@@ -133,6 +155,7 @@ def install(item: dict, problems: list[str] | None) -> None:
     shutil.rmtree(dest, ignore_errors=True)
     shutil.copytree(item['dir'], dest)
     meta = json.loads((dest / 'meta.json').read_text())
+    meta['source']['content'] = item['content']
     meta['orr'] = {'checked': problems is not None, 'problems': problems or []}
     (dest / 'meta.json').write_text(json.dumps(meta, indent=1) + '\n')
 
@@ -199,4 +222,6 @@ def main() -> None:
                 accept=args.accept,
                 workers=args.workers,
             )
-        report(errors + ([] if backfill else staleness()))
+        # a drop that's never delivered anything isn't stale, it's just not hooked up yet
+        delivered = any(key.startswith('drop/') for key in sources.manifest())
+        report(errors + (staleness() if delivered and not backfill else []))

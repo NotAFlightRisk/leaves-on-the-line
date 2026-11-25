@@ -7,7 +7,8 @@
   "file": "2020-21/All-delays-2020-21-P01.zip",
   "csv": "All-delays-2020-21-P1.csv",
   "released": "2020-11-14",
-  "sha256": "9d1f103735384ea824fe4a89292264fd7df5691bb9c95d72f490eaa107cb9128"
+  "sha256": "9d1f103735384ea824fe4a89292264fd7df5691bb9c95d72f490eaa107cb9128",
+  "content": "c7163037c9de37e8c9212f80a1437a3e2866254dd7c969d041609787ac1169a9"
  },
  "rows": 80599,
  "minutes": 195866.0,
@@ -637,7 +638,6 @@
   "ZY": 61,
   "ZZ": 52
  },
- "unknown_managers": {},
  "orr": {
   "checked": true,
   "problems": []

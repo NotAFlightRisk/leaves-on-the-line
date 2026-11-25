@@ -70,13 +70,12 @@ def calendar() -> dict[str, dict[str, str]]:
     return {row['period']: row for row in glossary.load('periods')}
 
 
-def responsible(manager: str, operator: str) -> str | None:
-    """self, nr or other, or None for a manager the glossary's never heard of. ORR counts the
-    'others' (contractors and the like) as Network Rail's"""
-    found = managers().get(manager)
-    if not found:
-        return None
-    org, kind = found
+def responsible(manager: str, operator: str) -> str:
+    """self, nr or other. ORR counts the 'others' (contractors and the like) as Network Rail's"""
+    try:
+        org, kind = managers()[manager]
+    except KeyError:
+        raise UnknownCode(f'responsible manager {manager!r}') from None
     if kind == 'TOC/FOC':
         return 'self' if org == operator else 'other'
     return 'nr'
@@ -87,7 +86,10 @@ def group(reason: str, side: str) -> str:
         row = reasons()[reason]
     except KeyError:
         raise UnknownCode(f'incident reason {reason!r}') from None
+    category = row['category']
+    if category not in (*NR_CATEGORIES, *OP_CATEGORIES, 'All Others'):
+        raise UnknownCode(f'category {category!r} on reason {reason}')
     if side == 'op':
-        return OP_CATEGORIES.get(row['category'], 'op-other')
-    found = NR_CATEGORIES.get(row['category'], 'network')
+        return OP_CATEGORIES.get(category, 'op-other')
+    found = NR_CATEGORIES.get(category, 'network')
     return 'autumn' if found == 'weather' and row['supergroup'] == 'AG' else found

@@ -17,6 +17,10 @@
   let map: MapLibre | undefined = $state();
   let broken = $state(false);
 
+  const BRITAIN: [[number, number], [number, number]] = [
+    [-6.4, 49.9],
+    [1.8, 58.7]
+  ];
   const KINDS = {
     line: 'between these stations',
     dot: 'at the station',
@@ -71,10 +75,7 @@
           target = new Map({
             container,
             style: basemap(),
-            bounds: [
-              [-6.4, 49.9],
-              [1.8, 58.7]
-            ],
+            bounds: BRITAIN,
             fitBoundsOptions: { padding: 16 },
             minZoom: 4.5,
             maxZoom: 10,
@@ -92,6 +93,8 @@
         target.addControl(new AttributionControl({ compact: true }), 'bottom-right');
         container.querySelector('.maplibregl-ctrl-attrib')?.classList.add('maplibregl-compact');
         target.on('load', () => {
+          target.resize();
+          target.fitBounds(BRITAIN, { padding: 16, animate: false });
           const tint = resolved();
           target.addSource('delay', { type: 'geojson', data: geojson() });
           target.addLayer({
@@ -178,8 +181,8 @@
   }
 
   .map {
-    height: min(75dvh, 46rem);
-    min-height: 26rem;
+    height: min(80dvh, 50rem);
+    min-height: 28rem;
   }
 
   .broken {

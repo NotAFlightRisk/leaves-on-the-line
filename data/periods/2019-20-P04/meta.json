@@ -7,7 +7,8 @@
   "file": "2019-20/All-Delays-201920-P04.zip",
   "csv": "All-Delays-201920-P04.csv",
   "released": "2021-12-20",
-  "sha256": "3d7cc2e3570463b90a8db1dad99b0eef6bada64bcad16958dae1fd1ae7b4b52a"
+  "sha256": "3d7cc2e3570463b90a8db1dad99b0eef6bada64bcad16958dae1fd1ae7b4b52a",
+  "content": "633157b62e774278631669e045fc46723e4131dc4dac5ce1e37bd572e987edd4"
  },
  "rows": 373982,
  "minutes": 1104829.0,
@@ -613,7 +614,6 @@
   "ZY": 299,
   "ZZ": 259
  },
- "unknown_managers": {},
  "orr": {
   "checked": true,
   "problems": []

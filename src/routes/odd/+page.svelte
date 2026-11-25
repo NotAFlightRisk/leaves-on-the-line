@@ -1,5 +1,6 @@
 <script lang="ts">
   import { minutes } from '#lib/format.ts';
+  import Figure from '#lib/components/Figure.svelte';
   import Meta from '#lib/components/Meta.svelte';
 
   let { data } = $props();
@@ -19,7 +20,10 @@
     kite: 'Kites',
     trampoline: 'Trampolines'
   };
-  const first = $derived(data.odd.words[0]);
+  const words = $derived(data.odd.words);
+  const first = $derived(words[0]);
+  const longest = $derived(Math.max(...words.map(([, , value]) => value)));
+  const longestCode = $derived(Math.max(...data.odd.codes.map(([, , , value]) => value)));
 </script>
 
 <Meta
@@ -32,9 +36,14 @@
     <h1>The odd ones</h1>
     <p class="intro">
       Not every delay is a signal failure. Since April 2018, {plurals[first[0]].toLowerCase()} alone turn
-      up in {minutes(first[1])} incidents that cost passenger trains {minutes(first[2])} minutes.
+      up in this many incidents on the line:
     </p>
   </header>
+
+  <section class="lead" aria-label={plurals[first[0]]}>
+    <Figure value={first[1]} unit="incidents" />
+    <p>They cost passenger trains {minutes(first[2])} minutes.</p>
+  </section>
 
   <section aria-labelledby="words">
     <h2 id="words">Things on the line</h2>
@@ -43,15 +52,28 @@
       list, after incidents involving people are taken out. Counts only, never the text itself, and
       a "tree" can be a branch.
     </p>
-    <ul class="words">
-      {#each data.odd.words as [word, incidents, value] (word)}
-        <li>
-          <span class="name">{plurals[word]}</span>
-          <span class="count">{minutes(incidents)}</span>
-          <span class="unit">incidents, {minutes(value)} minutes</span>
-        </li>
-      {/each}
-    </ul>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Thing</th>
+          <th scope="col" class="num">Incidents</th>
+          <th scope="col" class="num">Minutes</th>
+          <th scope="col" class="bar"><span class="visually-hidden">Minutes, drawn</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        {#each words as [word, incidents, value] (word)}
+          <tr>
+            <th scope="row">{plurals[word]}</th>
+            <td class="num">{minutes(incidents)}</td>
+            <td class="num">{minutes(value)}</td>
+            <td class="bar">
+              <span style:width="{Math.max((value / longest) * 100, 0.5)}%"></span>
+            </td>
+          </tr>
+        {/each}
+      </tbody>
+    </table>
   </section>
 
   <section aria-labelledby="codes">
@@ -66,6 +88,7 @@
           <th scope="col">What it's for</th>
           <th scope="col" class="num">Incidents</th>
           <th scope="col" class="num">Minutes</th>
+          <th scope="col" class="bar"><span class="visually-hidden">Minutes, drawn</span></th>
         </tr>
       </thead>
       <tbody>
@@ -75,6 +98,9 @@
             <td>{description}</td>
             <td class="num">{minutes(incidents)}</td>
             <td class="num">{minutes(value)}</td>
+            <td class="bar">
+              <span style:width="{Math.max((value / longestCode) * 100, 0.5)}%"></span>
+            </td>
           </tr>
         {/each}
       </tbody>
@@ -102,6 +128,20 @@
     max-width: var(--measure);
   }
 
+  .lead {
+    display: grid;
+    gap: var(--space-3);
+    margin-top: calc(-1 * var(--space-4));
+    padding: var(--space-5) var(--space-5) var(--space-6);
+    background: var(--panel);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+
+    p {
+      color: var(--text-muted);
+    }
+  }
+
   section {
     display: grid;
     gap: var(--space-4);
@@ -116,41 +156,6 @@
     max-width: var(--measure);
   }
 
-  .words {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 14rem), 1fr));
-    border-top: 1px solid var(--rule);
-    border-left: 1px solid var(--rule);
-
-    li {
-      display: grid;
-      gap: var(--space-1);
-      padding: var(--space-4);
-      border-right: 1px solid var(--rule);
-      border-bottom: 1px solid var(--rule);
-    }
-  }
-
-  .name {
-    color: var(--text-muted);
-  }
-
-  .count {
-    font-family: var(--font-board);
-    font-weight: 700;
-    font-size: var(--step-3);
-    color: var(--figure);
-    line-height: 1;
-  }
-
-  .unit {
-    font-size: var(--step--1);
-    color: var(--text-muted);
-  }
-
   table {
     width: 100%;
     font-size: var(--step--1);
@@ -161,11 +166,15 @@
     padding: var(--space-2);
     border-bottom: 1px solid var(--rule);
     text-align: left;
-    vertical-align: top;
+    vertical-align: middle;
   }
 
-  th {
+  thead th {
     color: var(--text-faint);
+    font-weight: 400;
+  }
+
+  tbody th {
     font-weight: 400;
   }
 
@@ -178,5 +187,22 @@
     text-align: right;
     white-space: nowrap;
     font-variant-numeric: tabular-nums;
+  }
+
+  .bar {
+    width: 30%;
+
+    span {
+      display: block;
+      height: 0.5rem;
+      background: var(--text-muted);
+      border-radius: var(--radius-bar);
+    }
+  }
+
+  @media (max-width: 40rem) {
+    .bar {
+      display: none;
+    }
   }
 </style>

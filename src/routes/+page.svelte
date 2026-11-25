@@ -155,7 +155,7 @@
       grid-column: 1;
       grid-row: 1;
       height: 0.6rem;
-      border-radius: 1px;
+      border-radius: var(--radius-bar);
       min-width: 2px;
     }
 

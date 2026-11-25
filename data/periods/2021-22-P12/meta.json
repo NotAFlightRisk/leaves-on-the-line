@@ -7,7 +7,8 @@
   "file": "2021-22/All-delays-2021-22-P12.zip",
   "csv": "Transparency page 202122_P12.csv",
   "released": "2022-05-09",
-  "sha256": "d7bdccc144ce25dec6cf6bd46d93bceb563c1923c266ff8b2419e46da867442a"
+  "sha256": "d7bdccc144ce25dec6cf6bd46d93bceb563c1923c266ff8b2419e46da867442a",
+  "content": "75fe02863ef3f311a6d33a3696b92eb8db60ea4513d91befde6519af86dd4270"
  },
  "rows": 312767,
  "minutes": 942628.0,
@@ -252,8 +253,8 @@
    "assets": 7366.0,
    "autumn": 17.5,
    "external": 1541.5,
-   "fleet": 4962.5,
-   "network": 5572.5,
+   "fleet": 4967.5,
+   "network": 5567.5,
    "op-other": 2071.0,
    "operations": 1368.0,
    "stations": 986.0,
@@ -627,9 +628,6 @@
   "ZX": 1,
   "ZY": 251,
   "ZZ": 179
- },
- "unknown_managers": {
-  "MLGA": 5.0
  },
  "orr": {
   "checked": true,

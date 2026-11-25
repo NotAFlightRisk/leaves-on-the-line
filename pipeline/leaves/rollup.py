@@ -60,6 +60,10 @@ class MissingColumn(Exception):
     pass
 
 
+class MalformedRow(Exception):
+    pass
+
+
 def tally():
     return [0.0, 0.0, 0]
 
@@ -75,7 +79,9 @@ class Rollup:
     incidents: defaultdict = field(default_factory=lambda: defaultdict(set))
     # ORR's operator by cause cells, people incidents and all, for the check and nothing else
     orr: Counter = field(default_factory=Counter)
-    unknown_managers: Counter = field(default_factory=Counter)
+    # each cancelled train once per incident, under its earliest cancellation event
+    cancels: dict = field(default_factory=dict)
+    words: dict = field(default_factory=dict)
     # the whole file's minutes, every train and event, which is what the 94% line was set on
     file_minutes: float = 0.0
     file_agreed: float = 0.0
@@ -83,8 +89,11 @@ class Rollup:
     rows: int = 0
 
 
+PERIOD = re.compile(r'(\d{4})/(\d{2})_P(\d{2})')
+
+
 def period_id(text: str) -> str | None:
-    found = re.fullmatch(r'(\d{4})/(\d{2})_P(\d{2})', text.strip())
+    found = PERIOD.fullmatch(text.strip())
     return found and f'{found[1]}-{found[2]}-P{found[3]}'
 
 
@@ -116,9 +125,22 @@ def rows(book: zipfile.ZipFile, name: str):
                 raise MissingColumn(f'{name} has no {names[0]} column')
             index[key] = found
         width = max(index.values())
-        for row in reader:
-            if len(row) > width:
-                yield {key: row[i].strip() for key, i in index.items()}
+        pending = ''
+        for number, row in enumerate(reader, 2):
+            # some years end with an 'EOF: <row count>' line, padded or not
+            if not any(cell.strip() for cell in row) or row[0].startswith('EOF'):
+                continue
+            cells = [cell.strip() for cell in row if cell.strip()]
+            # a line break inside a record's first field leaves its period alone on a line
+            if len(row) <= width and len(cells) == 1 and PERIOD.fullmatch(cells[0]):
+                pending = cells[0]
+                continue
+            if len(row) <= width:
+                raise MalformedRow(f'{name} row {number} has {len(row)} columns')
+            record = {key: row[i].strip() for key, i in index.items()}
+            if not record['period'] and pending:
+                record['period'], pending = pending, ''
+            yield record
 
 
 def roll(book: zipfile.ZipFile, name: str) -> dict[str, Rollup]:
@@ -126,12 +148,10 @@ def roll(book: zipfile.ZipFile, name: str) -> dict[str, Rollup]:
     people = {(r['incident'], r['created']) for r in rows(book, name) if r['reason'] in PEOPLE}
     operators = codes.operators()
     out: dict[str, Rollup] = {}
-    seen: set = set()
-    words: dict = {}
     for r in rows(book, name):
         period = period_id(r['period'])
         if not period:
-            continue
+            raise MalformedRow(f'{name} has a row in period {r["period"]!r}')
         roll = out.get(period) or out.setdefault(period, Rollup(period))
         raw = float(r['minutes'] or 0)
         roll.file_minutes += raw
@@ -147,9 +167,6 @@ def roll(book: zipfile.ZipFile, name: str) -> dict[str, Rollup]:
         if not minutes and event not in CANCELLED:
             continue
         resp = codes.responsible(r['manager'], operator)
-        if not resp:
-            roll.unknown_managers[r['manager']] += minutes
-            resp = 'nr'
         side = 'nr' if resp == 'nr' else 'op'
         group = codes.group(reason, side)
         roll.orr[operator, resp, group] += minutes
@@ -157,13 +174,14 @@ def roll(book: zipfile.ZipFile, name: str) -> dict[str, Rollup]:
             roll.people += minutes
             continue
         kind = 'r' if r['react'] else 'p'
-        place = roll.places[r['start'].zfill(5), reason, operator, resp, kind]
-        section = roll.sections[stanox(r['section']), reason, side, kind]
+        place_key = (r['start'].zfill(5), reason, operator, resp, kind)
+        section_key = (stanox(r['section']), reason, side, kind)
+        place, section = roll.places[place_key], roll.sections[section_key]
         roll.incidents[reason].add(incident)
-        if incident not in words:
+        if incident not in roll.words:
             text = r['text'].upper()
-            words[incident] = [word for word, rx in PATTERNS.items() if rx.search(text)]
-        for word in words[incident]:
+            roll.words[incident] = [word for word, rx in PATTERNS.items() if rx.search(text)]
+        for word in roll.words[incident]:
             roll.word_incidents[word].add(incident)
             roll.word_minutes[word] += minutes
         if minutes:
@@ -172,11 +190,19 @@ def roll(book: zipfile.ZipFile, name: str) -> dict[str, Rollup]:
                 tallied[0] += minutes
                 tallied[1] += unagreed
             roll.daily[day(r['when'])][group] += minutes
-        elif event in CANCELLED and ((r['origin'], r['train']), incident) not in seen:
-            seen.add(((r['origin'], r['train']), incident))
-            place[2] += 1
-            section[2] += 1
+        elif event in CANCELLED:
+            key = (r['origin'], r['train'], incident)
+            spot = (when(r['when']), place_key, section_key)
+            roll.cancels[key] = min(roll.cancels.get(key, spot), spot)
+    for roll in out.values():
+        for _, place_key, section_key in roll.cancels.values():
+            roll.places[place_key][2] += 1
+            roll.sections[section_key][2] += 1
     return out
+
+
+def when(text: str) -> str:
+    return f'{day(text)} {text.split()[1] if " " in text.strip() else ""}'
 
 
 def released(source: str, book: zipfile.ZipFile, name: str) -> str:
@@ -225,7 +251,6 @@ def meta(roll: Rollup, source: dict) -> dict:
             if roll.word_incidents[w]
         },
         'incidents': {code: len(seen) for code, seen in sorted(roll.incidents.items())},
-        'unknown_managers': {code: round(m, 1) for code, m in roll.unknown_managers.items()},
     }
 
 

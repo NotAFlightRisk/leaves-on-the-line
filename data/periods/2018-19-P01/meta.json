@@ -7,7 +7,8 @@
   "file": "2018-19/All-Delays-2018-19-P01.zip",
   "csv": "All Delays 2018-19.csv",
   "released": "2019-05-02",
-  "sha256": "714c6590f642b24616cebdbc7c6d46b56e836643a8003269fda782caad97b7f8"
+  "sha256": "714c6590f642b24616cebdbc7c6d46b56e836643a8003269fda782caad97b7f8",
+  "content": "49feff3c624a932ddb4600e8359a9fb13236ffe4a150b076e6ffb41206cea2f0"
  },
  "rows": 425006,
  "minutes": 983515.0,
@@ -627,7 +628,6 @@
   "ZY": 252,
   "ZZ": 156
  },
- "unknown_managers": {},
  "orr": {
   "checked": false,
   "problems": []

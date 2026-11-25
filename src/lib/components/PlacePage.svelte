@@ -86,7 +86,11 @@
 
   <section aria-labelledby="codes">
     <h2 id="codes">The codes behind it</h2>
-    <Codes latest={place.codes.latest} all={place.codes.all} period={period.label} />
+    <Codes
+      latest={place.codes.latest}
+      all={place.codes.all}
+      period={index.periods[index.last].label}
+    />
   </section>
 
   <aside class="counts">

@@ -160,3 +160,58 @@ def test_a_missing_column_fails_loudly():
 def test_dates_come_in_either_format():
     assert rollup.day('14-OCT-2018 18:54') == '2018-10-14'
     assert rollup.day('28/04/2019 13:25') == '2019-04-28'
+
+
+def test_an_unknown_manager_fails_loudly():
+    with pytest.raises(codes.UnknownCode):
+        rolled([row(RESPONSIBLE_MANAGER='ZZZZ')])
+
+
+def test_a_cancelled_train_lands_on_its_earliest_event_whatever_the_row_order():
+    first = row(
+        EVENT_TYPE='C', PFPI_MINUTES='0', START_STANOX='73000', EVENT_DATETIME='20-OCT-2023 07:00'
+    )
+    later = row(
+        EVENT_TYPE='P', PFPI_MINUTES='0', START_STANOX='73100', EVENT_DATETIME='20-OCT-2023 09:00'
+    )
+    for order in ([first, later], [later, first]):
+        cancelled = {key[0]: c for key, (_, _, c) in rolled(order).places.items() if c}
+        assert cancelled == {'73000': 1}
+
+
+def test_a_short_row_that_isnt_the_trailer_fails_loudly():
+    buf = io.StringIO()
+    out = csv.writer(buf)
+    out.writerow(NEW)
+    out.writerow([row()[name] for name in NEW])
+    out.writerow(['2023/24_P08', '20-OCT-23'])
+    data = io.BytesIO()
+    with zipfile.ZipFile(data, 'w') as z:
+        z.writestr('period.csv', buf.getvalue())
+    with pytest.raises(rollup.MalformedRow):
+        rollup.roll(zipfile.ZipFile(data), 'period.csv')
+
+
+def test_a_padded_trailer_is_skipped_too():
+    buf = io.StringIO()
+    out = csv.writer(buf)
+    out.writerow(NEW)
+    out.writerow([row()[name] for name in NEW])
+    out.writerow(['EOF: 1'] + [''] * (len(NEW) - 1))
+    data = io.BytesIO()
+    with zipfile.ZipFile(data, 'w') as z:
+        z.writestr('period.csv', buf.getvalue())
+    assert list(rollup.roll(zipfile.ZipFile(data), 'period.csv')) == ['2023-24-P08']
+
+
+def test_a_record_split_inside_its_period_is_stitched_back_together():
+    buf = io.StringIO()
+    out = csv.writer(buf)
+    out.writerow(NEW)
+    out.writerow(['', '2023/24_P08'])
+    out.writerow([row(FINANCIAL_YEAR_PERIOD='')[name] for name in NEW])
+    data = io.BytesIO()
+    with zipfile.ZipFile(data, 'w') as z:
+        z.writestr('period.csv', buf.getvalue())
+    roll = rollup.roll(zipfile.ZipFile(data), 'period.csv')['2023-24-P08']
+    assert minutes(roll) == 10

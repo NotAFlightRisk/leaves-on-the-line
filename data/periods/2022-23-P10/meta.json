@@ -7,7 +7,8 @@
   "file": "2022-23/All-delays-2022-23-P10.zip",
   "csv": "Transparency page 202223_P10.csv",
   "released": "2023-04-19",
-  "sha256": "b57fa4d680eb735aa677356fba6c6be786fcf64cd2016a182148b6541f57b69b"
+  "sha256": "b57fa4d680eb735aa677356fba6c6be786fcf64cd2016a182148b6541f57b69b",
+  "content": "06db10193b63aa4a6aab8fd18209fbb5e976291042578f6f594415262be7c43c"
  },
  "rows": 237046,
  "minutes": 810218.0,
@@ -594,7 +595,6 @@
   "ZY": 130,
   "ZZ": 92
  },
- "unknown_managers": {},
  "orr": {
   "checked": true,
   "problems": [

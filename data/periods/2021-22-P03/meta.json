@@ -7,13 +7,14 @@
   "file": "2021-22/All-delays-2021-22-P03.zip",
   "csv": "All delays 2021-22 P3.csv",
   "released": "2021-08-11",
-  "sha256": "eaac4f71a93fd4ae3756a159e5ec7dbd7ff161fc32a4cda0473240591986afe2"
+  "sha256": "eaac4f71a93fd4ae3756a159e5ec7dbd7ff161fc32a4cda0473240591986afe2",
+  "content": "fc883bd0399afb21702b32b2691ec872771414a67d026d56d15c86e652b100b3"
  },
- "rows": 250555,
+ "rows": 250556,
  "minutes": 689235.0,
  "agreed": 0.9495,
  "file_agreed": 0.9733,
- "people": 92967.0,
+ "people": 92972.0,
  "daily": {
   "2021-05-30": {
    "assets": 2594.0,
@@ -593,7 +594,6 @@
   "ZY": 266,
   "ZZ": 206
  },
- "unknown_managers": {},
  "orr": {
   "checked": true,
   "problems": []

@@ -3,6 +3,7 @@
   import { cause, covers } from '#lib/causes.ts';
   import { describeStanding, share, standing, totalAt } from '#lib/compare.ts';
   import { minutes, percent } from '#lib/format.ts';
+  import Rolling from './Rolling.svelte';
 
   let {
     breakdown,
@@ -46,34 +47,55 @@
     Math.max(row.standing?.high ?? 0, row.standing?.perDay ?? 0) * 1.08 || 1;
 </script>
 
+<p class="key">
+  Share is this cause's part of the minutes here, and the tick on its bar is the same cause's share
+  across the whole network.
+  {#if compare}The range is the same period in other years, per day, with this one marked.{/if}
+</p>
 <table class="board">
   <caption class="visually-hidden">Delay minutes by cause in {periods[at].label}</caption>
   <thead>
     <tr>
       <th scope="col">Cause</th>
       <th scope="col" class="num">Minutes</th>
-      <th scope="col" class="num">Share</th>
-      <th scope="col" class="num wide">Network-wide</th>
-      {#if compare}<th scope="col" class="range">
-          A day, against the same period other years
-        </th>{/if}
-      <th scope="col" class="num wide">Trains cancelled</th>
+      <th scope="col">Share</th>
+      {#if compare}<th scope="col" class="range">A day, against other years</th>{/if}
+      <th scope="col" class="num cancelled">Trains cancelled</th>
     </tr>
   </thead>
   {#each sides as [side, title] (side)}
     <tbody>
       <tr class="side">
-        <th scope="rowgroup" colspan={compare ? 6 : 5}>{title} causes</th>
+        <th scope="rowgroup" colspan={compare ? 5 : 4}>{title} causes</th>
       </tr>
       {#each rows.filter((r) => r.group.side === side) as row (row.group.id)}
         <tr class:empty={!row.value}>
-          <th scope="row">
+          <th scope="row" class="cause">
             <span class="chip" style:background={cause(row.group.id)}></span>
-            <span class="name" title={covers[row.group.id]}>{row.group.label}</span>
+            <span title={covers[row.group.id]}>{row.group.label}</span>
           </th>
-          <td class="num minutes">{row.value ? minutes(row.value) : '-'}</td>
-          <td class="num">{row.value ? percent(row.portion) : '-'}</td>
-          <td class="num wide muted">{percent(row.networkPortion)}</td>
+          <td class="num minutes"><Rolling value={row.value} format={minutes} /></td>
+          <td class="share">
+            <span>{percent(row.portion)}</span>
+            <svg viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true">
+              <rect class="track" x="0" y="3" width="100" height="4" />
+              <rect
+                x="0"
+                y="3"
+                width={row.portion * 100}
+                height="4"
+                style:fill={cause(row.group.id)}
+              />
+              <rect
+                class="tick"
+                x={row.networkPortion * 100 - 0.75}
+                y="0"
+                width="1.5"
+                height="10"
+              />
+            </svg>
+            <span class="muted">network {percent(row.networkPortion)}</span>
+          </td>
           {#if compare}
             <td class="range">
               {#if row.standing}
@@ -89,7 +111,6 @@
                     height="6"
                   />
                   <rect
-                    class="mark"
                     x={(s.perDay / max) * 100 - 0.9}
                     y="0"
                     width="1.8"
@@ -97,13 +118,17 @@
                     style:fill={cause(row.group.id)}
                   />
                 </svg>
-                <span class="words">{minutes(s.perDay)} a day, {describeStanding(s)}</span>
+                <span class="words muted">{minutes(s.perDay)} a day, {describeStanding(s)}</span>
               {:else}
                 <span class="words muted">Not enough other years</span>
               {/if}
             </td>
           {/if}
-          <td class="num wide">{row.cancelled ? minutes(row.cancelled) : '-'}</td>
+          <td class="num cancelled" class:none={!row.cancelled}>
+            {row.cancelled ? minutes(row.cancelled) : '-'}<span class="unit muted">
+              {` ${row.cancelled === 1 ? 'train' : 'trains'} cancelled`}
+            </span>
+          </td>
         </tr>
       {/each}
     </tbody>
@@ -111,6 +136,12 @@
 </table>
 
 <style>
+  .key {
+    color: var(--text-muted);
+    font-size: var(--step--1);
+    max-width: var(--measure);
+  }
+
   .board {
     width: 100%;
     font-size: var(--step--1);
@@ -138,9 +169,8 @@
     border-bottom-color: var(--rule-strong);
   }
 
-  tbody th[scope='row'] {
+  .cause {
     font-weight: 400;
-    white-space: nowrap;
   }
 
   .chip {
@@ -148,7 +178,7 @@
     width: 0.75rem;
     height: 0.75rem;
     margin-right: var(--space-2);
-    border-radius: 2px;
+    border-radius: var(--radius-chip);
     vertical-align: -0.05em;
   }
 
@@ -167,6 +197,49 @@
     color: var(--text-muted);
   }
 
+  .share {
+    min-width: 8rem;
+    font-variant-numeric: tabular-nums;
+
+    svg {
+      display: block;
+      width: 100%;
+      height: 0.6rem;
+      margin-block: var(--space-1);
+    }
+
+    .tick {
+      fill: var(--text);
+    }
+  }
+
+  .track {
+    fill: var(--rule);
+  }
+
+  .usual {
+    fill: var(--rule-strong);
+  }
+
+  .range {
+    min-width: 13rem;
+
+    svg {
+      display: block;
+      width: 100%;
+      height: 0.75rem;
+    }
+  }
+
+  .words {
+    display: block;
+    margin-top: var(--space-1);
+  }
+
+  .unit {
+    display: none;
+  }
+
   .empty {
     color: var(--text-faint);
 
@@ -175,37 +248,45 @@
     }
   }
 
-  .range {
-    min-width: 14rem;
-
-    svg {
-      display: block;
-      width: 100%;
-      height: 0.75rem;
-    }
-
-    .track {
-      fill: var(--rule);
-    }
-
-    .usual {
-      fill: var(--rule-strong);
-    }
-  }
-
-  .words {
-    display: block;
-    margin-top: var(--space-1);
-    color: var(--text-muted);
-  }
-
   @media (max-width: 48rem) {
-    .wide {
+    thead {
       display: none;
     }
 
+    tbody tr:not(.side) {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto 6.5rem;
+      column-gap: var(--space-3);
+      padding-block: var(--space-2);
+      border-bottom: 1px solid var(--rule);
+
+      > * {
+        padding: 0;
+        border: 0;
+      }
+    }
+
+    .range,
+    .cancelled {
+      grid-column: 1 / -1;
+      min-width: 0;
+      text-align: left;
+    }
+
     .range {
-      min-width: 9rem;
+      margin-top: var(--space-2);
+    }
+
+    .cancelled.none {
+      display: none;
+    }
+
+    .unit {
+      display: inline;
+    }
+
+    .share {
+      min-width: 0;
     }
   }
 </style>

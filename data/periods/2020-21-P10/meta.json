@@ -7,7 +7,8 @@
   "file": "2020-21/All-delays-2020-21-P10.zip",
   "csv": "All-delays-2020-21-P10.csv",
   "released": "2021-03-18",
-  "sha256": "3d9298f4c5ae3dd3b88521c4abdc4ba7be4b80e9706903b35f80b1783dc94205"
+  "sha256": "3d9298f4c5ae3dd3b88521c4abdc4ba7be4b80e9706903b35f80b1783dc94205",
+  "content": "486794177608b844edb96ba8d0ff7a71e64c637128575a0739a32eb956e1b493"
  },
  "rows": 191410,
  "minutes": 548673.0,
@@ -614,9 +615,10 @@
   "ZY": 189,
   "ZZ": 105
  },
- "unknown_managers": {},
  "orr": {
   "checked": true,
-  "problems": []
+  "problems": [
+   "only 115 of 131 big cells are within 10% of ORR"
+  ]
  }
 }

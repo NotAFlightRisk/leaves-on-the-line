@@ -53,13 +53,11 @@ class Page:
         self.resp = defaultdict(lambda: [0.0] * size)
         self.unagreed = [0.0] * size
         self.knock = [0.0] * size
-        self.total = [0.0] * size
         self.codes = Counter()
         self.latest = Counter()
 
     def add(self, at: int, last: bool, group: str, row: dict, minutes: float) -> None:
         self.minutes[group][at] += minutes
-        self.total[at] += minutes
         self.unagreed[at] += float(row['unagreed'])
         self.cancelled[group][at] += int(row['cancelled'])
         self.resp[row['responsible']][at] += minutes
@@ -69,18 +67,19 @@ class Page:
         if last:
             self.latest[row['reason']] += minutes
 
+    @property
+    def total(self) -> list[float]:
+        return [sum(self.minutes[g][at] for g in GROUP_IDS) for at in range(self.size)]
+
     def series(self, values: list, have: set[int]) -> list:
         return [round(v, 1) if i in have else None for i, v in enumerate(values)]
 
     def check(self, name: str) -> list[str]:
         out = []
-        for at in range(self.size):
-            summed = sum(self.minutes[g][at] for g in GROUP_IDS)
-            if abs(summed - self.total[at]) > 0.5:
-                out.append(
-                    f'{name}: period {at} totals {self.total[at]:.1f} but its causes sum '
-                    f'to {summed:.1f}'
-                )
+        for at, total in enumerate(self.total):
+            for part, values in (('knock-on', self.knock), ('unagreed', self.unagreed)):
+                if values[at] > total + 0.5:
+                    out.append(f'{name}: period {at} has more {part} minutes than minutes')
         return out
 
     def json(self, have: set[int], reasons: dict) -> dict:
@@ -165,10 +164,11 @@ def write_csv(
             *extra,
         ]
     )
+    totals = page.total
     for at, period in enumerate(periods):
         if at not in have:
             continue
-        total = page.total[at]
+        total = totals[at]
         out.writerow(
             [
                 period['id'],
@@ -278,9 +278,19 @@ def build() -> list[str]:
                 mapped[period][found][group] += minutes
 
     errors += network.check('network')
+    whole = network.total
     for kind, found in pages.items():
+        totals = []
         for key, page in found.items():
             errors += page.check(f'{kind} {key}')
+            totals.append(page.total)
+        for at in have:
+            summed = sum(total[at] for total in totals)
+            gap = summed - whole[at]
+            if (kind == 'operator' and abs(gap) > 1) or gap > 1:
+                errors.append(
+                    f'{kind} pages sum to {summed:.0f} in period {at}, not {whole[at]:.0f}'
+                )
     if errors:
         return errors
 

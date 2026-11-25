@@ -7,7 +7,8 @@
   "file": "2019-20/All-delays-2019-20-P09.zip",
   "csv": "All delays 2019-20 P9.csv",
   "released": "2020-03-26",
-  "sha256": "1823471d6b3c0f4ce5d1ea17e2fbdbadbaf626598e2ed6b5ed9c0a4d152a603a"
+  "sha256": "1823471d6b3c0f4ce5d1ea17e2fbdbadbaf626598e2ed6b5ed9c0a4d152a603a",
+  "content": "f51a197bf4203970ca79d4bf4535f661afd09a49529282b30faf9bdf6f2282ba"
  },
  "rows": 586512,
  "minutes": 1683546.0,
@@ -638,7 +639,6 @@
   "ZY": 357,
   "ZZ": 403
  },
- "unknown_managers": {},
  "orr": {
   "checked": true,
   "problems": []
