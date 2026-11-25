@@ -153,7 +153,7 @@
     <div class="intro">
       <h1 id="title">Why are Britain's trains late?</h1>
       <p class="lede">
-        We track the reason for every minute of delay on Britain's passenger trains.
+        Network Rail puts a cause on every delay. Here's what they add up to, month by month.
       </p>
       <Search id="home-search" large label="Find your station" />
       <p class="aside">
