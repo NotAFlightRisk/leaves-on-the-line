@@ -26,16 +26,17 @@
   {@render children()}
 </main>
 <footer>
-  <p>
-    Delay data from Network Rail's Historic Delay Attribution and ORR's Table 3184, station
-    locations from NaPTAN. All of it's under the
-    <a href={OGL}>Open Government Licence</a>, and this site isn't Network Rail or ORR or endorsed
-    by either.
-  </p>
-  <p>
-    <a href="/method">How it's worked out</a> ·
-    <a href="https://github.com/NotAFlightRisk/leaves-on-the-line">Source on GitHub</a>
-  </p>
+  <div class="inner">
+    <p>
+      The figures come from Network Rail, the Office of Rail and Road (ORR) and the Department for
+      Transport, under the <a href={OGL}>Open Government Licence</a>. This site isn't run or
+      endorsed by Network Rail or ORR.
+    </p>
+    <p class="links">
+      <a href="/method">How it's worked out</a>
+      <a href="https://github.com/NotAFlightRisk/leaves-on-the-line">Source on GitHub</a>
+    </p>
+  </div>
 </footer>
 
 <style>
@@ -50,7 +51,9 @@
     left: var(--space-4);
     top: -10rem;
     padding: var(--space-2) var(--space-3);
-    background: var(--panel-raised);
+    background: var(--edge);
+    color: var(--sign);
+    font-weight: 800;
     z-index: 10;
 
     &:focus {
@@ -65,17 +68,31 @@
   }
 
   footer {
+    background: var(--sign);
+    color: var(--on-sign-muted);
+    border-top: 10px solid var(--edge);
+    font-size: var(--step--1);
+
+    a {
+      color: var(--on-sign);
+    }
+  }
+
+  .inner {
     max-width: var(--page);
     margin: 0 auto;
     padding: var(--space-6) var(--gutter) var(--space-7);
-    border-top: 1px solid var(--rule);
-    color: var(--text-muted);
-    font-size: var(--step--1);
     display: grid;
     gap: var(--space-3);
 
     p {
       max-width: var(--measure);
     }
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-5);
   }
 </style>

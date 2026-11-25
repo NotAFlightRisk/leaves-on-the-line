@@ -69,7 +69,6 @@
   th {
     color: var(--text-faint);
     font-weight: 400;
-    white-space: nowrap;
   }
 
   .code {

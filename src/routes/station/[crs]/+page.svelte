@@ -11,14 +11,14 @@
 
 <Meta
   title="Why trains were late at {place.name}"
-  description="What made passenger trains late at {place.name} ({place.crs}), cause by cause and period by period since 2018, from Network Rail's own delay records."
+  description="What made passenger trains late at {place.name} ({place.crs}), cause by cause and month by month since 2018, from Network Rail's own delay records."
 />
 
 <PlacePage
   {place}
   index={data.index}
   where="at {place.name}"
-  counts="Delay picked up at {place.name} or on the run from it to the next timing point, which is where Network Rail recorded it. That's where the incident was only for the train it hit first, and about half is at the station itself while a fifth is on runs of 10 km or more. It's not the delay felt by everyone who travels from here."
+  counts="Delay that trains picked up at {place.name}, or on the stretch of line just after it. It isn't all the delay felt by people who travel from here, as trains can be held up before they arrive."
 >
   {#snippet tags()}
     <span class="tag">{place.crs}</span>
@@ -29,14 +29,24 @@
 <style>
   .tag {
     padding: var(--space-1) var(--space-3);
-    border: 1px solid var(--rule-strong);
     border-radius: var(--radius);
-    font-size: var(--step--1);
-    font-weight: 700;
-    letter-spacing: 0.04em;
+    font-weight: 800;
+    font-size: var(--step-0);
   }
 
   span.tag {
-    color: var(--figure);
+    background: var(--edge);
+    color: var(--sign);
+    letter-spacing: 0.04em;
+  }
+
+  a.tag {
+    color: var(--on-sign);
+    box-shadow: inset 0 0 0 2px var(--on-sign-muted);
+    text-decoration: none;
+
+    &:hover {
+      box-shadow: inset 0 0 0 2px var(--edge);
+    }
   }
 </style>

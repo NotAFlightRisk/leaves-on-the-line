@@ -1,6 +1,6 @@
 <script lang="ts">
   import { cause, covers } from '#lib/causes.ts';
-  import { dateLong } from '#lib/format.ts';
+  import { dateLong, dateMonth } from '#lib/format.ts';
   import Meta from '#lib/components/Meta.svelte';
 
   let { data } = $props();
@@ -13,14 +13,14 @@
       title: 'Historic Delay Attribution',
       provider: 'Network Rail',
       url: 'https://raildata.org.uk/dashboard/dataProduct/P-b5f4216b-4de5-412f-9c9a-d14c604a6b9e/overview',
-      what: `Every delay and cancellation with its cause, ${first.label} to ${last.label}. The older files come from Network Rail's own public download area, newer ones from the Rail Data Marketplace.`,
+      what: `Every delay and cancellation with its cause, from ${dateMonth(first.start)} to ${dateMonth(last.end)}. Older files come from Network Rail's public downloads, and newer ones from the Rail Data Marketplace.`,
       taken: index.taken['network-rail']
     },
     {
       title: 'Table 3184: delay minutes by operator and cause, periodic',
       provider: 'Office of Rail and Road',
       url: 'https://dataportal.orr.gov.uk/statistics/performance/passenger-rail-performance/table-3184-delay-minutes-by-operator-and-cause-periodic/',
-      what: 'Used to check our totals, and drawn on its own in the trends for periods we have no file for.',
+      what: "Used to check our totals, and for the months after Network Rail's files end.",
       taken: index.taken.orr
     },
     {
@@ -41,58 +41,60 @@
 <article class="method">
   <h1>How it's worked out</h1>
   <p class="lead">
-    Every number here comes from Network Rail's own delay attribution files, summed up and nothing
-    else. Here's exactly what's counted, so you can check it, quote it or pick holes in it.
+    Every number here comes from Network Rail's delay records or ORR's published tables, added up
+    and nothing more. This page sets out exactly what's counted, so you can check it, quote it or
+    pick holes in it.
   </p>
 
   <section>
     <h2>What a delay minute is</h2>
     <p>
-      Network Rail logs every time a train loses time against its timetable and puts a cause on it.
-      We count those delay events (automatic and manual delay reports) on the 24 passenger operators
-      in ORR's tables, which is how ORR counts them. Freight, charters, Eurostar and the
-      Underground's trains are in the files too and stay out.
+      Network Rail logs every time a train loses time against its timetable, and gives it a cause.
+      We count these delay reports for the 24 passenger operators in ORR's tables, the same way ORR
+      does. Freight, charter, Eurostar and London Underground trains are in the files too, but we
+      leave them out.
     </p>
     <p>
-      The files also give cancelled trains a number of minutes, but those are deemed, not lost, and
-      Network Rail's own guide says counting them as delay is misleading. So cancellations are
-      counted as trains: each train cancelled in full or in part is one train, under the incident
-      that caused it. A cancellation nobody's put down to an incident isn't counted, since it has no
-      cause.
+      The files also give cancelled trains a number of minutes. Those minutes are estimated, not
+      lost, and Network Rail's own guide warns against counting them as delay. So we count
+      cancellations as trains. Each train cancelled in full or in part counts once, under the
+      incident that caused it. A cancellation with no incident against it isn't counted, because it
+      has no cause.
     </p>
   </section>
 
   <section>
     <h2>Where the delay is recorded</h2>
     <p>
-      Station pages use where the train lost the time, which Network Rail calls the location of the
-      delay, not the incident. That's a station or the run from it to the next timing point: about
-      half of it is at the station itself and a fifth is on runs of 10 km or more. Delay recorded
-      somewhere that isn't a station (a junction or a signal) stays off station pages but counts on
-      the route and operator pages.
+      Station pages show where trains lost the time. Network Rail calls this the location of the
+      delay, as opposed to the location of the incident. It's either a station or the stretch of
+      line from it to the next timing point. About half is at the station itself, and a fifth is on
+      stretches of 10 km or more. Delay recorded somewhere that isn't a station, like a junction or
+      a signal, stays off station pages. It still counts on route and operator pages.
     </p>
     <p>
-      The map uses where each incident was instead, so a failed signal shows where it failed even
-      though the trains it held up were late all over the place.
+      The map shows where each incident happened instead. So a failed signal shows where it failed,
+      even though the trains it held up were late all over the place.
     </p>
   </section>
 
   <section>
     <h2>Knock-on delay</h2>
     <p>
-      About two thirds of all delay is knock-on (Network Rail says reactionary): a train held up
-      because another train was late first. It's put down to the incident that started it, so a
-      signal failure at Reading can explain minutes lost at Paddington. Each page says how much of
-      its delay was knock-on.
+      About two thirds of all delay is knock-on, which Network Rail calls reactionary. That's a
+      train held up because another train was late first. It's put down to the incident that started
+      it, so a signal failure at Reading can explain minutes lost at Paddington. Each page says how
+      much of its delay was knock-on.
     </p>
   </section>
 
   <section>
     <h2>The causes</h2>
     <p>
-      ORR's own groups, which the glossary tags every reason code with, with autumn split out of
-      weather. Network Rail's causes first, then the operators'. Whose cause it is comes from who
-      the delay was attributed to, not what kind of thing went wrong.
+      We use ORR's cause groups, and every reason code in Network Rail's glossary belongs to one of
+      them. We split autumn out from weather. Network Rail's causes come first, then the operators'.
+      A cause belongs to whoever the delay was put down to, not to the kind of thing that went
+      wrong.
     </p>
     <dl class="causes">
       {#each index.groups as group (group.id)}
@@ -105,65 +107,89 @@
   </section>
 
   <section>
+    <h2>Months</h2>
+    <p>
+      Network Rail splits its year into 13 periods, starting on 1 April. Most are four weeks long,
+      but they run from 25 to 32 days. The rest of this site calls them months to keep things
+      simple. It compares them per day, so a long one doesn't look worse than a short one.
+    </p>
+  </section>
+
+  <section>
+    <h2 id="recent">Recent months</h2>
+    <p>
+      Network Rail's detailed files on this site stop at {dateLong(last.end)}. Newer ones are only
+      on the Rail Data Marketplace. For later months, the homepage and trends page use ORR's Table
+      3184 instead.
+    </p>
+    <p>
+      ORR counts a few things differently. It includes delay involving people, it can't split autumn
+      from weather, and it leaves out lines that aren't Network Rail's. So the two sources are never
+      added together, and a month is only compared with months from the same source. ORR doesn't
+      break delay down by station, so station pages stop at {dateMonth(last.end)}.
+    </p>
+  </section>
+
+  <section>
     <h2>Comparing with other years</h2>
     <p>
-      Each cause is read against the same period in other years, per day since periods run from 25
-      to 32 days, leaving out 2020-21 when lockdown timetables ran. It's shown as where this year
-      sits among the others and never as "X% worse than normal": more trains mean more minutes, and
-      the files can't say how many ran. A station averaging under 100 delay minutes a period gets
-      its numbers but no comparison.
+      Each cause is compared with the same month in other years, per day, because months run from 25
+      to 32 days. We leave out 2020-21, when lockdown timetables ran. The result shows where this
+      year sits among the others. It's never shown as "X% worse than normal", because more trains
+      mean more minutes, and the files can't say how many trains ran. A station with under 100
+      minutes of delay a month on average gets its numbers, but no comparison.
     </p>
   </section>
 
   <section>
     <h2>Still being agreed</h2>
     <p>
-      Network Rail and the operators can dispute who caused a delay, and a period's first release
-      can have a lot still open. Every file says how much of its delay was agreed. The charts go by
-      the whole file, so a period whose file was under 94% agreed is hatched, while the share next
-      to a figure is just the minutes in that figure, which is how a station can be 99% agreed
-      inside a hatched period. Nothing's called final, and a re-release of a period replaces the old
-      one.
+      Network Rail and the operators can disagree about who caused a delay. When a month's figures
+      first come out, a lot can still be open. Every file says how much of its delay was agreed.
+      Charts go by the whole file, so a month under 94% agreed is striped. The agreed share beside a
+      figure covers only the minutes in that figure. That's how a station can be 99% agreed inside a
+      striped month. Nothing is called final, and a re-released month replaces the old one.
     </p>
   </section>
 
   <section>
     <h2>What's left out, and why</h2>
     <p>
-      Incidents involving people: fatalities, trespass (which is also where people in crisis on the
-      line get coded), welfare concerns and disorder, police searching the line or a train, and ill
-      or injured passengers. They're between a tenth and an eighth of delay. They're taken out by
-      incident before anything is summed, knock-on and all, and appear only as one network total a
-      period on the trends page. Nothing below the whole network is shown by day either, so no
-      figure can point at a day and a place. This follows Samaritans' media guidance.
+      Incidents involving people are left out. These are fatalities, trespass, welfare concerns and
+      disorder, police searches of the line or a train, and ill or injured passengers. Trespass is
+      also where Network Rail records people in crisis on the line. Together they make up between a
+      tenth and an eighth of delay. We take them out incident by incident before adding anything up,
+      knock-on delay included. They appear only as one network total a month on the trends page.
+      Nothing below the whole network is shown by day either, so no figure can point to a day and a
+      place. This follows Samaritans' media guidance.
     </p>
     <p>
-      The map can only draw a section of line with a station at one end or both, so the delay that
-      starts at junctions and sidings with no station at either end (14% of it since 2018) isn't on
-      it, though it's in every route and operator total. The map says how much it's leaving off for
-      whatever you've picked.
+      The map can only draw a stretch of line with a station at one or both ends. Delay that starts
+      at junctions and sidings with no station at either end isn't on it. That's 14% of delay since
+      2018. It's still in every route and operator total, and the map says how much it's leaving out
+      for whatever you've picked.
     </p>
   </section>
 
   <section>
     <h2>Routes and operators</h2>
     <p>
-      Routes are today's Network Rail routes from the glossary, applied to every year. Operators
-      keep their codes when franchises change hands, so Avanti West Coast's page includes Virgin's
-      West Coast years, and each operator page names who ran it before.
+      Routes are today's Network Rail routes, applied to every year. Operators keep their codes when
+      a franchise changes hands. So Avanti West Coast's page includes Virgin's years on the West
+      Coast, and each operator page names who ran it before.
     </p>
   </section>
 
   <section>
     <h2>Checking it against ORR</h2>
     <p>
-      Each new file is checked against ORR's Table 3184 before it goes up. For the operators that
-      only run on Network Rail's track, our totals have to land within 2% of ORR's, and on a period
-      at least 94% agreed, nine in ten of their causes over 500 minutes have to land within 10%. The
+      Each new file is checked against ORR's Table 3184 before it goes up. For operators that only
+      run on Network Rail's track, our totals have to land within 2% of ORR's. In a month at least
+      94% agreed, nine in ten of their causes over 500 minutes also have to land within 10%. The
       Elizabeth line, Heathrow Express, Chiltern, Transport for Wales, London Overground and
-      Southeastern run partly off Network Rail's track, which ORR leaves out and the files don't, so
-      they come out higher and aren't held to it. A file that fails stays out until someone's looked
-      at why.
+      Southeastern run partly off Network Rail's track. ORR leaves that part out and the files
+      don't, so their totals come out higher and aren't held to the check. A file that fails stays
+      out until someone has looked at why.
     </p>
   </section>
 
@@ -182,8 +208,8 @@
       </li>
     </ul>
     <p>
-      This site isn't Network Rail or ORR, and neither has endorsed it. Every page's numbers are a
-      CSV beside it, and the period rollups behind them are in the
+      This site isn't run or endorsed by Network Rail or ORR. Every page has its numbers as a CSV
+      file, and the monthly totals behind them are in the
       <a href="https://github.com/NotAFlightRisk/leaves-on-the-line">repo</a>.
     </p>
   </section>

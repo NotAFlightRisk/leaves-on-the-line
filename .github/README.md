@@ -21,7 +21,7 @@
 
 Network Rail puts a cause on every minute of delay, from signal failures to swans on the line, and publishes the lot as open data. Hardly anyone outside the industry reads it. This turns it into a page for every station, route and operator, a map of where each cause starts, trends since April 2018, and the odd ones (cows, trampolines, sunlight on signals).
 
-It's built for people who need a number they can cite, like journalists, campaigners and councillors, and for commuters who've had a bad week and want to know if it was leaves, signals or the operator. It won't tell you why your train was late today, as the data lands six to ten weeks after each four-week period ends.
+It's built for people who need a number they can cite, like journalists, campaigners and councillors, and for commuters who've had a bad week and want to know if it was leaves, signals or the operator. It won't tell you why your train was late today, as the figures land a few weeks after each month ends. The homepage has the latest month for the whole network, and station pages stop at December 2023, the last month Network Rail published station by station.
 
 ---
 
@@ -29,11 +29,13 @@ It's built for people who need a number they can cite, like journalists, campaig
 
 The short version, and the [method page](https://leaves.peng.ly/method) has the long one:
 
+- A month is one of Network Rail's 13 four-week periods a year, and they're compared per day, since they run from 25 to 32 days
 - A delay minute is a delay event on one of the 24 passenger operators' trains, which is how ORR counts them. Cancelled trains are counted as trains, never as minutes
 - Station pages count delay picked up at the station or on the run to the next timing point. The map uses where each incident was instead
-- Incidents involving people (fatalities, trespass, welfare, police searches, ill passengers) are taken out by incident before anything's summed, and only show as one network total a period
-- Every figure carries the share of its minutes that Network Rail and the operators had agreed on, and periods whose file was under 94% agreed are hatched. Nothing's called final
+- Incidents involving people (fatalities, trespass, welfare, police searches, ill passengers) are taken out by incident before anything's summed, and only show as one network total a month
+- Every figure carries the share of its minutes that Network Rail and the operators had agreed on, and months whose file was under 94% agreed are striped. Nothing's called final
 - Each new file is checked against ORR's Table 3184 before it goes up
+- After Network Rail's files stop, the homepage and trends carry on with ORR's table, which counts a few things differently, so the two are never added together
 
 Every page has its numbers beside it as CSV and JSON, so `/station/pad` has `/station/pad.csv` and `/station/pad.json`, each row naming the Network Rail file it came from. The period rollups behind the whole site are in [`data/periods`](../data/periods), two gzipped CSVs and a `meta.json` a period.
 

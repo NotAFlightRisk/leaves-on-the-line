@@ -29,3 +29,20 @@ export const covers: Record<string, string> = {
 };
 
 export const cause = (id: string) => `var(--cause-${id})`;
+
+/** The things Network Rail's controllers name, as a heading reads them */
+export const things: Record<string, string> = {
+  swan: 'Swans',
+  deer: 'Deer',
+  cow: 'Cows and cattle',
+  sheep: 'Sheep',
+  horse: 'Horses',
+  badger: 'Badgers',
+  fox: 'Foxes',
+  dog: 'Dogs',
+  bird: 'Birds',
+  tree: 'Trees',
+  balloon: 'Balloons',
+  kite: 'Kites',
+  trampoline: 'Trampolines'
+};

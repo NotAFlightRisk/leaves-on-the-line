@@ -20,8 +20,7 @@
 
 <h1>Every station, A to Z</h1>
 <p class="intro">
-  {minutes(data.stations.length)} stations with delay picked up at them since April 2018. Each has its
-  own page.
+  {minutes(data.stations.length)} stations, each with its own page of delays since April 2018.
 </p>
 
 <nav class="letters" aria-label="Jump to a letter">

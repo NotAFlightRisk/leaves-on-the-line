@@ -2,7 +2,7 @@
   import { onMount, untrack } from 'svelte';
   import { getJson, type Feature, type MapPeriod } from '#lib/data.ts';
   import { cause } from '#lib/causes.ts';
-  import { minutes, percent, periodName } from '#lib/format.ts';
+  import { minutes, percent, span } from '#lib/format.ts';
   import Meta from '#lib/components/Meta.svelte';
   import RailMap from '#lib/components/RailMap.svelte';
 
@@ -88,17 +88,16 @@
 
 <Meta
   title="The map: where each cause of delay starts"
-  description="A map of where Britain's rail delays start, by cause and period since 2018: leaf-fall, flooding, signal failures and cable theft hotspots, from Network Rail's own records."
+  description="A map of where Britain's rail delays start, by cause and month since 2018: leaf-fall, flooding, signal failures and cable theft hotspots, from Network Rail's own records."
 />
 
 <div class="page">
   <header>
     <h1>Where each cause starts</h1>
     <p class="intro">
-      Each line is a section of track between two stations where incidents started, thicker for more
-      delay, counting all the knock-on it caused anywhere. Sections are drawn straight from station
-      to station (13.7 km at the middle, up to 52), so they cut corners and the map stops zooming in
-      at about town level.
+      Where incidents started, by cause. A thicker line or bigger dot means more delay, including
+      the knock-on delay it caused elsewhere. Lines are drawn straight between stations, so they cut
+      corners, and the map only zooms in to town level.
     </p>
   </header>
 
@@ -118,7 +117,7 @@
       From
       <span class="select">
         <select bind:value={from}>
-          {#each choices as i (i)}<option value={i}>{periodName(index.periods[i])}</option>{/each}
+          {#each choices as i (i)}<option value={i}>{span(index.periods[i])}</option>{/each}
         </select>
       </span>
     </label>
@@ -126,12 +125,12 @@
       To
       <span class="select">
         <select bind:value={to}>
-          {#each choices as i (i)}<option value={i}>{periodName(index.periods[i])}</option>{/each}
+          {#each choices as i (i)}<option value={i}>{span(index.periods[i])}</option>{/each}
         </select>
       </span>
     </label>
     <p class="status" role="status">
-      {#if loading}Loading...{:else}{minutes(drawn)} minutes drawn{/if}
+      {#if loading}Loading...{:else}{minutes(drawn)} minutes shown{/if}
     </p>
   </form>
 
@@ -157,15 +156,15 @@
         </span>
         {#if drawn + off > 0}
           <span class="off">
-            {percent(off / (drawn + off))} of this delay started at junctions and sidings with no station
-            at either end, so it isn't drawn.
+            {percent(off / (drawn + off))} of this delay started away from any station, so the map can't
+            show it.
           </span>
         {/if}
       </div>
     </div>
 
     <section aria-labelledby="worst">
-      <h2 id="worst">The worst of it</h2>
+      <h2 id="worst">Where it was worst</h2>
       <table>
         <thead>
           <tr>

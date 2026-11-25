@@ -19,14 +19,12 @@
   }
 
   .digits {
-    font-family: var(--font-board);
-    font-weight: 700;
+    font-weight: 800;
     font-size: var(--step-figure);
     line-height: 1;
-    color: var(--figure);
-    text-shadow: 0 0 0.35em var(--figure-glow);
+    color: var(--text);
     font-variant-numeric: tabular-nums;
-    letter-spacing: 0.02em;
+    letter-spacing: -0.03em;
   }
 
   .unit {
