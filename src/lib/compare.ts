@@ -17,7 +17,7 @@ export const sum = (values: (number | null)[]) => values.reduce<number>((a, v) =
 
 export const share = (part: number, whole: number) => (whole > 0 ? part / whole : 0);
 
-export function totalAt(breakdown: Breakdown, at: number) {
+export function totalAt(breakdown: Pick<Breakdown, 'minutes'>, at: number) {
   return sum(Object.values(breakdown.minutes).map((series) => series[at] ?? null));
 }
 
@@ -68,16 +68,26 @@ export function describeStanding(s: Standing) {
 }
 
 /** The sentence a commuter reads first: which cause did the most */
-export function summarise(breakdown: Breakdown, groups: Group[], at: number, where: string) {
+export function summarise(
+  breakdown: Pick<Breakdown, 'minutes'>,
+  groups: Group[],
+  at: number,
+  where: string
+) {
   const total = totalAt(breakdown, at);
   if (!total) return `No delay was picked up ${where} this month.`;
-  const [top] = groups
-    .map((g) => ({ g, minutes: breakdown.minutes[g.id]?.[at] ?? 0 }))
-    .sort((a, b) => b.minutes - a.minutes);
-  const portion = share(top.minutes, total);
-  return portion > 0.5
-    ? `Most of it, ${percent(portion)}, came from ${phrases[top.g.id]}.`
-    : `The biggest cause was ${phrases[top.g.id]}, at ${percent(portion)} of the total.`;
+  const [top, next] = groups
+    .map((g) => ({ g, portion: share(breakdown.minutes[g.id]?.[at] ?? 0, total) }))
+    .sort((a, b) => b.portion - a.portion);
+  const [first, second] = [percent(top.portion), percent(next.portion)];
+  const [topName, nextName] = [phrases[top.g.id], phrases[next.g.id]];
+  if (top.portion > 0.5) return `Most of it, ${first}, came from ${topName}.`;
+  if (first === second)
+    return `The biggest causes were ${topName} and ${nextName}, at ${first} each.`;
+  if (top.portion - next.portion < 0.015) {
+    return `The biggest cause was ${topName}, at ${first}, with ${nextName} close behind at ${second}.`;
+  }
+  return `The biggest cause was ${topName}, at ${first} of the total.`;
 }
 
 /** The periods we have a file for, which a ranking or a record can count */

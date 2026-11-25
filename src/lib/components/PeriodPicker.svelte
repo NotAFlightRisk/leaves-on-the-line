@@ -76,4 +76,26 @@
       cursor: default;
     }
   }
+
+  @media (max-width: 30rem) {
+    .picker {
+      display: flex;
+      width: 100%;
+    }
+
+    .select {
+      flex: 1;
+      min-width: 0;
+    }
+
+    select {
+      min-width: 0;
+      text-overflow: ellipsis;
+      font-size: var(--step--1);
+    }
+
+    button {
+      min-width: 2.25rem;
+    }
+  }
 </style>

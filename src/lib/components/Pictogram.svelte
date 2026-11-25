@@ -1,7 +1,7 @@
 <script lang="ts" module>
   type Part = { d: string; cut?: boolean; line?: boolean };
 
-  // solid shapes on a 48 grid, the way station pictograms are drawn; cut parts punch holes
+  // solid shapes on a 48 grid like station signs, and cut parts punch holes
   const shapes: Record<string, Part[]> = {
     track: [{ d: 'M13 3h5v42h-5zM30 3h5v42h-5zM6 8h36v5H6zM6 21h36v5H6zM6 34h36v5H6z' }],
     assets: [

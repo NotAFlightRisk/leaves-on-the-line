@@ -72,7 +72,8 @@
 <p class="key">
   The tick on each share bar is that cause's share across the whole network.
   {#if compare}The grey range covers the same month in other years, per day, and the coloured mark
-    is this year.{/if} Hover over a bar for the exact figures.
+    is this year.{/if}
+  <span class="hover-only">Hover over a bar for the exact figures.</span>
 </p>
 <div class="wrap" bind:this={wrap} bind:clientWidth={wrapWidth}>
   <table class="board">

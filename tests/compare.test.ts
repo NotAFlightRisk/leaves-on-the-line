@@ -78,6 +78,18 @@ describe('summarise', () => {
     );
   });
 
+  it('names both when the top two round to the same share', () => {
+    expect(summarise(breakdown(35.2, 34.8, 30), groups, 0, 'at Tonbridge')).toBe(
+      'The biggest causes were autumn leaves and faulty trains, at 35% each.'
+    );
+  });
+
+  it('says when the next cause was close behind', () => {
+    expect(summarise(breakdown(36, 35, 29), groups, 0, 'at Tonbridge')).toBe(
+      'The biggest cause was autumn leaves, at 36%, with faulty trains close behind at 35%.'
+    );
+  });
+
   it('says when there was no delay at all', () => {
     expect(summarise(breakdown(0, 0), groups, 0, 'at Tonbridge')).toBe(
       'No delay was picked up at Tonbridge this month.'

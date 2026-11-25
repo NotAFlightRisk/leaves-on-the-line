@@ -1,6 +1,6 @@
 <script lang="ts" module>
   /** Where the pointer is, in px from the top left of the box the tip is placed in */
-  export function pointerIn(box: HTMLElement, event: PointerEvent) {
+  export function pointerIn(box: HTMLElement, event: MouseEvent) {
     const rect = box.getBoundingClientRect();
     return { x: event.clientX - rect.left, y: event.clientY - rect.top };
   }
@@ -9,7 +9,7 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
 
-  /** x and y are the pointer, in px from the top left of the nearest positioned box; tall tips sit beside it */
+  /** x and y are the pointer, in px from the nearest positioned box, and tall tips sit beside it */
   let {
     show,
     x,
@@ -84,7 +84,7 @@
     color: var(--on-sign);
     border-radius: var(--radius);
     box-shadow:
-      0 10px 28px -8px rgb(16 38 74 / 0.45),
+      var(--shadow),
       0 0 0 1px rgb(255 255 255 / 0.08) inset;
     font-size: 0.875rem;
     line-height: 1.4;

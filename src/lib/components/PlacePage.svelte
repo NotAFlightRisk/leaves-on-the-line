@@ -196,4 +196,12 @@
       max-width: var(--measure);
     }
   }
+
+  @media (max-width: 30rem) {
+    .name,
+    .strip,
+    .stale {
+      padding-inline: var(--space-4);
+    }
+  }
 </style>

@@ -1,7 +1,7 @@
 <script lang="ts">
   import { untrack } from 'svelte';
-  import { cause, covers, phrases, things } from '#lib/causes.ts';
-  import { PERIODS_A_YEAR, share, siblings, sum } from '#lib/compare.ts';
+  import { cause, covers, things } from '#lib/causes.ts';
+  import { PERIODS_A_YEAR, share, siblings, sum, summarise } from '#lib/compare.ts';
   import { dateLong, dateMonth, minutes, months, percent, span, spanLong } from '#lib/format.ts';
   import ChartTip, { pointerIn } from '#lib/components/ChartTip.svelte';
   import History from '#lib/components/History.svelte';
@@ -106,13 +106,7 @@
     })
   );
   type Row = (typeof rows)[number];
-  const biggest = $derived.by(() => {
-    const [a, b] = [...rows].sort((x, y) => y.value - x.value);
-    const lead = `The biggest cause was ${phrases[a.g.id]}, at ${percent(a.portion)}`;
-    return b && a.portion - b.portion < 0.015
-      ? `${lead}, with ${phrases[b.g.id]} close behind at ${percent(b.portion)}.`
-      : `${lead} of the total.`;
-  });
+  const biggest = $derived(summarise(merged, groupsAt(at), at, 'across the network'));
   const sides = $derived(
     (
       [
@@ -225,7 +219,7 @@
               </span>
               <span class="figs">
                 <span class="mins"><Rolling value={r.value} format={minutes} /></span>
-                <span class="pct">{percent(r.portion)} of all delay</span>
+                <span class="pct">minutes, {percent(r.portion)} of all delay</span>
                 {#if r.cancelled}
                   <span class="pct">{minutes(r.cancelled)} trains cancelled</span>
                 {/if}
@@ -261,8 +255,7 @@
       </div>
     {/each}
     <p class="scale">
-      A full stripe is {percent(scale)} of all delay. Hover over one to compare the same month in other
-      years.
+      <span class="hover-only">Hover over a stripe to compare the same month in other years.</span>
       {#if orrMonth}
         These are ORR's figures, which count a few things differently from the station pages. <a
           href="/method#recent"
@@ -776,7 +769,7 @@
 
     a {
       font-weight: 600;
-      text-decoration-color: rgb(255 255 255 / 0.35);
+      text-decoration-color: var(--sign-underline);
 
       &:hover {
         text-decoration-color: var(--edge);
@@ -830,7 +823,13 @@
     }
 
     .dir {
+      gap: var(--space-3);
       padding-inline: var(--space-4);
+
+      svg {
+        width: 2rem;
+        height: 2rem;
+      }
     }
 
     .side li {
@@ -841,10 +840,7 @@
     }
 
     .figs {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: 0 var(--space-3);
+      justify-items: start;
     }
 
     .odd ul {

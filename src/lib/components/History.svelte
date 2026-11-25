@@ -45,7 +45,11 @@
   );
   const top = $derived(Math.max(...stacks.map((s) => s.total), 1) * 1.12);
   const ticks = $derived(niceTicks(top));
-  const years = $derived(stacks.filter((s) => s.period.id.endsWith('P01')));
+  // a year that starts too near the right edge has no room for its label
+  const roomAfter = (i: number) => (1 - i / range.length) * plotWidth;
+  const years = $derived(
+    stacks.filter((s) => s.period.id.endsWith('P01') && (!plotWidth || roomAfter(s.i) > 64))
+  );
   const filed = $derived(stacks.filter((s) => has(s.period, s.i) && s.total > 0));
   const notes = $derived.by(() => {
     if (filed.length < 3) return [];
@@ -69,6 +73,7 @@
   let plot: HTMLDivElement;
   let plotWidth = $state(0);
   let plotHeight = $state(0);
+  let handoverWidth = $state(0);
   let hover: number | null = $state(null);
   let focused = $state(false);
   let pointer = $state({ x: 0, y: 0 });
@@ -84,14 +89,16 @@
         }
   );
 
-  function track(event: PointerEvent) {
+  function columnAt(event: MouseEvent) {
     pointer = pointerIn(plot, event);
     const column = Math.floor((pointer.x / plotWidth) * range.length);
-    hover = Math.max(0, Math.min(range.length - 1, column));
+    return Math.max(0, Math.min(range.length - 1, column));
   }
 
-  function pick() {
-    if (hover != null && has(stacks[hover].period, hover)) at = hover;
+  // a tap never moves the pointer first, so the click finds its own column
+  function pick(event: MouseEvent) {
+    const i = columnAt(event);
+    if (has(stacks[i].period, i)) at = i;
   }
 
   function step(event: KeyboardEvent) {
@@ -135,7 +142,7 @@
     aria-valuemax={filed[filed.length - 1]?.i ?? 0}
     aria-valuenow={at}
     aria-valuetext="{span(periods[at])}, {minutes(stacks[at]?.total)} minutes a day"
-    onpointermove={track}
+    onpointermove={(event) => (hover = columnAt(event))}
     onpointerleave={() => (hover = null)}
     onclick={pick}
     onkeydown={step}
@@ -179,8 +186,13 @@
       {/each}
     </svg>
     {#if handover != null && handover < range.length}
-      <div class="handover" style:left="{(handover / range.length) * 100}%" aria-hidden="true">
-        <span>ORR's figures from here</span>
+      <div
+        class="handover"
+        class:flip={plotWidth > 0 && roomAfter(handover) < handoverWidth + 16}
+        style:left="{(handover / range.length) * 100}%"
+        aria-hidden="true"
+      >
+        <span bind:offsetWidth={handoverWidth}>ORR's figures from here</span>
       </div>
     {/if}
     <div class="ticks" aria-hidden="true">
@@ -235,8 +247,8 @@
   <p class="said">{notes.map((n) => n.text).join('. ')}.</p>
   <figcaption>
     Minutes of delay a day in each month, coloured by cause. Striped bars weren't fully agreed when
-    published, so they could still change. Hover over a bar for details, or click it to show that
-    month. Arrow keys work too.
+    published, so they could still change. Tap or click a bar to show that month.
+    <span class="hover-only">Hover over one for the details.</span>
   </figcaption>
 </figure>
 
@@ -284,6 +296,11 @@
       font-size: 0.8125rem;
       font-weight: 700;
       color: var(--text-muted);
+    }
+
+    &.flip span {
+      left: auto;
+      right: var(--space-2);
     }
   }
 
@@ -343,7 +360,7 @@
     }
 
     &.picked .hit {
-      fill: rgb(255 204 0 / 0.35);
+      fill: var(--selection);
       stroke: var(--sign);
       stroke-width: 2;
       vector-effect: non-scaling-stroke;

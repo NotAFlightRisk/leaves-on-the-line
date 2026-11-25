@@ -256,5 +256,15 @@
     .bar {
       display: none;
     }
+
+    th,
+    td {
+      padding-inline: var(--space-1);
+      overflow-wrap: anywhere;
+    }
+
+    .thing {
+      gap: var(--space-2);
+    }
   }
 </style>

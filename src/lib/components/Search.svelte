@@ -246,7 +246,7 @@
     cursor: pointer;
 
     &:hover {
-      background: #ffd83d;
+      background: var(--edge-hover);
     }
   }
 
@@ -264,7 +264,7 @@
     border-radius: var(--radius);
     box-shadow:
       0 0 0 2px var(--sign),
-      0 16px 32px -12px rgb(16 38 74 / 0.45);
+      var(--shadow);
     overflow: hidden;
 
     &[hidden] {

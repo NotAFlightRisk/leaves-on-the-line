@@ -97,7 +97,7 @@
         target.addControl(new NavigationControl({ showCompass: false }), 'top-right');
         target.addControl(new AttributionControl({ compact: true }), 'bottom-right');
         container.querySelector('.maplibregl-ctrl-attrib')?.classList.add('maplibregl-compact');
-        // the background comes from OpenFreeMap; if it can't be reached the delay still draws
+        // the background is OpenFreeMap's, and the delay still draws without it
         target.on('error', (event) => {
           if (/openfreemap/i.test(String(event.error?.message ?? ''))) bare = true;
         });
@@ -253,7 +253,7 @@
       background: var(--sign);
       color: var(--on-sign);
       border-radius: var(--radius);
-      box-shadow: 0 10px 28px -8px rgb(16 38 74 / 0.45);
+      box-shadow: var(--shadow);
       font: inherit;
       font-size: 0.875rem;
       line-height: 1.4;
