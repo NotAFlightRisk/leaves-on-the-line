@@ -1,0 +1,73 @@
+name: 📦 Release
+
+on:
+  workflow_call:
+    inputs:
+      tag:
+        type: string
+        required: true
+    secrets:
+      BOT_PRIVATE_KEY:
+        required: false
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Tag to release
+        type: string
+        required: true
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    name: 📦 Publish, with the site and its numbers
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      HAS_BOT: ${{ secrets.BOT_PRIVATE_KEY != '' }}
+    steps:
+      - uses: actions/create-github-app-token@f418cff399f7aef4c2f0ad47e25ca7a6abbdd6fc # v3.4.0
+        id: bot
+        if: env.HAS_BOT == 'true'
+        with:
+          client-id: Iv23liPIG7E12UlaQMaD
+          private-key: ${{ secrets.BOT_PRIVATE_KEY }}
+          permission-contents: write
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ inputs.tag }}
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@1db35dd8eee11c5894872e0b383ae6c406cf738d # v10.4.0
+        with:
+          enable-cache: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+          package-manager-cache: false
+      - name: Build the site, and zip it with every page's CSV
+        run: |
+          uv run --project pipeline --no-dev leaves site
+          npm ci
+          npm run build
+          (cd build && zip -qr ../site.zip .)
+          (cd static && zip -qr ../figures.zip station route operator trends.csv)
+      - name: Publish the release, with notes since the last one
+        env:
+          GH_TOKEN: ${{ steps.bot.outputs.token || github.token }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ inputs.tag }}
+        run: |
+          if gh release view "$TAG" > /dev/null 2>&1; then
+            echo "::error::$TAG is already out, and a published release can't be changed"
+            exit 1
+          fi
+          since=$(gh release list --exclude-drafts --limit 1 --json tagName -q '.[0].tagName')
+          since=${since:-$(gh api "repos/$GH_REPO/tags" --paginate -q '.[].name' | sort -V | head -n1)}
+          [ "$since" = "$TAG" ] && since=
+          gh release create "$TAG" site.zip figures.zip --draft --verify-tag --title "$TAG" \
+            --generate-notes ${since:+--notes-start-tag "$since"}
+          gh release edit "$TAG" --draft=false --latest
+          url="$GITHUB_SERVER_URL/$GH_REPO/releases/tag/$TAG"
+          echo "📦 Released [$TAG]($url), with the site and every page's CSV" >> "$GITHUB_STEP_SUMMARY"

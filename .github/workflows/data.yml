@@ -1,0 +1,72 @@
+name: 🚂 Data
+
+on:
+  schedule:
+    - cron: '23 6 * * *'
+    - cron: '41 5 1 * *'
+  workflow_dispatch:
+    inputs:
+      stations:
+        description: Refresh station locations from NaPTAN too
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: data
+  cancel-in-progress: false
+
+jobs:
+  update:
+    name: 🚂 New periods, ORR's table and stations
+    if: github.repository_owner == 'NotAFlightRisk'
+    runs-on: ubuntu-latest
+    env:
+      HAS_BOT: ${{ secrets.BOT_PRIVATE_KEY != '' }}
+      SENTRY_DSN: ${{ vars.PUBLIC_SENTRY_DSN }}
+    steps:
+      - uses: actions/create-github-app-token@f418cff399f7aef4c2f0ad47e25ca7a6abbdd6fc # v3.4.0
+        id: bot
+        if: env.HAS_BOT == 'true'
+        with:
+          client-id: Iv23liPIG7E12UlaQMaD
+          private-key: ${{ secrets.BOT_PRIVATE_KEY }}
+          permission-contents: write
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@1db35dd8eee11c5894872e0b383ae6c406cf738d # v10.4.0
+        with:
+          enable-cache: true
+          cache-dependency-glob: pipeline/uv.lock
+
+      - name: Fetch ORR's table
+        run: uv run --project pipeline --no-dev leaves orr
+      - name: Pick up new or re-released periods from the marketplace drop
+        env:
+          LEAVES_DROP: ${{ secrets.LEAVES_DROP }}
+        run: uv run --project pipeline --no-dev leaves update
+      - name: Refresh station locations, once a month
+        if: inputs.stations || github.event.schedule == '41 5 1 * *'
+        run: uv run --project pipeline --no-dev leaves naptan
+
+      - name: Commit what changed
+        env:
+          TOKEN: ${{ steps.bot.outputs.token }}
+        run: |
+          if [ -z "$(git status --porcelain data)" ]; then
+            echo "Nothing new" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git status --short data >> "$GITHUB_STEP_SUMMARY"
+          if [ "$HAS_BOT" != true ]; then
+            echo "No bot key here, so nothing's committed" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data
+          git commit -m 'chore(data): new delay figures'
+          git push "https://x-access-token:$TOKEN@github.com/$GITHUB_REPOSITORY.git" HEAD:main

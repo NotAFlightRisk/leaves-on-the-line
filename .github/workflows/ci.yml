@@ -1,0 +1,123 @@
+name: 🚦 CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pipeline:
+    name: ${{ matrix.emoji }} pipeline ${{ matrix.label }}
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: pipeline
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - label: lint
+            emoji: 🎨
+            run: uv run ruff check && uv run ruff format --check
+          - label: tests
+            emoji: 🧪
+            run: uv run pytest -q
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@1db35dd8eee11c5894872e0b383ae6c406cf738d # v10.4.0
+        with:
+          enable-cache: true
+          cache-dependency-glob: pipeline/uv.lock
+      - run: uv sync --locked
+      - run: ${{ matrix.run }}
+
+  site:
+    name: ${{ matrix.emoji }} site ${{ matrix.label }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - label: format
+            emoji: 💅
+            run: npm run format:check
+          - label: types
+            emoji: 🔬
+            run: npm run check
+          - label: tests
+            emoji: 🧫
+            run: npm test
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: ${{ matrix.run }}
+
+  build:
+    name: 🏗️ site build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@1db35dd8eee11c5894872e0b383ae6c406cf738d # v10.4.0
+        with:
+          enable-cache: true
+          cache-dependency-glob: pipeline/uv.lock
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 22
+          cache: npm
+      - name: Build the data and the site
+        run: |
+          uv run --project pipeline leaves site
+          npm ci
+          npm run build
+      - name: Check it fits Cloudflare's free tier
+        run: |
+          files=$(find build -type f | wc -l)
+          echo "🗂️ $files files in the build" >> "$GITHUB_STEP_SUMMARY"
+          [ "$files" -lt 20000 ]
+
+  summary:
+    name: 📋 summary
+    runs-on: ubuntu-latest
+    needs: [pipeline, site, build]
+    if: always()
+    steps:
+      - name: Write the summary
+        env:
+          PIPELINE: ${{ needs.pipeline.result }}
+          SITE: ${{ needs.site.result }}
+          BUILD: ${{ needs.build.result }}
+        run: |
+          icon() {
+            case "$1" in
+              success) echo "✅ passed" ;;
+              skipped) echo "⏭️ skipped" ;;
+              cancelled) echo "🚫 cancelled" ;;
+              *) echo "❌ $1" ;;
+            esac
+          }
+          {
+            echo "| Checks | Result |"
+            echo "| --- | --- |"
+            echo "| 🐍 pipeline | $(icon "$PIPELINE") |"
+            echo "| 🖼️ site | $(icon "$SITE") |"
+            echo "| 🏗️ build | $(icon "$BUILD") |"
+          } >> "$GITHUB_STEP_SUMMARY"
+          [ "$PIPELINE" = success ] && [ "$SITE" = success ] && [ "$BUILD" = success ]

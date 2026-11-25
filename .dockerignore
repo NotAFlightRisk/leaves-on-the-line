@@ -1,0 +1,16 @@
+.git
+.github
+.impeccable
+.svelte-kit
+.wrangler
+build
+iains-notes
+node_modules
+pipeline/.venv
+static/data
+static/station
+static/route
+static/operator
+static/trends.csv
+*.md
+tests
