@@ -29,6 +29,8 @@ SUFFIX = {
 }
 # the rule, as the spec writes it down
 TOLERANCE, SETTLED, FLOOR, BAND, SHARE = 0.02, 0.94, 500, 0.10, 0.90
+# our files cover everything ORR counts and a bit more, so every operator should be at least this
+FLOOR_RATIO = 0.95
 
 
 def column(resp: str, group: str) -> str:
@@ -100,7 +102,9 @@ def check(ours: dict, theirs: dict, agreed: float, policy: dict) -> list[str]:
     names = {code: op['orr'] for code, op in codes.operators().items()}
     exact = [code for code, usual in policy.items() if usual == 1]
     for code, ratio in ratios(ours, theirs).items():
-        if code in exact and abs(ratio - 1) > TOLERANCE:
+        if ratio < FLOOR_RATIO:
+            problems.append(f'{names[code]} is only {ratio:.3f} of ORR, so rows have gone missing')
+        elif code in exact and abs(ratio - 1) > TOLERANCE:
             problems.append(f'{names[code]} is {ratio:.3f} of ORR against its usual 1.00')
     if agreed >= SETTLED:
         big = [

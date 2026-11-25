@@ -41,3 +41,8 @@ def test_causes_moving_between_cells_fail_once_a_period_is_agreed():
 
 def test_periods_read_off_orr_labels():
     assert orr.period_of('Apr 2023 to Mar 2024 (Period 08)') == '2023-24-P08'
+
+
+def test_every_operator_needs_at_least_most_of_orrs_total():
+    problems = orr.check(ours(lizzie=900), table(), 0.80, POLICY)
+    assert problems == ['Elizabeth line is only 0.900 of ORR, so rows have gone missing']
