@@ -7,6 +7,19 @@
   const OGL = 'https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/';
 </script>
 
+<svg class="defs" aria-hidden="true">
+  <defs>
+    <pattern
+      id="hatch"
+      width="4"
+      height="4"
+      patternUnits="userSpaceOnUse"
+      patternTransform="rotate(45)"
+    >
+      <rect width="1.5" height="4" fill="var(--hatch)" />
+    </pattern>
+  </defs>
+</svg>
 <a class="skip" href="#main">Skip to the numbers</a>
 <Masthead />
 <main id="main">
@@ -26,6 +39,12 @@
 </footer>
 
 <style>
+  .defs {
+    position: absolute;
+    width: 0;
+    height: 0;
+  }
+
   .skip {
     position: absolute;
     left: var(--space-4);

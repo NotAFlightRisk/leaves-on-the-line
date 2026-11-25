@@ -43,10 +43,14 @@
     });
   }
 
+  let asked = 0;
+
   $effect(() => {
     const names = needed(Math.min(from, to), Math.max(from, to));
+    const ask = ++asked;
     loading = true;
     Promise.all(names.map(file)).then((parts) => {
+      if (ask !== asked) return;
       loaded = parts;
       loading = false;
     });
@@ -101,77 +105,87 @@
   <form class="controls" aria-label="What to show" onsubmit={(e) => e.preventDefault()}>
     <label>
       Cause
-      <select bind:value={group}>
-        <option value="">All causes</option>
-        {#each index.groups as g (g.id)}
-          <option value={g.id}>{g.label}</option>
-        {/each}
-      </select>
+      <span class="select">
+        <select bind:value={group}>
+          <option value="">All causes</option>
+          {#each index.groups as g (g.id)}
+            <option value={g.id}>{g.label}</option>
+          {/each}
+        </select>
+      </span>
     </label>
     <label>
       From
-      <select bind:value={from}>
-        {#each choices as i (i)}<option value={i}>{periodName(index.periods[i])}</option>{/each}
-      </select>
+      <span class="select">
+        <select bind:value={from}>
+          {#each choices as i (i)}<option value={i}>{periodName(index.periods[i])}</option>{/each}
+        </select>
+      </span>
     </label>
     <label>
       To
-      <select bind:value={to}>
-        {#each choices as i (i)}<option value={i}>{periodName(index.periods[i])}</option>{/each}
-      </select>
+      <span class="select">
+        <select bind:value={to}>
+          {#each choices as i (i)}<option value={i}>{periodName(index.periods[i])}</option>{/each}
+        </select>
+      </span>
     </label>
     <p class="status" role="status">
       {#if loading}Loading...{:else}{minutes(drawn)} minutes drawn{/if}
     </p>
   </form>
 
-  <RailMap {features} {values} colour={tint} />
+  <div class="split">
+    <div class="mapped">
+      <RailMap {features} {values} colour={tint} />
 
-  <div class="key">
-    <span>
-      <svg viewBox="0 0 24 8" aria-hidden="true">
-        <line x1="2" y1="4" x2="22" y2="4" style:stroke={tint} />
-      </svg> Between two stations
-    </span>
-    <span>
-      <svg viewBox="0 0 12 12" aria-hidden="true">
-        <circle cx="6" cy="6" r="4" style:fill={tint} />
-      </svg> At a station
-    </span>
-    <span>
-      <svg viewBox="0 0 12 12" aria-hidden="true">
-        <circle cx="6" cy="6" r="4" class="ring" style:stroke={tint} />
-      </svg> On a line out of here
-    </span>
-    {#if drawn + off > 0}
-      <span class="off">
-        {percent(off / (drawn + off))} of this delay started at junctions and sidings with no station
-        at either end, so it isn't drawn.
-      </span>
-    {/if}
-  </div>
+      <div class="key">
+        <span>
+          <svg viewBox="0 0 24 8" aria-hidden="true">
+            <line x1="2" y1="4" x2="22" y2="4" style:stroke={tint} />
+          </svg> Between two stations
+        </span>
+        <span>
+          <svg viewBox="0 0 12 12" aria-hidden="true">
+            <circle cx="6" cy="6" r="4" style:fill={tint} />
+          </svg> At a station
+        </span>
+        <span>
+          <svg viewBox="0 0 12 12" aria-hidden="true">
+            <circle cx="6" cy="6" r="4" class="ring" style:stroke={tint} />
+          </svg> On a line out of here
+        </span>
+        {#if drawn + off > 0}
+          <span class="off">
+            {percent(off / (drawn + off))} of this delay started at junctions and sidings with no station
+            at either end, so it isn't drawn.
+          </span>
+        {/if}
+      </div>
+    </div>
 
-  <section aria-labelledby="worst">
-    <h2 id="worst">The worst of it</h2>
-    <table>
-      <thead>
-        <tr>
-          <th scope="col">Where</th>
-          <th scope="col">Kind</th>
-          <th scope="col" class="num">Minutes</th>
-        </tr>
-      </thead>
-      <tbody>
-        {#each worst as [f, value] (f)}
+    <section aria-labelledby="worst">
+      <h2 id="worst">The worst of it</h2>
+      <table>
+        <thead>
           <tr>
-            <td>{features[f][1]}</td>
-            <td class="muted">{KINDS[features[f][0]]}</td>
-            <td class="num">{minutes(value)}</td>
+            <th scope="col">Where</th>
+            <th scope="col">Kind</th>
+            <th scope="col" class="num">Minutes</th>
           </tr>
-        {/each}
-      </tbody>
-    </table>
-  </section>
+        </thead>
+        <tbody>
+          {#each worst as [f, value] (f)}
+            <tr>
+              <td>{features[f][1]}</td>
+              <td class="muted">{KINDS[features[f][0]]}</td>
+              <td class="num">{minutes(value)}</td>
+            </tr>
+          {/each}
+        </tbody>
+      </table>
+    </section>
+  </div>
 </div>
 
 <style>
@@ -206,21 +220,28 @@
       font-size: var(--step--1);
       color: var(--text-muted);
     }
-
-    select {
-      padding: var(--space-2) var(--space-3);
-      background: var(--panel);
-      border: 1px solid var(--rule-strong);
-      border-radius: var(--radius);
-      color: var(--text);
-      font-size: var(--step-0);
-    }
   }
 
   .status {
     color: var(--text-muted);
     font-variant-numeric: tabular-nums;
     padding-bottom: var(--space-2);
+  }
+
+  .split {
+    display: grid;
+    gap: var(--space-6);
+    align-items: start;
+
+    @media (min-width: 64rem) {
+      grid-template-columns: minmax(0, 1.25fr) minmax(18rem, 1fr);
+    }
+  }
+
+  .mapped {
+    display: grid;
+    gap: var(--space-3);
+    min-width: 0;
   }
 
   .key {
@@ -266,7 +287,6 @@
 
   table {
     width: 100%;
-    max-width: 48rem;
     font-size: var(--step--1);
   }
 

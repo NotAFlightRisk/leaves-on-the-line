@@ -7,8 +7,16 @@
     theirs,
     periods,
     colour,
-    label
-  }: { ours: Series; theirs?: Series; periods: Period[]; colour: string; label: string } = $props();
+    label,
+    top
+  }: {
+    ours: Series;
+    theirs?: Series;
+    periods: Period[];
+    colour: string;
+    label: string;
+    top: number;
+  } = $props();
 
   const WIDTH = 6;
   const HEIGHT = 80;
@@ -24,11 +32,10 @@
       hatched: (p.agreed ?? 1) < SETTLED
     }))
   );
-  const top = $derived(Math.max(1, ...bars.map((b) => Math.max(b.ours ?? 0, b.theirs ?? 0))));
   const peak = $derived(
     bars.reduce((best, b) => ((b.ours ?? 0) > (best.ours ?? 0) ? b : best), bars[0])
   );
-  const h = (value: number) => (value / top) * HEIGHT;
+  const h = (value: number) => (Math.min(value, top) / top) * HEIGHT;
 </script>
 
 <figure>
@@ -53,8 +60,16 @@
           width={WIDTH - 1}
           height={h(bar.ours)}
           style:fill={colour}
-          opacity={bar.hatched ? 0.55 : 1}
         />
+        {#if bar.hatched}
+          <rect
+            x={bar.i * WIDTH + 0.5}
+            y={HEIGHT - h(bar.ours)}
+            width={WIDTH - 1}
+            height={h(bar.ours)}
+            fill="url(#hatch)"
+          />
+        {/if}
       {:else if bar.theirs != null}
         <rect
           class="theirs"

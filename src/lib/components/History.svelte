@@ -55,17 +55,6 @@
     aria-label="Delay minutes a day picked up {name} in each four-week period from {span[0]
       .label} to {span[span.length - 1].label}, stacked by cause. The CSV has every figure."
   >
-    <defs>
-      <pattern
-        id="hatch"
-        width="4"
-        height="4"
-        patternUnits="userSpaceOnUse"
-        patternTransform="rotate(45)"
-      >
-        <rect width="1.5" height="4" fill="var(--hatch)" />
-      </pattern>
-    </defs>
     {#each ticks as tick (tick)}
       <line class="grid" x1="0" x2={span.length * WIDTH} y1={y(tick)} y2={y(tick)} />
     {/each}

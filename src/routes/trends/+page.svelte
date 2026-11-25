@@ -17,17 +17,38 @@
   let picked: Place | null = $state(null);
   let loading = $state(false);
 
+  let asked = 0;
+
   async function pick() {
-    if (!operator) return (picked = null);
+    const ask = ++asked;
+    if (!operator) {
+      picked = null;
+      return;
+    }
     loading = true;
-    picked = await getJson<Place>(fetch, `/operator/${operator}.json`);
+    const found = await getJson<Place>(fetch, `/operator/${operator}.json`);
+    if (ask !== asked) return;
+    picked = found;
     loading = false;
   }
 
   const ours = (id: string): Series => (picked ? picked.minutes : index.network.minutes)[id] ?? [];
   const theirs = (id: string): Series | undefined =>
     (picked ? picked.orr : trends.orr)?.[id === 'autumn' ? '' : id];
-  const people = $derived(trends.people.map((v) => v ?? null));
+  // one scale for every cause, so a small one never draws as big as a large one
+  const top = $derived(
+    Math.max(
+      1,
+      ...index.groups.flatMap((g) =>
+        [ours(g.id), theirs(g.id) ?? []].flatMap((series) =>
+          series.map((v, i) => (v ?? 0) / periods[i].days)
+        )
+      )
+    )
+  );
+  const filed = $derived(periods.slice(0, index.last + 1));
+  const people = $derived(trends.people.slice(0, index.last + 1));
+  const peopleTop = $derived(Math.max(1, ...people.map((v, i) => (v ?? 0) / filed[i].days)));
   const topDay = $derived(trends.worst[0]);
 </script>
 
@@ -43,18 +64,20 @@
       Delay minutes a day in each four-week period. Our files run to {lastFile.label}; after that
       the dashed outlines are ORR's own Table 3184, which sorts causes into the same groups but
       can't split autumn out, counts incidents involving people and leaves out lines off Network
-      Rail's track, so it's drawn apart and never joined on. Faded bars were under 94% agreed when
-      their file came out.
+      Rail's track, so it's drawn apart and never joined on. Hatched bars were under 94% agreed when
+      their file came out, and every cause shares one scale.
     </p>
     <div class="controls">
       <label>
         Whose trains
-        <select bind:value={operator} onchange={pick}>
-          <option value="">The whole network</option>
-          {#each index.operators as op (op.id)}
-            <option value={op.id}>{op.name}</option>
-          {/each}
-        </select>
+        <span class="select">
+          <select bind:value={operator} onchange={pick}>
+            <option value="">The whole network</option>
+            {#each index.operators as op (op.id)}
+              <option value={op.id}>{op.name}</option>
+            {/each}
+          </select>
+        </span>
       </label>
       <a href="/trends.csv" rel="external" download>CSV</a>
       {#if loading}<span role="status">Loading...</span>{/if}
@@ -69,6 +92,7 @@
         {periods}
         colour={cause(group.id)}
         label={group.label}
+        {top}
       />
     {/each}
   </section>
@@ -78,9 +102,16 @@
     <p class="intro">
       Fatalities, trespass, welfare concerns, police searches and ill or injured passengers, left
       out of every other figure on this site. They show here only as one network total a period, so
-      nothing can point at a day or a place.
+      nothing can point at a day or a place. ORR's table counts them inside its other causes, so
+      there's nothing to show after our files end in {lastFile.label}.
     </p>
-    <Columns ours={people} {periods} colour="var(--text-muted)" label="Network total" />
+    <Columns
+      ours={people}
+      periods={filed}
+      colour="var(--text-muted)"
+      label="Network total"
+      top={peopleTop}
+    />
   </section>
 
   <section aria-labelledby="days">
@@ -149,13 +180,6 @@
       display: inline-flex;
       align-items: center;
       gap: var(--space-2);
-    }
-
-    select {
-      padding: var(--space-2) var(--space-3);
-      background: var(--panel);
-      border: 1px solid var(--rule-strong);
-      border-radius: var(--radius);
     }
   }
 

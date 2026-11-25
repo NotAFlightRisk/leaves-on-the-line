@@ -119,9 +119,11 @@
     <h2>Still being agreed</h2>
     <p>
       Network Rail and the operators can dispute who caused a delay, and a period's first release
-      can have a lot still open. Every file says how much of its delay was agreed, and every figure
-      here carries that share. Periods under 94% agreed are drawn hatched or faded. Nothing's called
-      final, and a re-release of a period replaces the old one.
+      can have a lot still open. Every file says how much of its delay was agreed. The charts go by
+      the whole file, so a period whose file was under 94% agreed is hatched, while the share next
+      to a figure is just the minutes in that figure, which is how a station can be 99% agreed
+      inside a hatched period. Nothing's called final, and a re-release of a period replaces the old
+      one.
     </p>
   </section>
 
