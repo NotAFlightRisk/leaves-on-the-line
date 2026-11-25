@@ -1,0 +1,49 @@
+{
+  "name": "leaves-on-the-line",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Why Britain's trains were late, cause by cause, for every station, route and operator",
+  "homepage": "https://leaves.peng.ly",
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NotAFlightRisk/leaves-on-the-line.git"
+  },
+  "engines": {
+    "node": ">=22.18.0"
+  },
+  "scripts": {
+    "data": "uv run --project pipeline leaves site",
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite preview",
+    "prepare": "svelte-kit sync || echo ''",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "test": "vitest run",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "imports": {
+    "#lib/*": "./src/lib/*"
+  },
+  "devDependencies": {
+    "@fontsource-variable/atkinson-hyperlegible-next": "^5.3.0",
+    "@fontsource/doto": "^5.3.0",
+    "@sentry/browser": "^11.14.0",
+    "@sentry/vite-plugin": "^11.14.0",
+    "@sveltejs/adapter-static": "^4.0.1",
+    "@sveltejs/kit": "^3.4.0",
+    "@sveltejs/vite-plugin-svelte": "^7.3.1",
+    "@types/node": "^26.6.6",
+    "maplibre-gl": "^6.19.0",
+    "prettier": "^3.10.1",
+    "prettier-plugin-svelte": "^4.2.0",
+    "svelte": "^5.58.0",
+    "svelte-check": "^4.7.8",
+    "typescript": "^6.0.3",
+    "vite": "^8.3.8",
+    "vitest": "^5.1.1",
+    "wrangler": "^4.167.0"
+  }
+}
