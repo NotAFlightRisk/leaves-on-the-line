@@ -5,6 +5,39 @@
 
   let { data } = $props();
 
+  const related = [
+    {
+      slug: 'tubespotting',
+      name: 'Tube Spotting',
+      about: 'a live map of every Tube train in London',
+      url: 'https://tubespotting.peng.ly'
+    },
+    {
+      slug: 'floodpulse',
+      name: 'floodpulse',
+      about: 'river levels and flood warnings across England',
+      url: 'https://floodpulse.peng.ly'
+    },
+    {
+      slug: 'carbonara',
+      name: 'carbonara',
+      about: "how clean Britain's electricity is right now",
+      url: 'https://carbonara.peng.ly'
+    },
+    {
+      slug: 'track-the-gap',
+      name: 'Track the Gap',
+      about: "how the Tube's really running, line by line",
+      url: 'https://track-the-gap.peng.ly'
+    },
+    {
+      slug: 'enshittification',
+      name: 'The Enshittification Index',
+      about: 'big tech making things worse, dated and sourced',
+      url: 'https://enshittification.peng.ly'
+    }
+  ];
+
   const index = $derived(data.index);
   const first = $derived(index.periods[0]);
   const last = $derived(index.periods[index.last]);
@@ -213,6 +246,18 @@
       <a href="https://github.com/NotAFlightRisk/leaves-on-the-line">repo</a>.
     </p>
   </section>
+
+  <section>
+    <h2>More from us</h2>
+    <ul class="related">
+      {#each related as app (app.slug)}
+        <li>
+          <img src="/apps/{app.slug}.svg" alt="" width="20" height="20" loading="lazy" />
+          <span><a href={app.url}>{app.name}</a> - {app.about}</span>
+        </li>
+      {/each}
+    </ul>
+  </section>
 </article>
 
 <style>
@@ -268,5 +313,23 @@
     padding-left: var(--space-5);
     display: grid;
     gap: var(--space-3);
+  }
+
+  .related {
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: var(--space-2);
+    list-style: none;
+
+    li {
+      display: flex;
+      gap: var(--space-2);
+    }
+
+    img {
+      flex: none;
+      height: 1lh;
+    }
   }
 </style>
