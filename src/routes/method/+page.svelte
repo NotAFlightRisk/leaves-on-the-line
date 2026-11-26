@@ -252,7 +252,13 @@
     <ul class="related">
       {#each related as app (app.slug)}
         <li>
-          <img src="/apps/{app.slug}.svg" alt="" width="20" height="20" loading="lazy" />
+          <img
+            src="https://portfolio.peng.ly/logos/{app.slug}.svg"
+            alt=""
+            width="20"
+            height="20"
+            loading="lazy"
+          />
           <span><a href={app.url}>{app.name}</a> - {app.about}</span>
         </li>
       {/each}
